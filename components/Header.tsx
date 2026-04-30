@@ -70,7 +70,7 @@ export function Header() {
         <span className="brand-mark" aria-hidden="true">
           T
         </span>
-        <span>BELLORIO</span>
+        <span>TERABRAIN</span>
       </a>
 
       <nav className="desktop-nav" aria-label="Main navigation">
