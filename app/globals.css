@@ -63,14 +63,12 @@ a {
   min-width: max-content;
 }
 
-.brand-mark {
-  align-items: center;
+.brand-logo {
   background: #05050a;
   border-radius: 6px;
-  color: white;
-  display: inline-flex;
+  display: block;
   height: 34px;
-  justify-content: center;
+  object-fit: cover;
   width: 34px;
 }
 

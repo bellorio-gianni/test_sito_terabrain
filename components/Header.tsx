@@ -67,9 +67,7 @@ export function Header() {
   return (
     <header className="site-header">
       <a className="brand" href={siteHref("/")} aria-label="TeraBrain home">
-        <span className="brand-mark" aria-hidden="true">
-          T
-        </span>
+        <img className="brand-logo" src={siteHref("/terabrain-logo.jpg")} alt="" aria-hidden="true" />
         <span>TERABRAIN</span>
       </a>
 
