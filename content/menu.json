@@ -1,0 +1,57 @@
+[
+  {
+    "label": "Platform",
+    "url": "/platform"
+  },
+  {
+    "label": "Use Cases",
+    "type": "mega",
+    "columns": [
+      {
+        "title": "Sales",
+        "links": [
+          { "label": "Lead Management", "url": "/use-cases/lead-management" },
+          { "label": "Sales Automation", "url": "/use-cases/sales-automation" },
+          { "label": "Pipeline Intelligence", "url": "/use-cases/pipeline-intelligence" }
+        ]
+      },
+      {
+        "title": "Operations",
+        "links": [
+          { "label": "Customer Service", "url": "/use-cases/customer-service" },
+          { "label": "Ticketing", "url": "/use-cases/ticketing" },
+          { "label": "Back Office Automation", "url": "/use-cases/back-office" }
+        ]
+      },
+      {
+        "title": "Marketing",
+        "links": [
+          { "label": "Campaign Operations", "url": "/use-cases/campaign-operations" },
+          { "label": "Content Workflows", "url": "/use-cases/content-workflows" }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Solutions",
+    "type": "dropdown",
+    "links": [
+      { "label": "AI Agents", "url": "/solutions/ai-agents" },
+      { "label": "Process Automation", "url": "/solutions/process-automation" },
+      { "label": "Knowledge Systems", "url": "/solutions/knowledge-systems" }
+    ]
+  },
+  {
+    "label": "Resources",
+    "type": "dropdown",
+    "links": [
+      { "label": "Blog", "url": "/blog" },
+      { "label": "Case Studies", "url": "/case-studies" },
+      { "label": "Guides", "url": "/guides" }
+    ]
+  },
+  {
+    "label": "Contatti",
+    "url": "/contatti"
+  }
+]

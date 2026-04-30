@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TeraBrain menu preview</title>
+    <link rel="stylesheet" href="./app/globals.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#/" aria-label="TeraBrain home">
+        <span class="brand-mark" aria-hidden="true">T</span>
+        <span>TeraBrain</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a class="nav-link" href="#/platform">Platform</a>
+        <div class="nav-item">
+          <button class="nav-trigger" type="button">Use Cases <span aria-hidden="true">+</span></button>
+          <div class="mega-panel">
+            <div class="mega-inner">
+              <section class="mega-column">
+                <h2>Sales</h2>
+                <a href="#/use-cases/lead-management">Lead Management</a>
+                <a href="#/use-cases/sales-automation">Sales Automation</a>
+                <a href="#/use-cases/pipeline-intelligence">Pipeline Intelligence</a>
+              </section>
+              <section class="mega-column">
+                <h2>Operations</h2>
+                <a href="#/use-cases/customer-service">Customer Service</a>
+                <a href="#/use-cases/ticketing">Ticketing</a>
+                <a href="#/use-cases/back-office">Back Office Automation</a>
+              </section>
+              <section class="mega-column">
+                <h2>Marketing</h2>
+                <a href="#/use-cases/campaign-operations">Campaign Operations</a>
+                <a href="#/use-cases/content-workflows">Content Workflows</a>
+              </section>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-trigger" type="button">Solutions <span aria-hidden="true">+</span></button>
+          <div class="dropdown-panel">
+            <a href="#/solutions/ai-agents">AI Agents</a>
+            <a href="#/solutions/process-automation">Process Automation</a>
+            <a href="#/solutions/knowledge-systems">Knowledge Systems</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-trigger" type="button">Resources <span aria-hidden="true">+</span></button>
+          <div class="dropdown-panel">
+            <a href="#/blog">Blog</a>
+            <a href="#/case-studies">Case Studies</a>
+            <a href="#/guides">Guides</a>
+          </div>
+        </div>
+        <a class="nav-link" href="#/contatti">Contatti</a>
+      </nav>
+
+      <a class="header-cta" href="#/contatti">Parla con noi</a>
+      <button aria-label="Open navigation" class="menu-toggle" type="button">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main id="preview-main">
+      <section class="home-hero" data-page="home">
+        <div class="hero-content">
+          <p class="eyebrow">AI process platform</p>
+          <h1>TeraBrain</h1>
+          <p>Progetta, governa e scala agenti AI per sales, operations e knowledge workflows.</p>
+          <div class="hero-actions">
+            <a href="#/platform">Esplora la piattaforma</a>
+            <a href="#/use-cases/customer-service">Use case customer service</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script>
+      const pageTitles = {
+        "/": "TeraBrain",
+        "/platform": "Platform",
+        "/use-cases/lead-management": "Lead Management",
+        "/use-cases/sales-automation": "Sales Automation",
+        "/use-cases/pipeline-intelligence": "Pipeline Intelligence",
+        "/use-cases/customer-service": "Customer Service",
+        "/use-cases/ticketing": "Ticketing",
+        "/use-cases/back-office": "Back Office Automation",
+        "/use-cases/campaign-operations": "Campaign Operations",
+        "/use-cases/content-workflows": "Content Workflows",
+        "/solutions/ai-agents": "AI Agents",
+        "/solutions/process-automation": "Process Automation",
+        "/solutions/knowledge-systems": "Knowledge Systems",
+        "/blog": "Blog",
+        "/case-studies": "Case Studies",
+        "/guides": "Guides",
+        "/contatti": "Contatti"
+      };
+
+      const main = document.querySelector("#preview-main");
+
+      function renderRoute() {
+        const route = location.hash.replace("#", "") || "/";
+
+        if (route === "/") {
+          main.innerHTML = `
+            <section class="home-hero" data-page="home">
+              <div class="hero-content">
+                <p class="eyebrow">AI process platform</p>
+                <h1>TeraBrain</h1>
+                <p>Progetta, governa e scala agenti AI per sales, operations e knowledge workflows.</p>
+                <div class="hero-actions">
+                  <a href="#/platform">Esplora la piattaforma</a>
+                  <a href="#/use-cases/customer-service">Use case customer service</a>
+                </div>
+              </div>
+            </section>
+          `;
+          return;
+        }
+
+        const title = pageTitles[route] || route.split("/").filter(Boolean).join(" / ").replaceAll("-", " ");
+        main.innerHTML = `
+          <section class="content-page">
+            <p class="eyebrow dark">Preview navigabile</p>
+            <h1>${title}</h1>
+            <p>Questa e una pagina placeholder locale per testare la navigazione del menu. Nell'app Next reale questo URL avra una pagina dedicata.</p>
+          </section>
+        `;
+      }
+
+      window.addEventListener("hashchange", renderRoute);
+      renderRoute();
+    </script>
+  </body>
+</html>
