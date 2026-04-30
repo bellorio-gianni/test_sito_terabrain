@@ -1,8 +1,38 @@
+import menuItems from "@/content/menu.json";
+
 type PageProps = {
   params: Promise<{
     slug: string[];
   }>;
 };
+
+type MenuLink = {
+  label: string;
+  url: string;
+};
+
+type MenuItem = MenuLink & {
+  links?: MenuLink[];
+  columns?: Array<{
+    title: string;
+    links: MenuLink[];
+  }>;
+};
+
+function collectMenuUrls() {
+  const urls = new Set<string>();
+
+  (menuItems as MenuItem[]).forEach((item) => {
+    if (item.url) {
+      urls.add(item.url);
+    }
+
+    item.links?.forEach((link) => urls.add(link.url));
+    item.columns?.forEach((column) => column.links.forEach((link) => urls.add(link.url)));
+  });
+
+  return Array.from(urls);
+}
 
 const labels: Record<string, string> = {
   platform: "Platform",
@@ -19,6 +49,14 @@ function titleFromSlug(slug: string[]) {
   return slug
     .map((part) => labels[part] ?? part.replaceAll("-", " "))
     .join(" / ");
+}
+
+export function generateStaticParams() {
+  return collectMenuUrls()
+    .filter((url) => url !== "/")
+    .map((url) => ({
+      slug: url.split("/").filter(Boolean)
+    }));
 }
 
 export default async function DynamicPage({ params }: PageProps) {

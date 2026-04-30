@@ -32,6 +32,19 @@ type LinkItem = MenuLink & {
 type MenuItem = LinkItem | DropdownItem | MegaItem;
 
 const menu = menuItems as MenuItem[];
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+function siteHref(url: string) {
+  if (url === "/") {
+    return `${basePath}/`;
+  }
+
+  if (url.startsWith("/")) {
+    return `${basePath}${url}`;
+  }
+
+  return url;
+}
 
 function isDropdown(item: MenuItem): item is DropdownItem {
   return item.type === "dropdown";
@@ -53,7 +66,7 @@ export function Header() {
 
   return (
     <header className="site-header">
-      <a className="brand" href="/" aria-label="TeraBrain home">
+      <a className="brand" href={siteHref("/")} aria-label="TeraBrain home">
         <span className="brand-mark" aria-hidden="true">
           T
         </span>
@@ -75,7 +88,7 @@ export function Header() {
                       <section className="mega-column" key={column.title}>
                         <h2>{column.title}</h2>
                         {column.links.map((link) => (
-                          <a href={link.url} key={link.url}>
+                          <a href={siteHref(link.url)} key={link.url}>
                             {link.label}
                           </a>
                         ))}
@@ -96,7 +109,7 @@ export function Header() {
                 </button>
                 <div className="dropdown-panel">
                   {item.links.map((link) => (
-                    <a href={link.url} key={link.url}>
+                    <a href={siteHref(link.url)} key={link.url}>
                       {link.label}
                     </a>
                   ))}
@@ -106,14 +119,14 @@ export function Header() {
           }
 
           return (
-            <a className="nav-link" href={item.url} key={item.url}>
+            <a className="nav-link" href={siteHref(item.url)} key={item.url}>
               {item.label}
             </a>
           );
         })}
       </nav>
 
-      <a className="header-cta" href="/contatti">
+      <a className="header-cta" href={siteHref("/contatti")}>
         Parla con noi
       </a>
 
@@ -153,7 +166,7 @@ export function Header() {
                         <div className="mobile-column" key={column.title}>
                           <h2>{column.title}</h2>
                           {column.links.map((link) => (
-                            <a href={link.url} key={link.url} onClick={() => setMobileOpen(false)}>
+                            <a href={siteHref(link.url)} key={link.url} onClick={() => setMobileOpen(false)}>
                               {link.label}
                             </a>
                           ))}
@@ -180,7 +193,7 @@ export function Header() {
                   {isOpen ? (
                     <div className="mobile-group-panel">
                       {item.links.map((link) => (
-                        <a href={link.url} key={link.url} onClick={() => setMobileOpen(false)}>
+                        <a href={siteHref(link.url)} key={link.url} onClick={() => setMobileOpen(false)}>
                           {link.label}
                         </a>
                       ))}
@@ -191,7 +204,7 @@ export function Header() {
             }
 
             return (
-              <a className="mobile-direct-link" href={item.url} key={item.url} onClick={() => setMobileOpen(false)}>
+              <a className="mobile-direct-link" href={siteHref(item.url)} key={item.url} onClick={() => setMobileOpen(false)}>
                 {item.label}
               </a>
             );
