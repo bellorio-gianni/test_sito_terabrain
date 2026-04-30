@@ -1,0 +1,2833 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>TeraBrain | AI Agents Marketing Deck</title>
+  <style>
+    :root {
+      --bg: #050505;
+      --bg-soft: #0d0d0d;
+      --bg-elev: #141414;
+      --panel: rgba(18, 18, 18, 0.88);
+      --panel-strong: rgba(24, 24, 24, 0.96);
+      --panel-soft: rgba(255, 255, 255, 0.04);
+      --line: rgba(255, 255, 255, 0.08);
+      --line-strong: rgba(255, 255, 255, 0.16);
+      --text: #f5f1eb;
+      --muted: #b0a89f;
+      --accent: #ff7a00;
+      --accent-2: #ff9c3a;
+      --accent-soft: rgba(255, 122, 0, 0.16);
+      --accent-glow: rgba(255, 122, 0, 0.3);
+      --white: #ffffff;
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+      --font-display: "Avenir Next Condensed", "Avenir Next", "Trebuchet MS", sans-serif;
+      --font-body: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 78% 14%, rgba(255, 122, 0, 0.18), transparent 18%),
+        radial-gradient(circle at 16% 18%, rgba(255, 156, 58, 0.1), transparent 22%),
+        radial-gradient(circle at 50% 85%, rgba(255, 122, 0, 0.08), transparent 26%),
+        linear-gradient(180deg, #020202 0%, #070707 48%, #040404 100%);
+      font-family: var(--font-body);
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: radial-gradient(circle at center, black 34%, transparent 88%);
+      pointer-events: none;
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    body.notes-open {
+      overflow: auto;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    .deck-shell {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 18px;
+      padding: 18px;
+    }
+
+    .topbar,
+    .bottombar,
+    .notes-panel {
+      border: 1px solid var(--line);
+      background: rgba(8, 8, 8, 0.76);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+    }
+
+    .topbar,
+    .bottombar {
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 24% 22%, rgba(255, 255, 255, 0.3), transparent 34%),
+        linear-gradient(135deg, rgba(255, 156, 58, 0.95), rgba(255, 122, 0, 0.82));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        0 16px 32px rgba(255, 122, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(4, 4, 4, 0.22);
+    }
+
+    .brand-mark::before {
+      width: 78%;
+      height: 9px;
+      top: 10px;
+      left: 4px;
+      transform: rotate(-34deg);
+    }
+
+    .brand-mark::after {
+      width: 62%;
+      height: 9px;
+      bottom: 10px;
+      right: 3px;
+      transform: rotate(-34deg);
+    }
+
+    .brand-copy {
+      min-width: 0;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-2);
+      line-height: 1;
+    }
+
+    .brand-copy span,
+    .status-label,
+    .eyebrow,
+    .mini-label,
+    .footer-copy,
+    .tagline {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.76rem;
+    }
+
+    .deck-status {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .status-copy {
+      min-width: 0;
+      display: grid;
+      gap: 3px;
+    }
+
+    .status-title {
+      font-size: 0.94rem;
+      color: rgba(245, 241, 235, 0.94);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 28vw;
+    }
+
+    .progress-track {
+      width: min(28vw, 250px);
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.04);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 7%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      box-shadow: 0 0 18px var(--accent-glow);
+      transition: width 0.35s ease;
+    }
+
+    .controls,
+    .nav-group,
+    .slide-dots {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn,
+    .dot {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .btn {
+      padding: 11px 15px;
+      font-size: 0.88rem;
+    }
+
+    .btn:hover,
+    .dot:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+      transform: none;
+    }
+
+    .btn-accent {
+      background: linear-gradient(135deg, rgba(255, 156, 58, 0.22), rgba(255, 122, 0, 0.16));
+      border-color: rgba(255, 122, 0, 0.38);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 18px rgba(255, 122, 0, 0.12);
+    }
+
+    .btn-home {
+      background: linear-gradient(135deg, rgba(255, 156, 58, 0.18), rgba(255, 122, 0, 0.12));
+      border-color: rgba(255, 122, 0, 0.32);
+      color: var(--white);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 16px rgba(255, 122, 0, 0.08);
+      text-decoration: none;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .stage {
+      position: relative;
+      min-height: 0;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(18px) scale(0.992);
+      transition: opacity 0.34s ease, transform 0.44s ease, visibility 0s linear 0.44s;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+      transition: opacity 0.34s ease, transform 0.44s ease;
+    }
+
+    .slide-frame {
+      height: 100%;
+      overflow: auto;
+      border-radius: 34px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.02)),
+        linear-gradient(180deg, rgba(255, 122, 0, 0.04), transparent 30%),
+        rgba(10, 10, 10, 0.74);
+      box-shadow: var(--shadow);
+      padding: clamp(26px, 4vw, 42px);
+      position: relative;
+      isolation: isolate;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 122, 0, 0.55) transparent;
+    }
+
+    .slide-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255, 122, 0, 0.18), transparent 20%),
+        radial-gradient(circle at 10% 84%, rgba(255, 156, 58, 0.08), transparent 24%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .slide-frame::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .slide-frame::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: rgba(255, 122, 0, 0.5);
+    }
+
+    .slide-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .slide-index {
+      font-family: var(--font-display);
+      font-size: clamp(2.3rem, 5vw, 3.8rem);
+      line-height: 0.92;
+      color: rgba(255, 255, 255, 0.08);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      user-select: none;
+    }
+
+    .hero-layout,
+    .split-layout,
+    .two-up,
+    .three-up,
+    .closing-layout {
+      display: grid;
+      gap: 22px;
+    }
+
+    .hero-layout {
+      grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+      align-items: stretch;
+    }
+
+    .split-layout {
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+      align-items: stretch;
+    }
+
+    .two-up {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .three-up {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .closing-layout {
+      grid-template-columns: minmax(0, 1fr) 320px;
+      align-items: end;
+    }
+
+    .display {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5.4rem);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin: 12px 0 14px;
+      max-width: 12ch;
+      text-transform: uppercase;
+    }
+
+    .display strong,
+    .section-title strong,
+    .accent {
+      color: var(--accent-2);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.6vw, 3.7rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin: 8px 0 14px;
+      text-transform: uppercase;
+    }
+
+    .lede,
+    .body-copy {
+      color: rgba(245, 241, 235, 0.84);
+      font-size: clamp(1rem, 1.35vw, 1.1rem);
+      line-height: 1.62;
+      max-width: 62ch;
+    }
+
+    .lede strong,
+    .body-copy strong,
+    .stat-value,
+    .impact-big {
+      color: var(--white);
+    }
+
+    .copy-stack,
+    .card-stack,
+    .stack,
+    .metric-stack,
+    .timeline,
+    .checklist {
+      display: grid;
+      gap: 14px;
+    }
+
+    .pill-row,
+    .tag-row,
+    .kpi-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill,
+    .tag,
+    .kpi-pill {
+      border-radius: 999px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: rgba(245, 241, 235, 0.9);
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+    }
+
+    .tag {
+      font-size: 0.76rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .cta-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .cta-link:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .cta-link.primary {
+      border-color: rgba(255, 122, 0, 0.34);
+      background: linear-gradient(135deg, rgba(255, 156, 58, 0.22), rgba(255, 122, 0, 0.16));
+      box-shadow: 0 0 18px rgba(255, 122, 0, 0.12);
+    }
+
+    .panel,
+    .card,
+    .metric-card,
+    .compare-card,
+    .layer-card,
+    .quote-card,
+    .contact-card,
+    .mini-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .panel strong,
+    .card strong,
+    .compare-card strong,
+    .layer-card strong,
+    .quote-card strong,
+    .contact-card strong,
+    .mini-panel strong {
+      color: var(--white);
+    }
+
+    .metric-grid,
+    .card-grid,
+    .compare-grid,
+    .layer-stack,
+    .signal-grid,
+    .value-grid,
+    .control-grid,
+    .governance-grid,
+    .path-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .metric-grid,
+    .signal-grid,
+    .value-grid,
+    .governance-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .compare-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .control-grid,
+    .path-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .metric-card {
+      min-height: 126px;
+      display: grid;
+      align-content: space-between;
+      gap: 10px;
+    }
+
+    .metric-number {
+      font-family: var(--font-display);
+      font-size: clamp(2.1rem, 4vw, 3.6rem);
+      line-height: 0.9;
+      color: var(--accent-2);
+      text-transform: uppercase;
+    }
+
+    .metric-text,
+    .card p,
+    .compare-card p,
+    .layer-card p,
+    .mini-panel p,
+    .contact-card p,
+    .quote-card p {
+      margin: 0;
+      color: rgba(245, 241, 235, 0.78);
+      line-height: 1.55;
+      font-size: 0.96rem;
+    }
+
+    .metric-label,
+    .card h3,
+    .compare-card h3,
+    .layer-card h3,
+    .mini-panel h3,
+    .contact-card h3 {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--white);
+      letter-spacing: -0.01em;
+    }
+
+    .card h3,
+    .compare-card h3,
+    .layer-card h3 {
+      font-size: 1.02rem;
+    }
+
+    .hero-visual {
+      display: grid;
+      gap: 16px;
+      align-content: space-between;
+    }
+
+    .orbit-card {
+      position: relative;
+      min-height: 380px;
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .orbit-core {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 168px;
+      height: 168px;
+      margin: -84px 0 0 -84px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 122, 0, 0.36);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), transparent 34%),
+        radial-gradient(circle at center, rgba(255, 122, 0, 0.32), rgba(255, 122, 0, 0.09) 62%, transparent 80%);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      box-shadow: inset 0 0 28px rgba(255, 122, 0, 0.2), 0 0 42px rgba(255, 122, 0, 0.14);
+    }
+
+    .orbit-core strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      line-height: 0.9;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .orbit-core span {
+      font-size: 0.85rem;
+      color: rgba(245, 241, 235, 0.72);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .orbit-ring {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 360px;
+      height: 360px;
+      margin: -180px 0 0 -180px;
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+    }
+
+    .orbit-chip {
+      position: absolute;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.82rem;
+      color: rgba(245, 241, 235, 0.92);
+      letter-spacing: 0.04em;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+    }
+
+    .chip-1 { top: 24px; left: 50%; transform: translateX(-50%); }
+    .chip-2 { top: 120px; right: 10px; }
+    .chip-3 { bottom: 98px; right: 20px; }
+    .chip-4 { bottom: 22px; left: 50%; transform: translateX(-50%); }
+    .chip-5 { bottom: 110px; left: 14px; }
+    .chip-6 { top: 122px; left: 14px; }
+
+    .hero-band {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .hero-band .mini-panel {
+      min-height: 116px;
+    }
+
+    .impact-board {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .signal-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      min-height: 150px;
+      display: grid;
+      align-content: space-between;
+      gap: 12px;
+    }
+
+    .signal-card h3 {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--white);
+    }
+
+    .signal-card p {
+      margin: 0;
+      color: rgba(245, 241, 235, 0.76);
+      line-height: 1.55;
+    }
+
+    .impact-strip {
+      display: grid;
+      gap: 10px;
+    }
+
+    .impact-row {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .impact-label {
+      color: rgba(245, 241, 235, 0.82);
+      font-size: 0.9rem;
+    }
+
+    .impact-track {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+
+    .impact-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(255, 156, 58, 0.92), rgba(255, 122, 0, 0.42));
+      box-shadow: 0 0 14px rgba(255, 122, 0, 0.22);
+    }
+
+    .impact-big {
+      font-family: var(--font-display);
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      line-height: 0.92;
+      text-transform: uppercase;
+    }
+
+    .compare-card {
+      min-height: 260px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .compare-card.highlight {
+      border-color: rgba(255, 122, 0, 0.3);
+      box-shadow: inset 0 0 0 1px rgba(255, 122, 0, 0.08), 0 16px 36px rgba(0, 0, 0, 0.16);
+    }
+
+    .feature-list,
+    .bullet-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .feature-list li,
+    .bullet-list li {
+      display: grid;
+      grid-template-columns: 14px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: rgba(245, 241, 235, 0.8);
+      line-height: 1.55;
+    }
+
+    .feature-list li::before,
+    .bullet-list li::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      margin-top: 0.42rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      box-shadow: 0 0 10px rgba(255, 122, 0, 0.28);
+    }
+
+    .ladder {
+      display: grid;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .ladder-step {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .ladder-step strong {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--accent-2);
+      text-transform: uppercase;
+      line-height: 0.9;
+    }
+
+    .collab-map {
+      display: grid;
+      grid-template-columns: 1fr 120px 1fr 120px 1fr;
+      gap: 12px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .collab-card {
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      min-height: 146px;
+    }
+
+    .collab-card h3 {
+      margin: 0 0 8px;
+      color: var(--white);
+      font-size: 1rem;
+    }
+
+    .connector {
+      position: relative;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255, 122, 0, 0.08), rgba(255, 122, 0, 0.72), rgba(255, 122, 0, 0.08));
+      box-shadow: 0 0 12px rgba(255, 122, 0, 0.16);
+    }
+
+    .connector::after {
+      content: "";
+      position: absolute;
+      right: -3px;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      transform: translateY(-50%) rotate(45deg);
+      border-top: 2px solid rgba(255, 122, 0, 0.8);
+      border-right: 2px solid rgba(255, 122, 0, 0.8);
+    }
+
+    .agent-grid {
+      position: relative;
+      min-height: 420px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+      overflow: hidden;
+      padding: 24px;
+    }
+
+    .agent-grid::before,
+    .agent-grid::after {
+      content: "";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      border-radius: 50%;
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+      transform: translate(-50%, -50%);
+    }
+
+    .agent-grid::before {
+      width: 280px;
+      height: 280px;
+    }
+
+    .agent-grid::after {
+      width: 420px;
+      height: 420px;
+      opacity: 0.55;
+    }
+
+    .agent-node {
+      position: absolute;
+      width: 144px;
+      min-height: 86px;
+      padding: 14px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      display: grid;
+      gap: 6px;
+      align-content: start;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    .agent-node strong {
+      color: var(--white);
+      font-size: 0.96rem;
+    }
+
+    .agent-node span {
+      color: rgba(245, 241, 235, 0.72);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .agent-center {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 180px;
+      height: 180px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(255, 122, 0, 0.34);
+      background:
+        radial-gradient(circle at center, rgba(255, 122, 0, 0.28), rgba(255, 122, 0, 0.08) 64%, transparent 80%),
+        rgba(18, 18, 18, 0.9);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      box-shadow: inset 0 0 28px rgba(255, 122, 0, 0.18), 0 0 40px rgba(255, 122, 0, 0.12);
+    }
+
+    .agent-center strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      line-height: 0.9;
+      color: var(--accent-2);
+    }
+
+    .agent-center span {
+      color: rgba(245, 241, 235, 0.72);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.75rem;
+    }
+
+    .node-sales { top: 20px; left: 50%; transform: translateX(-50%); }
+    .node-voice { top: 112px; right: 26px; }
+    .node-finance { bottom: 104px; right: 36px; }
+    .node-ops { bottom: 18px; left: 50%; transform: translateX(-50%); }
+    .node-hr { bottom: 108px; left: 30px; }
+    .node-exec { top: 114px; left: 20px; }
+
+    .layer-stack {
+      grid-template-columns: 1fr;
+    }
+
+    .layer-card {
+      display: grid;
+      grid-template-columns: 110px 1fr 220px;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .layer-index {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      line-height: 0.92;
+      color: rgba(255, 255, 255, 0.18);
+      text-transform: uppercase;
+    }
+
+    .layer-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .funnel {
+      display: grid;
+      gap: 12px;
+    }
+
+    .funnel-step {
+      position: relative;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      overflow: hidden;
+    }
+
+    .funnel-step::after {
+      content: "";
+      position: absolute;
+      inset: auto 20px -10px 20px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 122, 0, 0.7), transparent);
+    }
+
+    .funnel-step:last-child::after {
+      display: none;
+    }
+
+    .funnel-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .funnel-top strong {
+      color: var(--white);
+    }
+
+    .funnel-status {
+      color: var(--accent-2);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .flow-ring {
+      position: relative;
+      min-height: 380px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      overflow: hidden;
+    }
+
+    .flow-center {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 154px;
+      height: 154px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(255, 122, 0, 0.34);
+      background:
+        radial-gradient(circle at center, rgba(255, 122, 0, 0.22), rgba(255, 122, 0, 0.08) 64%, transparent 80%),
+        rgba(16, 16, 16, 0.9);
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .flow-center strong {
+      font-family: var(--font-display);
+      font-size: 1.68rem;
+      line-height: 0.9;
+      text-transform: uppercase;
+      color: var(--accent-2);
+    }
+
+    .flow-step {
+      position: absolute;
+      width: 136px;
+      min-height: 88px;
+      padding: 14px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      display: grid;
+      gap: 6px;
+    }
+
+    .flow-step strong {
+      font-size: 0.96rem;
+      color: var(--white);
+    }
+
+    .flow-step span {
+      font-size: 0.82rem;
+      color: rgba(245, 241, 235, 0.7);
+      line-height: 1.45;
+    }
+
+    .flow-1 { top: 16px; left: 50%; transform: translateX(-50%); }
+    .flow-2 { top: 108px; right: 24px; }
+    .flow-3 { bottom: 98px; right: 24px; }
+    .flow-4 { bottom: 16px; left: 50%; transform: translateX(-50%); }
+    .flow-5 { bottom: 98px; left: 24px; }
+    .flow-6 { top: 108px; left: 24px; }
+
+    .flow-ring::before,
+    .flow-ring::after {
+      content: "";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 310px;
+      height: 310px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+    }
+
+    .check-item {
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      display: grid;
+      gap: 10px;
+    }
+
+    .check-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .check-top strong {
+      color: var(--white);
+    }
+
+    .check-badge {
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.75rem;
+    }
+
+    .check-track {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+
+    .check-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(255, 156, 58, 0.9), rgba(255, 122, 0, 0.46));
+    }
+
+    .control-card {
+      min-height: 170px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      display: grid;
+      gap: 10px;
+      align-content: space-between;
+    }
+
+    .control-card h3 {
+      margin: 0;
+      color: var(--white);
+      font-size: 1rem;
+    }
+
+    .control-card p {
+      margin: 0;
+      color: rgba(245, 241, 235, 0.74);
+      line-height: 1.55;
+      font-size: 0.93rem;
+    }
+
+    .architecture-board {
+      display: grid;
+      gap: 14px;
+    }
+
+    .arch-row {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .arch-side {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      display: grid;
+      gap: 10px;
+      align-content: center;
+    }
+
+    .arch-side strong {
+      color: var(--white);
+      font-size: 1.05rem;
+    }
+
+    .arch-main {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-content: center;
+    }
+
+    .arch-pill {
+      border-radius: 999px;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.84rem;
+      color: rgba(245, 241, 235, 0.9);
+    }
+
+    .governance-card {
+      min-height: 154px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      display: grid;
+      gap: 10px;
+    }
+
+    .governance-card h3 {
+      margin: 0;
+      color: var(--white);
+      font-size: 1rem;
+    }
+
+    .roadmap {
+      display: grid;
+      gap: 12px;
+    }
+
+    .roadmap-step {
+      display: grid;
+      grid-template-columns: 84px 1fr 180px;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .roadmap-step strong {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      color: var(--accent-2);
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .roadmap-step span {
+      color: rgba(245, 241, 235, 0.72);
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      justify-self: end;
+    }
+
+    .quote-card {
+      padding: 22px;
+      background:
+        radial-gradient(circle at top right, rgba(255, 122, 0, 0.12), transparent 28%),
+        rgba(255, 255, 255, 0.03);
+    }
+
+    .quote-card p {
+      font-size: 1.08rem;
+      line-height: 1.65;
+    }
+
+    .closing-card {
+      min-height: 100%;
+      display: grid;
+      gap: 14px;
+      align-content: end;
+    }
+
+    .contact-card {
+      padding: 22px;
+      min-height: 100%;
+    }
+
+    .contact-card .display-mini {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      line-height: 0.92;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      margin: 10px 0 0;
+    }
+
+    .closing-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .speaker-note {
+      display: none;
+    }
+
+    .notes-panel {
+      position: fixed;
+      right: 18px;
+      bottom: 92px;
+      width: min(380px, calc(100vw - 36px));
+      border-radius: 24px;
+      padding: 18px;
+      z-index: 5;
+      display: none;
+      gap: 12px;
+    }
+
+    .notes-panel.open {
+      display: grid;
+    }
+
+    .notes-panel h3 {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--white);
+    }
+
+    .notes-panel p {
+      margin: 0;
+      color: rgba(245, 241, 235, 0.78);
+      line-height: 1.58;
+      font-size: 0.94rem;
+    }
+
+    .notes-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .bottombar {
+      min-height: 72px;
+    }
+
+    .footer-copy {
+      min-width: 0;
+      display: grid;
+      gap: 3px;
+    }
+
+    .footer-title {
+      color: var(--white);
+      font-size: 0.92rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 28vw;
+    }
+
+    .slide-dots {
+      justify-content: center;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+
+    .dot {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .dot.active {
+      background: linear-gradient(135deg, rgba(255, 156, 58, 0.24), rgba(255, 122, 0, 0.2));
+      border-color: rgba(255, 122, 0, 0.36);
+      color: var(--white);
+      box-shadow: 0 0 18px rgba(255, 122, 0, 0.12);
+    }
+
+    .agent-contact {
+      display: grid;
+      gap: 3px;
+      justify-items: end;
+      text-align: right;
+    }
+
+    .agent-contact strong {
+      color: var(--white);
+      font-size: 0.9rem;
+    }
+
+    .screen-reader {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 1200px) {
+      .hero-layout,
+      .split-layout,
+      .closing-layout,
+      .impact-board,
+      .compare-grid,
+      .control-grid,
+      .path-grid,
+      .card-grid,
+      .metric-grid,
+      .signal-grid,
+      .value-grid,
+      .governance-grid,
+      .two-up,
+      .three-up {
+        grid-template-columns: 1fr;
+      }
+
+      .deck-status {
+        justify-content: flex-start;
+      }
+
+      .status-title,
+      .footer-title {
+        max-width: none;
+      }
+
+      .layer-card,
+      .roadmap-step,
+      .arch-row {
+        grid-template-columns: 1fr;
+      }
+
+      .layer-tags {
+        justify-content: flex-start;
+      }
+
+      .collab-map {
+        grid-template-columns: 1fr;
+      }
+
+      .connector {
+        width: 2px;
+        height: 48px;
+        justify-self: center;
+      }
+
+      .connector::after {
+        right: 50%;
+        top: auto;
+        bottom: -3px;
+        transform: translateX(50%) rotate(135deg);
+      }
+    }
+
+    @media (max-width: 900px) {
+      html,
+      body {
+        overflow: auto;
+      }
+
+      .deck-shell {
+        min-height: auto;
+        grid-template-rows: auto auto auto;
+      }
+
+      .stage {
+        min-height: 78vh;
+      }
+
+      .topbar,
+      .bottombar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .deck-status {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .progress-track {
+        width: 100%;
+      }
+
+      .controls {
+        justify-content: space-between;
+      }
+
+      .hero-band {
+        grid-template-columns: 1fr;
+      }
+
+      .agent-grid,
+      .flow-ring {
+        min-height: 620px;
+      }
+
+      .orbit-card {
+        min-height: 500px;
+      }
+
+      .roadmap-step span {
+        justify-self: start;
+      }
+
+      .slide-dots {
+        justify-content: flex-start;
+      }
+
+      .agent-contact {
+        justify-items: start;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .deck-shell {
+        padding: 12px;
+        gap: 12px;
+      }
+
+      .slide-frame {
+        padding: 22px 18px;
+        border-radius: 24px;
+      }
+
+      .slide-header {
+        margin-bottom: 18px;
+      }
+
+      .display,
+      .section-title {
+        max-width: none;
+      }
+
+      .metric-card,
+      .signal-card,
+      .control-card,
+      .governance-card {
+        min-height: auto;
+      }
+
+      .orbit-ring,
+      .flow-ring::before,
+      .flow-ring::after,
+      .agent-grid::before,
+      .agent-grid::after {
+        display: none;
+      }
+
+      .orbit-core,
+      .agent-center,
+      .flow-center {
+        position: static;
+        transform: none;
+        margin: 0 auto 18px;
+      }
+
+      .orbit-chip,
+      .agent-node,
+      .flow-step {
+        position: static;
+        transform: none;
+        width: auto;
+      }
+
+      .orbit-card,
+      .agent-grid,
+      .flow-ring {
+        display: grid;
+        gap: 12px;
+        align-content: start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <strong>TeraBrain</strong>
+          <span>Piattaforma di AI agents per processi reali</span>
+        </div>
+      </div>
+
+      <div class="deck-status">
+        <div class="status-copy">
+          <span class="status-label" id="statusCount">01 / 14</span>
+          <span class="status-title" id="statusTitle">Gli AI agents che trasformano ogni processo in crescita</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-ghost" id="prevBtn" type="button">Indietro</button>
+        <a class="btn btn-home" href="./" target="_blank" rel="noreferrer">Torna alla Home</a>
+        <button class="btn btn-ghost" id="notesBtn" type="button">Note vocali</button>
+        <button class="btn btn-accent" id="nextBtn" type="button">Avanti</button>
+      </div>
+    </header>
+
+    <main class="stage" id="stage">
+      <section class="slide active" id="slide-1" data-title="Gli AI agents che trasformano ogni processo in crescita">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 01 · Hero deck</div>
+              <h1 class="display">Gli <strong>AI agents</strong> che trasformano ogni processo in crescita.</h1>
+              <p class="lede">TeraBrain unisce <strong>voce, CRM, ERP, documenti, database e canali digitali</strong> in una piattaforma agentica progettata per eseguire, coordinare e migliorare il lavoro operativo in tempo reale.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">01</div>
+          </div>
+
+          <div class="hero-layout">
+            <div class="copy-stack">
+              <div class="pill-row">
+                <span class="pill">Vendite</span>
+                <span class="pill">Customer Care</span>
+                <span class="pill">Finance</span>
+                <span class="pill">Operations</span>
+                <span class="pill">Voice AI</span>
+              </div>
+
+              <div class="quote-card">
+                <p><strong>Non è solo automazione.</strong> È una nuova infrastruttura operativa: agenti capaci di capire il contesto, parlare il linguaggio del business, prendere iniziativa sui task ripetitivi e portare il team umano sulle attività ad alto valore.</p>
+              </div>
+
+              <div class="cta-row">
+                <a class="cta-link primary" href="#slide-6" data-jump="6">Scopri la piattaforma</a>
+                <a class="cta-link" href="#slide-13" data-jump="13">Vai al pilot</a>
+              </div>
+
+              <div class="hero-band">
+                <div class="mini-panel">
+                  <div class="mini-label">Value proposition</div>
+                  <h3>Un layer operativo 24/7</h3>
+                  <p>Agenti disponibili in continuo, coordinati da un’unica regia, con escalation verso il team quando serve.</p>
+                </div>
+                <div class="mini-panel">
+                  <div class="mini-label">Rollout</div>
+                  <h3>Pilot rapido</h3>
+                  <p>Processo prioritario, setup mirato e prime automazioni agentiche in 1-2 settimane.</p>
+                </div>
+                <div class="mini-panel">
+                  <div class="mini-label">Positioning</div>
+                  <h3>Marketing + execution</h3>
+                  <p>Una narrazione forte, ma ancorata a integrazione, governance e risultati operativi.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-visual">
+              <div class="panel orbit-card">
+                <div class="orbit-ring" aria-hidden="true"></div>
+                <div class="orbit-core">
+                  <div>
+                    <strong>Tera<br />Brain</strong>
+                    <span>Agentic Core</span>
+                  </div>
+                </div>
+                <div class="orbit-chip chip-1">Voice Agent</div>
+                <div class="orbit-chip chip-2">Sales Agent</div>
+                <div class="orbit-chip chip-3">Finance Agent</div>
+                <div class="orbit-chip chip-4">Ops Agent</div>
+                <div class="orbit-chip chip-5">Executive Agent</div>
+                <div class="orbit-chip chip-6">Customer Care</div>
+              </div>
+
+              <div class="metric-grid">
+                <div class="metric-card">
+                  <div class="metric-number">1</div>
+                  <div>
+                    <div class="metric-label">Piattaforma unificata</div>
+                    <p class="metric-text">Un’unica superficie di controllo per orchestrare agenti, canali e processi.</p>
+                  </div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-number">5+</div>
+                  <div>
+                    <div class="metric-label">Domini operativi</div>
+                    <p class="metric-text">Sales, care, finance, operations e back office, con estensione per ruoli verticali.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="speaker-note">Apertura forte: TeraBrain non come chatbot ma come piattaforma operativa agentica. Spingere il messaggio di esecuzione concreta su processi reali e introdurre subito il concetto di rollout rapido.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-2" data-title="Perché ora: la frizione operativa sta mangiando margine">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 02 · Problem framing</div>
+              <h2 class="section-title">La <strong>frizione operativa</strong> sta mangiando margine, velocità e qualità.</h2>
+              <p class="body-copy">Lead non richiamate, ticket che rimbalzano, documenti che attendono verifica, reparti che lavorano su dati diversi. Il costo non è solo il tempo perso: è la perdita di controllo su pipeline, customer experience e execution.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">02</div>
+          </div>
+
+          <div class="impact-board">
+            <div class="card-stack">
+              <div class="signal-grid">
+                <div class="signal-card">
+                  <h3>Vendite frammentate</h3>
+                  <p>I lead entrano da canali diversi, il follow-up è manuale e il CRM non riflette il reale stato commerciale.</p>
+                </div>
+                <div class="signal-card">
+                  <h3>Customer care discontinuo</h3>
+                  <p>Telefonate, email e richieste digitali si muovono su code separate, senza contesto condiviso.</p>
+                </div>
+                <div class="signal-card">
+                  <h3>Finance sotto pressione</h3>
+                  <p>Controlli documentali, approvazioni e riconciliazioni rallentano l’operatività e aumentano il rischio.</p>
+                </div>
+                <div class="signal-card">
+                  <h3>Operations senza visibilità continua</h3>
+                  <p>Plant, magazzino e logistica producono segnali utili, ma troppo spesso restano isolati o arrivano tardi.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="mini-label">Dove si genera attrito</div>
+              <div class="impact-strip">
+                <div class="impact-row">
+                  <div class="impact-label">Sistemi scollegati</div>
+                  <div class="impact-track"><div class="impact-fill" style="width: 92%;"></div></div>
+                  <div class="tag">Critico</div>
+                </div>
+                <div class="impact-row">
+                  <div class="impact-label">Attese cliente</div>
+                  <div class="impact-track"><div class="impact-fill" style="width: 84%;"></div></div>
+                  <div class="tag">Alto</div>
+                </div>
+                <div class="impact-row">
+                  <div class="impact-label">Data entry ripetitivo</div>
+                  <div class="impact-track"><div class="impact-fill" style="width: 88%;"></div></div>
+                  <div class="tag">Alto</div>
+                </div>
+                <div class="impact-row">
+                  <div class="impact-label">Errori di processo</div>
+                  <div class="impact-track"><div class="impact-fill" style="width: 76%;"></div></div>
+                  <div class="tag">Rischio</div>
+                </div>
+                <div class="impact-row">
+                  <div class="impact-label">Mancanza di controllo</div>
+                  <div class="impact-track"><div class="impact-fill" style="width: 86%;"></div></div>
+                  <div class="tag">Strutturale</div>
+                </div>
+              </div>
+
+              <div class="quote-card">
+                <div class="mini-label">Messaggio chiave</div>
+                <div class="impact-big">Il problema non è fare di più. È <span class="accent">farlo con continuità</span>.</div>
+                <p>Quando il processo dipende solo da passaggi manuali, cresce il collo di bottiglia. Gli AI agents entrano qui: assorbono il carico, tengono il ritmo e aumentano la qualità della risposta.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="speaker-note">Questa slide deve far emergere urgenza. Non vendiamo tecnologia in astratto: stiamo risolvendo attriti che pesano su fatturato, servizio e governance. Linguaggio concreto e vicino al business.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-3" data-title="Dal workflow manuale agli AI agents">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 03 · Shift di paradigma</div>
+              <h2 class="section-title">Dalla semplice automazione agli <strong>AI agents</strong> che capiscono il contesto.</h2>
+              <p class="body-copy">RPA e workflow statici eseguono regole. Gli agenti TeraBrain, invece, <strong>leggono segnali, interpretano richieste, orchestrano step e decidono il prossimo next action</strong> nel perimetro definito dal business.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">03</div>
+          </div>
+
+          <div class="compare-grid">
+            <div class="compare-card">
+              <div class="mini-label">Prima</div>
+              <h3>Workflow manuale</h3>
+              <p>Persone che inseguono mail, telefonate, file e task distribuiti su sistemi diversi.</p>
+              <ul class="feature-list">
+                <li>Il contesto è disperso</li>
+                <li>Le attività si fermano al cambio turno</li>
+                <li>La qualità dipende dalla disponibilità del singolo</li>
+              </ul>
+            </div>
+
+            <div class="compare-card">
+              <div class="mini-label">Intermedio</div>
+              <h3>RPA / regole statiche</h3>
+              <p>Ottime per task lineari, fragili quando cambia il formato, il canale o la richiesta.</p>
+              <ul class="feature-list">
+                <li>Funziona solo su percorsi predefiniti</li>
+                <li>Non gestisce bene eccezioni e linguaggio naturale</li>
+                <li>Richiede manutenzione frequente</li>
+              </ul>
+            </div>
+
+            <div class="compare-card highlight">
+              <div class="mini-label">Nuovo modello</div>
+              <h3>AI Agents TeraBrain</h3>
+              <p>Un layer operativo che agisce con autonomia controllata, memoria e integrazione enterprise.</p>
+              <ul class="feature-list">
+                <li>Comprende contesto e intenzione</li>
+                <li>Lavora su voce, testo, documenti e dati</li>
+                <li>Escalation intelligente quando serve l’umano</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="split-layout" style="margin-top: 18px;">
+            <div class="panel">
+              <div class="mini-label">Come evolve il processo</div>
+              <div class="ladder">
+                <div class="ladder-step">
+                  <strong>Task</strong>
+                  <p class="metric-text">Esecuzione di singole azioni: invio mail, creazione ticket, aggiornamento CRM, lettura documento.</p>
+                </div>
+                <div class="ladder-step">
+                  <strong>Flow</strong>
+                  <p class="metric-text">Sequenza orchestrata di passi che attraversa più sistemi e più team.</p>
+                </div>
+                <div class="ladder-step">
+                  <strong>Decision</strong>
+                  <p class="metric-text">Scelta del next action in base a policy, storico, contenuto e segnali in tempo reale.</p>
+                </div>
+                <div class="ladder-step">
+                  <strong>Outcome</strong>
+                  <p class="metric-text">Riduzione degli attriti, pipeline più pulita, servizio più rapido, governance più forte.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="quote-card">
+              <div class="mini-label">Claim</div>
+              <p><strong>Il salto non è dal manuale all’automatico.</strong> È dal task eseguito al processo governato.</p>
+              <p>TeraBrain porta il business in una logica agentica: ogni interazione può attivare analisi, azione e coordinamento, non solo una risposta.</p>
+            </div>
+          </div>
+
+          <div class="speaker-note">Qui posizioniamo TeraBrain sopra RPA e automazione classica. Il messaggio è: non sostituiamo solo attività, ma governiamo outcome e next action con un livello di intelligenza contestuale.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-4" data-title="La visione: AI che lavora con il team">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 04 · Visione</div>
+              <h2 class="section-title">Non più software da comandare. Un <strong>team digitale</strong> che lavora con il tuo team.</h2>
+              <p class="body-copy">La visione TeraBrain è semplice: lasciare all’AI agents il carico ripetitivo, reattivo e ad alto volume, così il personale può concentrarsi su negoziazione, eccezioni, decisioni e relazione.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">04</div>
+          </div>
+
+          <div class="collab-map">
+            <div class="collab-card">
+              <h3>Persone</h3>
+              <p>Guidano strategia, gestiscono casi complessi, definiscono policy e mantengono la relazione di alto livello.</p>
+            </div>
+            <div class="connector" aria-hidden="true"></div>
+            <div class="collab-card">
+              <h3>AI Agents</h3>
+              <p>Ascoltano, leggono, sintetizzano, eseguono, verificano, aprono task, fanno follow-up e aggiornano i sistemi.</p>
+            </div>
+            <div class="connector" aria-hidden="true"></div>
+            <div class="collab-card">
+              <h3>Sistemi</h3>
+              <p>CRM, ERP, centralini, database, file server, email e API diventano una superficie unica di attivazione operativa.</p>
+            </div>
+          </div>
+
+          <div class="two-up" style="margin-top: 18px;">
+            <div class="quote-card">
+              <div class="mini-label">Operating vision</div>
+              <p><strong>L’AI non sostituisce il team. Lo rende più veloce, più consistente e più scalabile.</strong></p>
+              <p>Ogni agente è progettato come collega digitale con ruolo verticale, obiettivi chiari, limiti definiti e una capacità di escalation naturale verso l’umano.</p>
+            </div>
+
+            <div class="card-grid">
+              <div class="card">
+                <div class="mini-label">Capability</div>
+                <h3>Ascolta</h3>
+                <p>Voce, email, chat, documenti e segnali di processo sono interpretati come input operativi.</p>
+              </div>
+              <div class="card">
+                <div class="mini-label">Capability</div>
+                <h3>Capisce</h3>
+                <p>Legge contesto, priorità, storico cliente e regole di business prima di agire.</p>
+              </div>
+              <div class="card">
+                <div class="mini-label">Capability</div>
+                <h3>Agisce</h3>
+                <p>Interagisce con i sistemi, genera output, crea task, risponde e aggiorna workflow.</p>
+              </div>
+              <div class="card">
+                <div class="mini-label">Capability</div>
+                <h3>Migliora</h3>
+                <p>Con osservabilità, memoria e feedback operativo, l’agente aumenta precisione e valore nel tempo.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="speaker-note">Visione collaborativa, non sostitutiva. È importante rassicurare e allo stesso tempo far percepire un’accelerazione concreta. Gli agenti sono colleghi digitali con ruoli, policy e limiti.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-5" data-title="Cos'è TeraBrain: piattaforma agentica no-code">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 05 · Product definition</div>
+              <h2 class="section-title">TeraBrain è una <strong>piattaforma agentica</strong> no-code per agenti specializzati.</h2>
+              <p class="body-copy">Ogni agente nasce per un ruolo preciso, lavora su più canali e può accedere a dati, sistemi e documenti in tempo reale. Il design è pensato per rendere semplice la costruzione di workflow agentici, ma solido dal punto di vista enterprise.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">05</div>
+          </div>
+
+          <div class="split-layout">
+            <div class="card-stack">
+              <div class="value-grid">
+                <div class="card">
+                  <div class="mini-label">Platform DNA</div>
+                  <h3>No-code orchestration</h3>
+                  <p>Flow builder drag &amp; drop per orchestrare eventi, policy, trigger, integrazioni e azioni agentiche.</p>
+                </div>
+                <div class="card">
+                  <div class="mini-label">Memory</div>
+                  <h3>Memoria persistente</h3>
+                  <p>Storico conversazionale, decisioni, dati cliente e contesto operativo non si perdono a ogni interazione.</p>
+                </div>
+                <div class="card">
+                  <div class="mini-label">Execution</div>
+                  <h3>Autonomia controllata</h3>
+                  <p>L’agente agisce entro limiti definiti, con fallback ed escalation trasparenti.</p>
+                </div>
+                <div class="card">
+                  <div class="mini-label">Reach</div>
+                  <h3>Canali nativi</h3>
+                  <p>Voice, email, Teams, Slack, WhatsApp, Telegram, API e sistemi aziendali in una sola superficie.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-grid">
+              <div class="agent-center">
+                <div>
+                  <strong>Tera<br />Brain</strong>
+                  <span>Orchestrator</span>
+                </div>
+              </div>
+              <div class="agent-node node-sales">
+                <strong>Sales Agent</strong>
+                <span>Qualifica, segue up, aggiorna la pipeline.</span>
+              </div>
+              <div class="agent-node node-voice">
+                <strong>Voice Agent</strong>
+                <span>Risponde, smista, risolve e trasferisce.</span>
+              </div>
+              <div class="agent-node node-finance">
+                <strong>Finance Agent</strong>
+                <span>Verifica documenti, anomalie e approvazioni.</span>
+              </div>
+              <div class="agent-node node-ops">
+                <strong>Ops Agent</strong>
+                <span>Monitora attività, consegne e segnali dal campo.</span>
+              </div>
+              <div class="agent-node node-hr">
+                <strong>Back Office</strong>
+                <span>Documenti, richieste interne e workflow trasversali.</span>
+              </div>
+              <div class="agent-node node-exec">
+                <strong>Executive Agent</strong>
+                <span>KPI, sintesi, insight e governance decisionale.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="speaker-note">Qui definiamo il prodotto: non un singolo agente, ma una piattaforma che crea più agenti verticali. Il punto commerciale è la combinazione di semplicità di disegno e robustezza enterprise.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-6" data-title="L'architettura agentica di TeraBrain">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 06 · Platform architecture</div>
+              <h2 class="section-title">Cinque layer per portare gli <strong>AI agents</strong> dentro i processi veri.</h2>
+              <p class="body-copy">La forza di TeraBrain è nell’architettura: modelli, workflow, integrazioni, canali e governance si muovono insieme. Il risultato è un sistema agentico che non si limita a rispondere, ma può prendere in carico il lavoro.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">06</div>
+          </div>
+
+          <div class="layer-stack">
+            <div class="layer-card">
+              <div class="layer-index">01</div>
+              <div>
+                <h3>Communication Layer</h3>
+                <p>Voce, email, chat, Teams, Slack, WhatsApp, Telegram, API e interfacce custom diventano punti di ingresso per gli agenti.</p>
+              </div>
+              <div class="layer-tags">
+                <span class="tag">Voice</span>
+                <span class="tag">Chat</span>
+                <span class="tag">Email</span>
+                <span class="tag">Messaging</span>
+              </div>
+            </div>
+
+            <div class="layer-card">
+              <div class="layer-index">02</div>
+              <div>
+                <h3>Process Layer</h3>
+                <p>Orchestrazione di workflow, scheduling, trigger, eccezioni, regole e handoff tra agenti o tra agenti e persone.</p>
+              </div>
+              <div class="layer-tags">
+                <span class="tag">Flows</span>
+                <span class="tag">Scheduler</span>
+                <span class="tag">Escalation</span>
+              </div>
+            </div>
+
+            <div class="layer-card">
+              <div class="layer-index">03</div>
+              <div>
+                <h3>Cognitive Layer</h3>
+                <p>Motore multi-LLM, ragionamento contestuale, classificazione, extraction, summarization e decision routing per il miglior outcome.</p>
+              </div>
+              <div class="layer-tags">
+                <span class="tag">Multi-LLM</span>
+                <span class="tag">Reasoning</span>
+                <span class="tag">Fallback</span>
+              </div>
+            </div>
+
+            <div class="layer-card">
+              <div class="layer-index">04</div>
+              <div>
+                <h3>Integration Layer</h3>
+                <p>Connessioni verso CRM, ERP, SQL, documenti, file system, web services e applicazioni legacy anche on-prem.</p>
+              </div>
+              <div class="layer-tags">
+                <span class="tag">CRM</span>
+                <span class="tag">ERP</span>
+                <span class="tag">SQL</span>
+                <span class="tag">API</span>
+              </div>
+            </div>
+
+            <div class="layer-card">
+              <div class="layer-index">05</div>
+              <div>
+                <h3>Governance Layer</h3>
+                <p>Osservabilità, audit, policy di accesso, model routing, monitoring e controllo centralizzato dell’AI operativa.</p>
+              </div>
+              <div class="layer-tags">
+                <span class="tag">Observability</span>
+                <span class="tag">Audit</span>
+                <span class="tag">Policies</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quote-card" style="margin-top: 18px;">
+            <div class="mini-label">Platform promise</div>
+            <p><strong>La vera differenza non è il modello.</strong> È la capacità di far dialogare modelli, processi e sistemi aziendali dentro una governance unica.</p>
+          </div>
+
+          <div class="speaker-note">Questa è la slide “fondazione” del deck. Mostra che la proposta non è cosmetica: c’è una stack agentica completa, pronta a lavorare su canali e sistemi enterprise con controllo reale.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-7" data-title="Use case Sales Agent">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 07 · Use case sales</div>
+              <h2 class="section-title">Sales Agent: dalla lead al <strong>next step</strong>, senza lasciare nulla in sospeso.</h2>
+              <p class="body-copy">L’agente commerciale prende in carico il flusso iniziale: intercetta lead, qualifica, arricchisce il profilo, aggiorna il CRM, invia follow-up, prepara materiali e coordina il meeting successivo.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">07</div>
+          </div>
+
+          <div class="split-layout">
+            <div class="panel funnel">
+              <div class="mini-label">Sales execution flow</div>
+              <div class="funnel-step">
+                <div class="funnel-top">
+                  <strong>Acquisizione lead</strong>
+                  <span class="funnel-status">Realtime</span>
+                </div>
+                <p class="metric-text">Website, email, campaign, form, telefono o referral confluiscono in un’unica coda operativa.</p>
+              </div>
+              <div class="funnel-step">
+                <div class="funnel-top">
+                  <strong>Qualifica e scoring</strong>
+                  <span class="funnel-status">AI routing</span>
+                </div>
+                <p class="metric-text">L’agente interpreta il bisogno, assegna priorità, verifica informazioni e identifica il prossimo step corretto.</p>
+              </div>
+              <div class="funnel-step">
+                <div class="funnel-top">
+                  <strong>CRM e follow-up</strong>
+                  <span class="funnel-status">Auto update</span>
+                </div>
+                <p class="metric-text">Contatti, note, task, opportunità e reminder vengono salvati senza passaggi manuali.</p>
+              </div>
+              <div class="funnel-step">
+                <div class="funnel-top">
+                  <strong>Meeting o azione successiva</strong>
+                  <span class="funnel-status">Always on</span>
+                </div>
+                <p class="metric-text">L’agente prenota call, propone slot, prepara recap e mantiene viva la pipeline.</p>
+              </div>
+            </div>
+
+            <div class="card-stack">
+              <div class="metric-grid">
+                <div class="metric-card">
+                  <div class="metric-number">Lead</div>
+                  <div>
+                    <div class="metric-label">Più reattività</div>
+                    <p class="metric-text">Ogni contatto riceve un primo trattamento coerente e immediato.</p>
+                  </div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-number">CRM</div>
+                  <div>
+                    <div class="metric-label">Dati puliti</div>
+                    <p class="metric-text">Pipeline, anagrafiche e next action restano allineati in tempo reale.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="quote-card">
+                <div class="mini-label">Business impact</div>
+                <p><strong>Meno dispersione, più continuità commerciale.</strong> Il team sales entra in gioco sui lead davvero maturi e su trattative che richiedono relazione, non inseguimento operativo.</p>
+              </div>
+
+              <ul class="bullet-list">
+                <li>Qualifica iniziale su voce o testo</li>
+                <li>Enrichment con dati esterni e storico interno</li>
+                <li>Invio email e materiali di follow-up</li>
+                <li>Pianificazione meeting su Microsoft 365 o strumenti equivalenti</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="speaker-note">Caso d’uso molto commerciale: qui il messaggio è pipeline pulita e follow-up continuo. L’agente non sostituisce il venditore, gli consegna un contesto pronto e aggiornatissimo.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-8" data-title="Use case Voice Agent e customer care">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 08 · Use case voice</div>
+              <h2 class="section-title">Voice Agent: risponde, risolve, smista e può anche <strong>vendere</strong>.</h2>
+              <p class="body-copy">Il voice bot TeraBrain gestisce telefonate naturali, consulta il CRM, apre ticket, invia email, fissa appuntamenti, trasferisce quando necessario e restituisce sintesi operative immediate.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">08</div>
+          </div>
+
+          <div class="split-layout">
+            <div class="flow-ring">
+              <div class="flow-center">
+                <div>
+                  <strong>Voice<br />Agent</strong>
+                </div>
+              </div>
+              <div class="flow-step flow-1">
+                <strong>Call Intake</strong>
+                <span>Risponde in linguaggio naturale e identifica il motivo del contatto.</span>
+              </div>
+              <div class="flow-step flow-2">
+                <strong>Context Check</strong>
+                <span>Consulta CRM, ticket, ordini, storico e policy prima di agire.</span>
+              </div>
+              <div class="flow-step flow-3">
+                <strong>Action</strong>
+                <span>Apre ticket, invia email, recupera stato ordine o pianifica appuntamenti.</span>
+              </div>
+              <div class="flow-step flow-4">
+                <strong>Summary</strong>
+                <span>Genera recap automatici, note e task post-call.</span>
+              </div>
+              <div class="flow-step flow-5">
+                <strong>Escalation</strong>
+                <span>Passa la conversazione a un operatore con il contesto già pronto.</span>
+              </div>
+              <div class="flow-step flow-6">
+                <strong>Outbound</strong>
+                <span>Campagne telefoniche, recall e conferme appuntamento automatizzate.</span>
+              </div>
+            </div>
+
+            <div class="card-stack">
+              <div class="card-grid">
+                <div class="card">
+                  <div class="mini-label">Inbound</div>
+                  <h3>Customer care 24/7</h3>
+                  <p>Gestione richieste informative, supporto di primo livello, smistamento e presa in carico immediata.</p>
+                </div>
+                <div class="card">
+                  <div class="mini-label">Outbound</div>
+                  <h3>Campagne e follow-up</h3>
+                  <p>Chiamate su liste target per recall, reminder, survey, prenotazioni o attività commerciali.</p>
+                </div>
+                <div class="card">
+                  <div class="mini-label">Continuity</div>
+                  <h3>Contesto condiviso</h3>
+                  <p>La telefonata non resta isolata: il risultato va nei sistemi e alimenta il workflow.</p>
+                </div>
+                <div class="card">
+                  <div class="mini-label">Experience</div>
+                  <h3>Voce naturale</h3>
+                  <p>Interazione fluida, con tono professionale e possibilità di passaggio elegante a un operatore umano.</p>
+                </div>
+              </div>
+
+              <div class="quote-card">
+                <div class="mini-label">Business impact</div>
+                <p><strong>Ogni chiamata diventa un trigger operativo.</strong> Non solo una conversazione, ma un punto di ingresso nel processo aziendale.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="speaker-note">Il voice agent è uno degli asset più markettabili. Enfatizzare naturalezza della voce, presa in carico immediata e collegamento ai sistemi: niente telefonate isolate, ogni chiamata produce azione.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-9" data-title="Use case Finance e Compliance">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 09 · Use case finance</div>
+              <h2 class="section-title">Finance Agent: controlla documenti e anomalie <strong>prima</strong> che diventino problemi.</h2>
+              <p class="body-copy">Fatture, ordini, contratti e documentazione di supporto possono essere letti, verificati e instradati automaticamente. Il risultato è una funzione finance più veloce, più precisa e più audit-ready.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">09</div>
+          </div>
+
+          <div class="split-layout">
+            <div class="checklist">
+              <div class="check-item">
+                <div class="check-top">
+                  <strong>Match ordine / fattura</strong>
+                  <span class="check-badge">Core check</span>
+                </div>
+                <p class="metric-text">Verifica coerenza tra importi, quantità, righe documento e riferimenti operativi.</p>
+                <div class="check-track"><div class="check-fill" style="width: 90%;"></div></div>
+              </div>
+              <div class="check-item">
+                <div class="check-top">
+                  <strong>Match contratto / condizioni</strong>
+                  <span class="check-badge">Policy</span>
+                </div>
+                <p class="metric-text">Controllo su scontistiche, condizioni pattuite, scadenze e eccezioni contrattuali.</p>
+                <div class="check-track"><div class="check-fill" style="width: 82%;"></div></div>
+              </div>
+              <div class="check-item">
+                <div class="check-top">
+                  <strong>OCR e classificazione</strong>
+                  <span class="check-badge">Docs AI</span>
+                </div>
+                <p class="metric-text">Acquisizione dei dati da documenti non strutturati e popolamento del gestionale o del workflow.</p>
+                <div class="check-track"><div class="check-fill" style="width: 86%;"></div></div>
+              </div>
+              <div class="check-item">
+                <div class="check-top">
+                  <strong>Alert e approvazione</strong>
+                  <span class="check-badge">Control</span>
+                </div>
+                <p class="metric-text">Anomalie evidenziate, ticket di verifica e handoff guidati ai responsabili di funzione.</p>
+                <div class="check-track"><div class="check-fill" style="width: 78%;"></div></div>
+              </div>
+            </div>
+
+            <div class="card-stack">
+              <div class="quote-card">
+                <div class="mini-label">Compliance view</div>
+                <p><strong>Più velocità non deve voler dire meno controllo.</strong> Con TeraBrain, velocità e governance crescono insieme.</p>
+              </div>
+
+              <div class="card-grid">
+                <div class="card">
+                  <div class="mini-label">Accuracy</div>
+                  <h3>Meno errori manuali</h3>
+                  <p>Il controllo avviene in modo sistematico, non dipende da attenzione intermittente o carichi di lavoro variabili.</p>
+                </div>
+                <div class="card">
+                  <div class="mini-label">Auditability</div>
+                  <h3>Tracciabilità nativa</h3>
+                  <p>Ogni verifica, alert e passaggio di stato lascia una traccia utile a controllo interno e revisione.</p>
+                </div>
+                <div class="card">
+                  <div class="mini-label">Throughput</div>
+                  <h3>Maggiore capacità operativa</h3>
+                  <p>Il team finance si concentra sulle eccezioni e sulle scelte di merito, non sul data handling ripetitivo.</p>
+                </div>
+                <div class="card">
+                  <div class="mini-label">Integration</div>
+                  <h3>ERP-ready</h3>
+                  <p>Output e verifiche rientrano nel gestionale o nel processo approvativo esistente.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="speaker-note">Qui serve una promessa rassicurante: AI sì, ma con controllo più forte, non più debole. La narrativa è precisione, audit trail e alleggerimento dei team su task a basso valore.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-10" data-title="Use case Manufacturing e Logistics">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 10 · Use case operations</div>
+              <h2 class="section-title">Operations Agent: visibilità continua su produzione, magazzino e <strong>logistica</strong>.</h2>
+              <p class="body-copy">TeraBrain porta l’AI agentica sul campo. Gli agenti raccolgono segnali dal plant e dalla supply chain, aggiornano sistemi, controllano avanzamenti e riducono le aree cieche lungo tutto il flusso operativo.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">10</div>
+          </div>
+
+          <div class="control-grid">
+            <div class="control-card">
+              <div class="mini-label">Plant</div>
+              <h3>Stato lavorazioni</h3>
+              <p>Monitoraggio ordini, fasi, avanzamenti e segnalazioni di fermo o scostamento dai piani.</p>
+            </div>
+            <div class="control-card">
+              <div class="mini-label">Field input</div>
+              <h3>WhatsApp / Telegram</h3>
+              <p>Operatori e responsabili possono inviare aggiornamenti dal campo con strumenti semplici e immediati.</p>
+            </div>
+            <div class="control-card">
+              <div class="mini-label">Planning</div>
+              <h3>Sync con MRP / ERP</h3>
+              <p>I dati raccolti tornano nel sistema centrale, migliorando allineamento tra esecuzione e pianificazione.</p>
+            </div>
+            <div class="control-card">
+              <div class="mini-label">Delivery</div>
+              <h3>Logistics optimizer</h3>
+              <p>Tracking spedizioni, documentazione logistica, segnalazioni e coordinamento next action.</p>
+            </div>
+          </div>
+
+          <div class="split-layout" style="margin-top: 18px;">
+            <div class="panel">
+              <div class="mini-label">Process visibility</div>
+              <ul class="bullet-list">
+                <li>Consolida dati da plant, magazzino e trasporti in una vista unica</li>
+                <li>Riduce il gap informativo tra cosa succede davvero e cosa è scritto nei sistemi</li>
+                <li>Genera alert prima che il problema arrivi al cliente o alla direzione</li>
+                <li>Supporta una logica di controllo continuo, non solo consuntiva</li>
+              </ul>
+            </div>
+
+            <div class="quote-card">
+              <div class="mini-label">Business impact</div>
+              <p><strong>Più segnale, meno buio operativo.</strong> Gli AI agents trasformano informazioni frammentate in un presidio costante del processo.</p>
+              <p>Per aziende manifatturiere o logistiche, questo significa tempi di risposta migliori, meno sorprese e una supply chain più leggibile.</p>
+            </div>
+          </div>
+
+          <div class="speaker-note">Nelle operations il focus è la visibilità. TeraBrain non promette magia: promette segnali, aggiornamenti, alert e connessioni che permettono di governare meglio il processo.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-11" data-title="Architettura enterprise-ready">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 11 · Enterprise architecture</div>
+              <h2 class="section-title">Architettura <strong>enterprise-ready</strong>, senza compromettere il tuo stack.</h2>
+              <p class="body-copy">TeraBrain è progettata per entrare in aziende reali: cloud-native quando serve, compatibile con sistemi legacy quando necessario, e costruita con attenzione a sicurezza, continuità e integrazione.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">11</div>
+          </div>
+
+          <div class="architecture-board">
+            <div class="arch-row">
+              <div class="arch-side">
+                <div class="mini-label">Experience layer</div>
+                <strong>Canali</strong>
+                <p class="metric-text">Voce, email, chat, messaging e interfacce custom.</p>
+              </div>
+              <div class="arch-main">
+                <span class="arch-pill">Centralino / Voice AI</span>
+                <span class="arch-pill">Email workflow</span>
+                <span class="arch-pill">Teams / Slack</span>
+                <span class="arch-pill">WhatsApp / Telegram</span>
+                <span class="arch-pill">Portali e web form</span>
+              </div>
+            </div>
+
+            <div class="arch-row">
+              <div class="arch-side">
+                <div class="mini-label">Agentic core</div>
+                <strong>Execution fabric</strong>
+                <p class="metric-text">Motore agentico, orchestration, event handling e memory.</p>
+              </div>
+              <div class="arch-main">
+                <span class="arch-pill">AWS Lambda</span>
+                <span class="arch-pill">API Gateway</span>
+                <span class="arch-pill">Event orchestration</span>
+                <span class="arch-pill">DynamoDB / Aurora</span>
+                <span class="arch-pill">S3 / document storage</span>
+                <span class="arch-pill">Multi-LLM routing</span>
+              </div>
+            </div>
+
+            <div class="arch-row">
+              <div class="arch-side">
+                <div class="mini-label">Business systems</div>
+                <strong>Integration layer</strong>
+                <p class="metric-text">Connessioni verso sistemi core, API e ambienti on-prem.</p>
+              </div>
+              <div class="arch-main">
+                <span class="arch-pill">CRM</span>
+                <span class="arch-pill">ERP</span>
+                <span class="arch-pill">SQL database</span>
+                <span class="arch-pill">File server</span>
+                <span class="arch-pill">Local connector</span>
+                <span class="arch-pill">Webhook / API</span>
+              </div>
+            </div>
+
+            <div class="arch-row">
+              <div class="arch-side">
+                <div class="mini-label">Security &amp; ops</div>
+                <strong>Governance layer</strong>
+                <p class="metric-text">Controllo accessi, audit trail, continuità operativa e rilascio gestito.</p>
+              </div>
+              <div class="arch-main">
+                <span class="arch-pill">IAM / MFA</span>
+                <span class="arch-pill">Audit trail</span>
+                <span class="arch-pill">Observability</span>
+                <span class="arch-pill">CI / CD</span>
+                <span class="arch-pill">Zero-downtime rollout</span>
+                <span class="arch-pill">Policy enforcement</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="speaker-note">Questa slide consolida la credibilità tecnica. Anche se il deck è markettario, qui va percepito chiaramente che TeraBrain può stare in contesti enterprise senza rompere ciò che esiste.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-12" data-title="Deployment e governance">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 12 · Deployment &amp; control</div>
+              <h2 class="section-title">Cloud TeraBrain o self-hosted gestito: sempre con <strong>controllo</strong>, policy e osservabilità.</h2>
+              <p class="body-copy">Ogni azienda ha vincoli diversi. Per questo TeraBrain può essere erogata in cloud oppure in ambienti AWS gestiti per il cliente, mantenendo visibilità, sicurezza e scalabilità come principi non negoziabili.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">12</div>
+          </div>
+
+          <div class="two-up">
+            <div class="card-stack">
+              <div class="card">
+                <div class="mini-label">Deployment option</div>
+                <h3>TeraBrain Cloud</h3>
+                <p>Attivazione rapida, governance centralizzata e time-to-value ottimizzato per use case che devono partire velocemente.</p>
+              </div>
+              <div class="card">
+                <div class="mini-label">Deployment option</div>
+                <h3>Managed self-hosted</h3>
+                <p>Installazione su AWS del cliente, con regia tecnica TeraBrain e pieno rispetto dei requisiti infrastrutturali e di compliance.</p>
+              </div>
+              <div class="quote-card">
+                <div class="mini-label">Deployment promise</div>
+                <p><strong>Non imponiamo un modello unico.</strong> Adattiamo l’architettura alla maturità IT e al profilo di rischio del cliente.</p>
+              </div>
+            </div>
+
+            <div class="governance-grid">
+              <div class="governance-card">
+                <div class="mini-label">Security</div>
+                <h3>Access control</h3>
+                <p>Policy, ruoli, segregazione degli accessi e presidi per utilizzo corretto dei servizi AI.</p>
+              </div>
+              <div class="governance-card">
+                <div class="mini-label">Monitoring</div>
+                <h3>AI observability</h3>
+                <p>Visibilità su esecuzioni, failure, costi, quality score e comportamento degli agenti.</p>
+              </div>
+              <div class="governance-card">
+                <div class="mini-label">Scale</div>
+                <h3>Autoscaling</h3>
+                <p>Capacità di gestire variazioni di volume senza degradare l’esperienza o interrompere il servizio.</p>
+              </div>
+              <div class="governance-card">
+                <div class="mini-label">Control</div>
+                <h3>Model routing</h3>
+                <p>Gestione centralizzata del layer cognitivo per ottimizzare affidabilità, costo e qualità del risultato.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="speaker-note">Deployment e governance servono a togliere obiezioni. Il messaggio è: flessibilità di installazione, ma mai perdita di controllo. L’AI qui è governata, osservabile e enterprise-grade.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-13" data-title="Come partire: pilot e ROI">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 13 · Go-to-value</div>
+              <h2 class="section-title">Portare l’AI nei processi non deve essere lungo: si parte da un <strong>pilot</strong> ad alto impatto.</h2>
+              <p class="body-copy">Il percorso migliore non è partire ovunque. È scegliere il processo con il rapporto più alto tra volume, ripetitività e valore economico, attivare un pilot rapido e poi scalare sugli use case successivi.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">13</div>
+          </div>
+
+          <div class="split-layout">
+            <div class="roadmap">
+              <div class="roadmap-step">
+                <strong>01</strong>
+                <p class="metric-text"><strong>Discovery.</strong> Selezione del processo, definizione dei punti di attrito e raccolta dei dati operativi necessari.</p>
+                <span>Focus process</span>
+              </div>
+              <div class="roadmap-step">
+                <strong>02</strong>
+                <p class="metric-text"><strong>Design.</strong> Disegno del workflow agentico, definizione policy, integrazioni, handoff e KPI di successo.</p>
+                <span>Workflow build</span>
+              </div>
+              <div class="roadmap-step">
+                <strong>03</strong>
+                <p class="metric-text"><strong>Pilot live.</strong> Attivazione in ambiente operativo con monitoraggio continuo e ottimizzazione rapida.</p>
+                <span>1-2 settimane</span>
+              </div>
+              <div class="roadmap-step">
+                <strong>04</strong>
+                <p class="metric-text"><strong>Scale-up.</strong> Estensione progressiva ad altri ruoli, team o canali una volta dimostrato il valore iniziale.</p>
+                <span>Expand</span>
+              </div>
+            </div>
+
+            <div class="card-stack">
+              <div class="panel">
+                <div class="mini-label">ROI lens</div>
+                <ul class="bullet-list">
+                  <li>Riduzione tempo operativo sui task ripetitivi</li>
+                  <li>Aumento velocità di risposta e continuità di presidio</li>
+                  <li>Migliore qualità del dato nei sistemi core</li>
+                  <li>Più controllo su eccezioni, backlog e colli di bottiglia</li>
+                </ul>
+              </div>
+
+              <div class="quote-card">
+                <div class="mini-label">Commercial close</div>
+                <p><strong>La demo giusta non mostra tutto.</strong> Mostra il processo che oggi ti costa di più e come un agente può cambiarne il ritmo nel giro di poche settimane.</p>
+              </div>
+
+              <div class="cta-row">
+                <a class="cta-link primary" href="#slide-14" data-jump="14">Vai alla call to action</a>
+                <a class="cta-link" href="#slide-1" data-jump="1">Rivedi il deck</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="speaker-note">Questa slide deve semplificare la vendita: non un progetto infinito, ma un pilot rapido, focalizzato e misurabile. Qui entra forte il concetto di ROI e di time-to-value.</div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-14" data-title="CTA finale: attiva il primo AI agent">
+        <div class="slide-frame">
+          <div class="slide-header">
+            <div>
+              <div class="eyebrow">Slide 14 · Final CTA</div>
+              <h2 class="section-title">Metti un <strong>AI agent</strong> al centro del processo che oggi ti costa di più.</h2>
+              <p class="body-copy">TeraBrain è la piattaforma per trasformare attriti operativi in un vantaggio competitivo misurabile. Parti da un processo, attiva il pilot, dimostra il risultato e scala con metodo.</p>
+            </div>
+            <div class="slide-index" aria-hidden="true">14</div>
+          </div>
+
+          <div class="closing-layout">
+            <div class="closing-card">
+              <div class="quote-card">
+                <div class="mini-label">What happens next</div>
+                <p><strong>Demo personalizzata.</strong> Analizziamo un processo reale, definiamo l’agente giusto, stimiamo il valore e impostiamo un percorso di adozione concreto.</p>
+              </div>
+
+              <div class="metric-grid">
+                <div class="metric-card">
+                  <div class="metric-number">01</div>
+                  <div>
+                    <div class="metric-label">Seleziona il processo</div>
+                    <p class="metric-text">Sales, care, finance o operations: si parte da dove l’attrito pesa davvero.</p>
+                  </div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-number">02</div>
+                  <div>
+                    <div class="metric-label">Attiva il pilot</div>
+                    <p class="metric-text">Definiamo workflow, integrazioni e KPI per portare l’agente in campo rapidamente.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="closing-actions">
+                <a class="cta-link primary" href="#slide-13" data-jump="13">Percorso di attivazione</a>
+                <a class="cta-link" href="./" target="_blank" rel="noreferrer">Torna alla Home</a>
+                <a class="cta-link" href="#slide-1" data-jump="1">Torna all’inizio</a>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="tagline">TeraBrain by Linegon Srl</div>
+              <div class="display-mini">AI Agents<br />Platform</div>
+              <p>Una presentazione pensata per comunicare con chiarezza come gli agenti AI possano lavorare davvero dentro i processi aziendali.</p>
+              <div class="mini-panel" style="margin-top: 10px;">
+                <div class="mini-label">Contatto demo</div>
+                <h3>Alex AI Agent</h3>
+                <p><strong>+39 045 4370254</strong></p>
+                <p>Presentazione vocale, demo guidata e primo assessment operativo.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="speaker-note">Chiusura commerciale: processo prioritario, demo personalizzata, assessment e pilot. Mantenere il tono deciso e orientato all’azione. La call to action deve sembrare un passo naturale, non una promessa vaga.</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bottombar">
+      <div class="footer-copy">
+        <span class="status-label" id="footerCount">01 / 14</span>
+        <span class="footer-title" id="footerTitle">Gli AI agents che trasformano ogni processo in crescita</span>
+      </div>
+
+      <div class="slide-dots" id="slideDots" aria-label="Navigazione slide"></div>
+
+      <div class="agent-contact">
+        <span class="footer-copy">Commento vocale con Alex AI Agent</span>
+        <strong>+39 045 4370254</strong>
+      </div>
+    </footer>
+  </div>
+
+  <aside class="notes-panel" id="notesPanel" aria-live="polite">
+    <div class="notes-meta">
+      <div>
+        <div class="mini-label">Note vocali</div>
+        <h3 id="notesTitle">Slide 01</h3>
+      </div>
+      <button class="btn btn-ghost" id="closeNotesBtn" type="button">Chiudi</button>
+    </div>
+    <p id="notesBody">Apertura forte: TeraBrain non come chatbot ma come piattaforma operativa agentica.</p>
+  </aside>
+
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const total = slides.length;
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const notesBtn = document.getElementById("notesBtn");
+      const closeNotesBtn = document.getElementById("closeNotesBtn");
+      const notesPanel = document.getElementById("notesPanel");
+      const progressBar = document.getElementById("progressBar");
+      const statusCount = document.getElementById("statusCount");
+      const footerCount = document.getElementById("footerCount");
+      const statusTitle = document.getElementById("statusTitle");
+      const footerTitle = document.getElementById("footerTitle");
+      const notesTitle = document.getElementById("notesTitle");
+      const notesBody = document.getElementById("notesBody");
+      const dotsRoot = document.getElementById("slideDots");
+
+      let currentIndex = 0;
+
+      const pad = (value) => String(value).padStart(2, "0");
+
+      function noteForSlide(slide) {
+        const note = slide.querySelector(".speaker-note");
+        return note ? note.textContent.trim() : "Nessuna nota disponibile per questa slide.";
+      }
+
+      function renderDots() {
+        dotsRoot.innerHTML = "";
+        slides.forEach((slide, index) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "dot";
+          button.textContent = pad(index + 1);
+          button.setAttribute("aria-label", `Vai alla slide ${index + 1}`);
+          button.addEventListener("click", () => goToSlide(index));
+          dotsRoot.appendChild(button);
+        });
+      }
+
+      function syncState() {
+        slides.forEach((slide, index) => {
+          slide.classList.toggle("active", index === currentIndex);
+          if (index === currentIndex) {
+            const frame = slide.querySelector(".slide-frame");
+            if (frame) frame.scrollTop = 0;
+          }
+        });
+
+        const activeSlide = slides[currentIndex];
+        const title = activeSlide.dataset.title || `Slide ${currentIndex + 1}`;
+        const note = noteForSlide(activeSlide);
+        const ratio = ((currentIndex + 1) / total) * 100;
+        const counter = `${pad(currentIndex + 1)} / ${pad(total)}`;
+
+        statusCount.textContent = counter;
+        footerCount.textContent = counter;
+        statusTitle.textContent = title;
+        footerTitle.textContent = title;
+        notesTitle.textContent = `Slide ${pad(currentIndex + 1)}`;
+        notesBody.textContent = note;
+        progressBar.style.width = `${ratio}%`;
+
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === total - 1;
+
+        Array.from(dotsRoot.children).forEach((dot, index) => {
+          dot.classList.toggle("active", index === currentIndex);
+        });
+
+        history.replaceState(null, "", `#slide-${currentIndex + 1}`);
+      }
+
+      function goToSlide(index) {
+        const safeIndex = Math.max(0, Math.min(index, total - 1));
+        if (safeIndex === currentIndex) return;
+        currentIndex = safeIndex;
+        syncState();
+      }
+
+      function openNotes() {
+        notesPanel.classList.add("open");
+        document.body.classList.add("notes-open");
+      }
+
+      function closeNotes() {
+        notesPanel.classList.remove("open");
+        document.body.classList.remove("notes-open");
+      }
+
+      function toggleNotes() {
+        if (notesPanel.classList.contains("open")) {
+          closeNotes();
+        } else {
+          openNotes();
+        }
+      }
+
+      prevBtn.addEventListener("click", () => goToSlide(currentIndex - 1));
+      nextBtn.addEventListener("click", () => goToSlide(currentIndex + 1));
+      notesBtn.addEventListener("click", toggleNotes);
+      closeNotesBtn.addEventListener("click", closeNotes);
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight" || event.key === "PageDown") {
+          event.preventDefault();
+          goToSlide(currentIndex + 1);
+        }
+
+        if (event.key === "ArrowLeft" || event.key === "PageUp") {
+          event.preventDefault();
+          goToSlide(currentIndex - 1);
+        }
+
+        if (event.key.toLowerCase() === "n") {
+          event.preventDefault();
+          toggleNotes();
+        }
+
+        if (event.key === "Escape") {
+          closeNotes();
+        }
+      });
+
+      document.querySelectorAll("[data-jump]").forEach((element) => {
+        element.addEventListener("click", (event) => {
+          event.preventDefault();
+          const target = Number(element.getAttribute("data-jump"));
+          if (!Number.isNaN(target)) {
+            goToSlide(target - 1);
+          }
+        });
+      });
+
+      window.addEventListener("hashchange", () => {
+        const match = window.location.hash.match(/slide-(\d+)/);
+        if (!match) return;
+        const target = Number(match[1]);
+        if (!Number.isNaN(target)) {
+          goToSlide(target - 1);
+        }
+      });
+
+      renderDots();
+
+      const initialMatch = window.location.hash.match(/slide-(\d+)/);
+      if (initialMatch) {
+        const initialIndex = Number(initialMatch[1]) - 1;
+        if (!Number.isNaN(initialIndex)) {
+          currentIndex = Math.max(0, Math.min(initialIndex, total - 1));
+        }
+      }
+
+      syncState();
+    })();
+  </script>
+</body>
+</html>
