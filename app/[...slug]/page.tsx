@@ -58,6 +58,7 @@ export function generateStaticParams() {
     .filter((url) => url !== "/solutions/datastripes")
     .filter((url) => url !== "/solutions/kanben-ai")
     .filter((url) => url !== "/solutions/brainero")
+    .filter((url) => url !== "/solutions/daily-news")
     .filter((url) => !url.startsWith("/use-cases/"))
     .filter((url) => !url.includes("#"))
     .filter((url) => !url.endsWith(".html"))
