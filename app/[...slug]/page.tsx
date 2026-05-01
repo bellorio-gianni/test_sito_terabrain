@@ -55,6 +55,7 @@ export function generateStaticParams() {
   return collectMenuUrls()
     .filter((url) => url !== "/")
     .filter((url) => url !== "/platform")
+    .filter((url) => !url.startsWith("/use-cases/"))
     .filter((url) => !url.includes("#"))
     .filter((url) => !url.endsWith(".html"))
     .map((url) => ({
