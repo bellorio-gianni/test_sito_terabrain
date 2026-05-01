@@ -46,7 +46,8 @@
     "links": [
       { "label": "AI Agents", "url": "/solutions/ai-agents" },
       { "label": "Process Automation", "url": "/solutions/process-automation" },
-      { "label": "Knowledge Systems", "url": "/solutions/knowledge-systems" }
+      { "label": "Knowledge Systems", "url": "/solutions/knowledge-systems" },
+      { "label": "DataStripes Insight dai tuoi dati", "url": "/solutions/datastripes" }
     ]
   },
   {
