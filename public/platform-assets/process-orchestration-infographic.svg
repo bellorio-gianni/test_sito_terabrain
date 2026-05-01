@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 620" role="img" aria-labelledby="title desc">
+  <title id="title">TeraBrain process orchestration infographic</title>
+  <desc id="desc">Process orchestration flow from intake to learning.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#10131d"/>
+      <stop offset="1" stop-color="#05050c"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2l8 4-8 4z" fill="#ff7a2b"/>
+    </marker>
+  </defs>
+  <rect width="1280" height="620" rx="34" fill="url(#bg)"/>
+  <text x="70" y="80" fill="#ff9a4e" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" letter-spacing="4">ORCHESTRAZIONE PROCESSI</text>
+  <text x="70" y="123" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="850">Dal trigger al risultato con audit e handoff</text>
+  <path d="M130 330h1020" stroke="#ff7a2b" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)" opacity="0.75"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <g>
+      <circle cx="145" cy="330" r="50" fill="#17192b" stroke="#ff7a2b" stroke-width="3"/>
+      <text x="145" y="338" text-anchor="middle" fill="#fff" font-size="24" font-weight="900">01</text>
+      <text x="82" y="425" fill="#fff" font-size="24" font-weight="850">Intake</text>
+      <text x="82" y="454" fill="#c9cbd8" font-size="16">voce, email, chat,</text>
+      <text x="82" y="477" fill="#c9cbd8" font-size="16">CRM, ERP, eventi</text>
+    </g>
+    <g>
+      <circle cx="340" cy="330" r="50" fill="#17192b" stroke="#ff7a2b" stroke-width="3"/>
+      <text x="340" y="338" text-anchor="middle" fill="#fff" font-size="24" font-weight="900">02</text>
+      <text x="277" y="425" fill="#fff" font-size="24" font-weight="850">Routing</text>
+      <text x="277" y="454" fill="#c9cbd8" font-size="16">scelta agente,</text>
+      <text x="277" y="477" fill="#c9cbd8" font-size="16">contesto e memoria</text>
+    </g>
+    <g>
+      <circle cx="535" cy="330" r="50" fill="#17192b" stroke="#ff7a2b" stroke-width="3"/>
+      <text x="535" y="338" text-anchor="middle" fill="#fff" font-size="24" font-weight="900">03</text>
+      <text x="472" y="425" fill="#fff" font-size="24" font-weight="850">Execution</text>
+      <text x="472" y="454" fill="#c9cbd8" font-size="16">skill, RAG, tool,</text>
+      <text x="472" y="477" fill="#c9cbd8" font-size="16">azioni sui sistemi</text>
+    </g>
+    <g>
+      <circle cx="730" cy="330" r="50" fill="#17192b" stroke="#ff7a2b" stroke-width="3"/>
+      <text x="730" y="338" text-anchor="middle" fill="#fff" font-size="24" font-weight="900">04</text>
+      <text x="667" y="425" fill="#fff" font-size="24" font-weight="850">Control</text>
+      <text x="667" y="454" fill="#c9cbd8" font-size="16">guardrail, policy,</text>
+      <text x="667" y="477" fill="#c9cbd8" font-size="16">approvazioni</text>
+    </g>
+    <g>
+      <circle cx="925" cy="330" r="50" fill="#17192b" stroke="#ff7a2b" stroke-width="3"/>
+      <text x="925" y="338" text-anchor="middle" fill="#fff" font-size="24" font-weight="900">05</text>
+      <text x="862" y="425" fill="#fff" font-size="24" font-weight="850">Handoff</text>
+      <text x="862" y="454" fill="#c9cbd8" font-size="16">umano quando serve</text>
+      <text x="862" y="477" fill="#c9cbd8" font-size="16">decisione o eccezione</text>
+    </g>
+    <g>
+      <circle cx="1120" cy="330" r="50" fill="#17192b" stroke="#ff7a2b" stroke-width="3"/>
+      <text x="1120" y="338" text-anchor="middle" fill="#fff" font-size="24" font-weight="900">06</text>
+      <text x="1057" y="425" fill="#fff" font-size="24" font-weight="850">Learning</text>
+      <text x="1057" y="454" fill="#c9cbd8" font-size="16">feedback, KPI,</text>
+      <text x="1057" y="477" fill="#c9cbd8" font-size="16">memoria, template</text>
+    </g>
+  </g>
+  <rect x="344" y="526" width="592" height="50" rx="25" fill="#16182a" stroke="#ffffff" stroke-opacity="0.16"/>
+  <text x="640" y="558" text-anchor="middle" fill="#ffc46b" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="800">Ogni step produce log, audit trail, stato processo e responsabilita</text>
+</svg>

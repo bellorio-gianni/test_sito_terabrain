@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 620" role="img" aria-labelledby="title desc">
+  <title id="title">TeraBrain agent configuration infographic</title>
+  <desc id="desc">Agent configuration with LLM, duty, skill, guardrail, processes and scheduling.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#090a13"/>
+      <stop offset="0.55" stop-color="#16182a"/>
+      <stop offset="1" stop-color="#0c1016"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#000" flood-opacity="0.42"/>
+    </filter>
+  </defs>
+  <rect width="1280" height="620" rx="34" fill="url(#bg)"/>
+  <circle cx="640" cy="325" r="116" fill="#ff7a2b" opacity="0.12"/>
+  <circle cx="640" cy="325" r="84" fill="#17192b" stroke="#ff7a2b" stroke-width="3"/>
+  <text x="640" y="305" text-anchor="middle" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="900">AI AGENT</text>
+  <text x="640" y="339" text-anchor="middle" fill="#ffb36e" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">configurazione</text>
+  <text x="70" y="80" fill="#ff9a4e" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" letter-spacing="4">AGENTS AI</text>
+  <text x="70" y="123" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="850">Come e configurato un agente operativo</text>
+  <g stroke="#ff7a2b" stroke-width="3" opacity="0.58">
+    <path d="M530 292L310 214"/>
+    <path d="M750 292l220-78"/>
+    <path d="M526 357L310 435"/>
+    <path d="M754 357l216 78"/>
+    <path d="M640 208V158"/>
+    <path d="M640 442v52"/>
+  </g>
+  <g filter="url(#shadow)" font-family="Inter, Arial, sans-serif">
+    <g>
+      <rect x="80" y="166" width="285" height="115" rx="22" fill="#17192b" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text x="112" y="210" fill="#fff" font-size="25" font-weight="850">LLM</text>
+      <text x="112" y="243" fill="#c9cbd8" font-size="17">modello, fallback, costo,</text>
+      <text x="112" y="267" fill="#c9cbd8" font-size="17">latenza e routing</text>
+    </g>
+    <g>
+      <rect x="498" y="74" width="285" height="105" rx="22" fill="#17192b" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text x="530" y="118" fill="#fff" font-size="25" font-weight="850">Duty</text>
+      <text x="530" y="151" fill="#c9cbd8" font-size="17">ruolo, missione, tono, KPI</text>
+    </g>
+    <g>
+      <rect x="915" y="166" width="285" height="115" rx="22" fill="#17192b" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text x="947" y="210" fill="#fff" font-size="25" font-weight="850">Skill + MCP</text>
+      <text x="947" y="243" fill="#c9cbd8" font-size="17">tool, API, MCP Server,</text>
+      <text x="947" y="267" fill="#c9cbd8" font-size="17">database e canali</text>
+    </g>
+    <g>
+      <rect x="80" y="379" width="285" height="115" rx="22" fill="#17192b" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text x="112" y="423" fill="#fff" font-size="25" font-weight="850">Guardrail</text>
+      <text x="112" y="456" fill="#c9cbd8" font-size="17">permessi, limiti, policy,</text>
+      <text x="112" y="480" fill="#c9cbd8" font-size="17">approvazioni e privacy</text>
+    </g>
+    <g>
+      <rect x="915" y="379" width="285" height="115" rx="22" fill="#17192b" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text x="947" y="423" fill="#fff" font-size="25" font-weight="850">Processi</text>
+      <text x="947" y="456" fill="#c9cbd8" font-size="17">workflow, stati, handoff,</text>
+      <text x="947" y="480" fill="#c9cbd8" font-size="17">escalation e output</text>
+    </g>
+    <g>
+      <rect x="498" y="472" width="285" height="105" rx="22" fill="#17192b" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text x="530" y="516" fill="#fff" font-size="25" font-weight="850">Scheduling</text>
+      <text x="530" y="549" fill="#c9cbd8" font-size="17">trigger, monitor, batch, reminder</text>
+    </g>
+  </g>
+</svg>

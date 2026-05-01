@@ -1,3 +1,5 @@
+const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const architectureBlocks = [
   {
     number: "01",
@@ -130,6 +132,11 @@ export default function PlatformPage() {
               TeraBrain non vincola ogni agente allo stesso modello o allo stesso comportamento. Ogni agente viene
               composto scegliendo LLM, memoria, duty e skill in funzione del ruolo operativo da svolgere.
             </p>
+            <img
+              className="bo-wide-image"
+              src={`${base}/platform-assets/architecture-infographic.svg`}
+              alt="Infografica architettura TeraBrain: LLM, memoria RAG, duty, skill MCP Server e Voice BOT"
+            />
             <div className="bo-two-col">
               <div>
                 <h3>LLM, memoria e duty</h3>
@@ -173,6 +180,11 @@ export default function PlatformPage() {
               Un agente e una combinazione governata di modello, ruolo, strumenti, memoria, processi e regole. La
               configurazione rende l'agente utile, controllabile, auditabile e migliorabile nel tempo.
             </p>
+            <img
+              className="bo-wide-image"
+              src={`${base}/platform-assets/agent-config-infographic.svg`}
+              alt="Infografica configurazione agent: LLM, duty, skill, guardrail, processi e scheduling"
+            />
             <div className="bo-overview-grid">
               {agentConfig.map(([name, body]) => (
                 <article key={name}>
@@ -214,6 +226,11 @@ export default function PlatformPage() {
               L'orchestrazione coordina agenti, skill, sistemi e persone. Non lascia il modello libero di improvvisare:
               definisce flussi, controlli, dati necessari, condizioni di uscita e responsabilita.
             </p>
+            <img
+              className="bo-wide-image"
+              src={`${base}/platform-assets/process-orchestration-infographic.svg`}
+              alt="Infografica orchestrazione processi: intake, routing, execution, control, handoff e learning"
+            />
             <div className="bo-overview-grid">
               {orchestrationSteps.map(([name, body]) => (
                 <article key={name}>
@@ -236,6 +253,11 @@ export default function PlatformPage() {
               agenti esterni, applicazioni SaaS, automation platform, workflow engine e assistenti AI gia presenti in
               azienda.
             </p>
+            <img
+              className="bo-wide-image"
+              src={`${base}/platform-assets/multi-platform-infographic.svg`}
+              alt="Infografica cooperazione multi-piattaforma: TeraBrain, agenti esterni, SaaS, automation, API e MCP Server"
+            />
             <div className="bo-two-col">
               <div>
                 <h3>Modalita di cooperazione</h3>
