@@ -36,6 +36,216 @@
     }
     a{color:inherit;text-decoration:none;}
     .container{width:min(1180px,90vw);margin:0 auto;}
+    .site-header{
+      align-items:center;
+      background:#101010;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      display:flex;
+      gap:24px;
+      height:74px;
+      justify-content:space-between;
+      left:0;
+      padding:0 clamp(18px,5vw,64px);
+      position:sticky;
+      right:0;
+      top:0;
+      z-index:200;
+    }
+    .brand{
+      align-items:center;
+      color:#fff;
+      display:inline-flex;
+      font-size:15px;
+      font-weight:800;
+      gap:10px;
+      min-width:max-content;
+    }
+    .brand-logo{
+      background:#05050a;
+      border-radius:6px;
+      display:block;
+      height:34px;
+      object-fit:cover;
+      width:34px;
+    }
+    .desktop-nav{
+      align-items:stretch;
+      display:flex;
+      flex:1;
+      gap:6px;
+      height:100%;
+      justify-content:center;
+    }
+    .nav-item{
+      align-items:center;
+      display:flex;
+      position:relative;
+    }
+    .nav-link,
+    .nav-trigger{
+      align-items:center;
+      background:transparent;
+      border:0;
+      color:#f6f6f6;
+      cursor:pointer;
+      display:inline-flex;
+      font:inherit;
+      font-size:15px;
+      font-weight:650;
+      gap:7px;
+      height:100%;
+      padding:0 14px;
+    }
+    .nav-link:hover,
+    .nav-trigger:hover{color:var(--accent);}
+    .nav-trigger span{font-size:14px;line-height:1;}
+    .dropdown-panel,
+    .mega-panel{
+      opacity:0;
+      pointer-events:none;
+      position:absolute;
+      transform:translateY(8px);
+      transition:opacity 160ms ease,transform 160ms ease;
+    }
+    .nav-item:hover .dropdown-panel,
+    .nav-item:focus-within .dropdown-panel,
+    .nav-item:hover .mega-panel,
+    .nav-item:focus-within .mega-panel{
+      opacity:1;
+      pointer-events:auto;
+      transform:translateY(0);
+    }
+    .nav-item:hover .mega-panel,
+    .nav-item:focus-within .mega-panel{transform:translateX(-50%) translateY(0);}
+    .dropdown-panel{
+      background:#13131d;
+      border:1px solid var(--line);
+      border-radius:8px;
+      box-shadow:var(--shadow);
+      display:grid;
+      gap:2px;
+      left:0;
+      min-width:240px;
+      padding:10px;
+      top:64px;
+    }
+    .dropdown-panel a,
+    .mega-column a{
+      border-radius:6px;
+      color:var(--muted);
+      display:block;
+      font-size:15px;
+      line-height:1.35;
+      padding:10px 12px;
+    }
+    .dropdown-panel a:hover,
+    .mega-column a:hover{
+      background:rgba(255,122,0,0.12);
+      color:#fff;
+    }
+    .mega-panel{
+      left:50vw;
+      position:fixed;
+      top:64px;
+      transform:translateX(-50%) translateY(8px);
+      width:min(980px,calc(100vw - 48px));
+    }
+    .mega-inner{
+      background:#13131d;
+      border:1px solid var(--line);
+      border-radius:8px;
+      box-shadow:var(--shadow);
+      display:grid;
+      gap:16px;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      padding:22px;
+    }
+    .mega-column h2{
+      color:#ffd2aa;
+      font-size:13px;
+      margin:0 0 8px;
+      text-transform:uppercase;
+    }
+    .header-cta{
+      background:var(--accent);
+      border-radius:6px;
+      color:#160b02;
+      font-size:14px;
+      font-weight:850;
+      padding:12px 16px;
+      white-space:nowrap;
+    }
+    .header-cta:hover{background:#ff944f;}
+    .mobile-nav-toggle{display:none;}
+    .menu-toggle{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.72);
+      border-radius:6px;
+      cursor:pointer;
+      display:none;
+      height:42px;
+      padding:9px 10px;
+      width:44px;
+    }
+    .menu-toggle span{
+      background:#fff;
+      display:block;
+      height:2px;
+      margin:5px 0;
+      width:100%;
+    }
+    .mobile-nav{
+      background:#101010;
+      bottom:0;
+      display:none;
+      left:0;
+      position:fixed;
+      right:0;
+      top:74px;
+      z-index:190;
+    }
+    .mobile-nav-scroll{
+      height:100%;
+      overflow-y:auto;
+      padding:14px 18px 28px;
+    }
+    .mobile-direct-link,
+    .mobile-group summary{
+      align-items:center;
+      border-bottom:1px solid var(--line);
+      color:#fff;
+      cursor:pointer;
+      display:flex;
+      font-size:18px;
+      font-weight:750;
+      justify-content:space-between;
+      list-style:none;
+      padding:18px 0;
+    }
+    .mobile-group summary::-webkit-details-marker{display:none;}
+    .mobile-group-panel{
+      display:grid;
+      gap:4px;
+      padding:10px 0 18px;
+    }
+    .mobile-column{
+      display:grid;
+      gap:4px;
+      padding:8px 0;
+    }
+    .mobile-column h2{
+      color:#ffd2aa;
+      font-size:13px;
+      margin:8px 0 4px;
+      text-transform:uppercase;
+    }
+    .mobile-group-panel a{
+      color:var(--muted);
+      display:block;
+      font-size:16px;
+      padding:10px 0 10px 14px;
+    }
+    .mobile-nav-toggle:checked ~ .mobile-nav{display:block;}
     .hero{
       min-height:92vh;
       display:grid;
@@ -333,6 +543,9 @@
       .principles{grid-template-columns:repeat(2,minmax(0,1fr));}
     }
     @media (max-width:960px){
+      .desktop-nav,
+      .header-cta{display:none;}
+      .menu-toggle{display:block;}
       .hero-grid,.section-head,.cta-box{grid-template-columns:1fr;}
       .hero{min-height:auto;}
       .office-visual{order:-1;}
@@ -349,6 +562,120 @@
   </style>
 </head>
 <body>
+  <header class="site-header">
+    <a class="brand" href="../" aria-label="TeraBrain home">
+      <img class="brand-logo" src="../terabrain-logo.jpg" alt="" aria-hidden="true" />
+      <span>TERABRAIN</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a class="nav-link" href="/test_sito_terabrain/platform">Platform</a>
+      <a class="nav-link" href="/test_sito_terabrain/TB_Terabrain_Agents_Deck_v2.html#slide-1">Demo Online con Alex</a>
+      <a class="nav-link" href="/test_sito_terabrain/agenti-operativi/TeraBrain_Virtual_Office_Agents.html">Agenti Operativi</a>
+
+      <div class="nav-item">
+        <button class="nav-trigger" type="button">Use Cases <span aria-hidden="true">+</span></button>
+        <div class="mega-panel">
+          <div class="mega-inner">
+            <section class="mega-column">
+              <h2>Sales</h2>
+              <a href="/test_sito_terabrain/use-cases/lead-management">Lead Management</a>
+              <a href="/test_sito_terabrain/use-cases/sales-automation">Sales Automation</a>
+              <a href="/test_sito_terabrain/use-cases/pipeline-intelligence">Pipeline Intelligence</a>
+            </section>
+            <section class="mega-column">
+              <h2>Operations</h2>
+              <a href="/test_sito_terabrain/use-cases/customer-service">Customer Service</a>
+              <a href="/test_sito_terabrain/use-cases/ticketing">Ticketing</a>
+              <a href="/test_sito_terabrain/use-cases/back-office">Back Office Automation</a>
+            </section>
+            <section class="mega-column">
+              <h2>Marketing</h2>
+              <a href="/test_sito_terabrain/use-cases/campaign-operations">Campaign Operations</a>
+              <a href="/test_sito_terabrain/use-cases/content-workflows">Content Workflows</a>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-trigger" type="button">Solutions <span aria-hidden="true">+</span></button>
+        <div class="dropdown-panel">
+          <a href="/test_sito_terabrain/solutions/ai-agents">AI Agents</a>
+          <a href="/test_sito_terabrain/solutions/process-automation">Process Automation</a>
+          <a href="/test_sito_terabrain/solutions/knowledge-systems">Knowledge Systems</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-trigger" type="button">Resources <span aria-hidden="true">+</span></button>
+        <div class="dropdown-panel">
+          <a href="/test_sito_terabrain/blog">Blog</a>
+          <a href="/test_sito_terabrain/case-studies">Case Studies</a>
+          <a href="/test_sito_terabrain/guides">Guides</a>
+        </div>
+      </div>
+
+      <a class="nav-link" href="/test_sito_terabrain/contatti">Contatti</a>
+    </nav>
+
+    <a class="header-cta" href="../">Home</a>
+    <input class="mobile-nav-toggle" id="mobile-navigation-toggle" type="checkbox" />
+    <label class="menu-toggle" for="mobile-navigation-toggle" aria-label="Open navigation">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </label>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <div class="mobile-nav-scroll">
+        <a class="mobile-direct-link" href="/test_sito_terabrain/platform">Platform</a>
+        <a class="mobile-direct-link" href="/test_sito_terabrain/TB_Terabrain_Agents_Deck_v2.html#slide-1">Demo Online con Alex</a>
+        <a class="mobile-direct-link" href="/test_sito_terabrain/agenti-operativi/TeraBrain_Virtual_Office_Agents.html">Agenti Operativi</a>
+        <details class="mobile-group">
+          <summary>Use Cases <span aria-hidden="true">+</span></summary>
+          <div class="mobile-group-panel">
+            <div class="mobile-column">
+              <h2>Sales</h2>
+              <a href="/test_sito_terabrain/use-cases/lead-management">Lead Management</a>
+              <a href="/test_sito_terabrain/use-cases/sales-automation">Sales Automation</a>
+              <a href="/test_sito_terabrain/use-cases/pipeline-intelligence">Pipeline Intelligence</a>
+            </div>
+            <div class="mobile-column">
+              <h2>Operations</h2>
+              <a href="/test_sito_terabrain/use-cases/customer-service">Customer Service</a>
+              <a href="/test_sito_terabrain/use-cases/ticketing">Ticketing</a>
+              <a href="/test_sito_terabrain/use-cases/back-office">Back Office Automation</a>
+            </div>
+            <div class="mobile-column">
+              <h2>Marketing</h2>
+              <a href="/test_sito_terabrain/use-cases/campaign-operations">Campaign Operations</a>
+              <a href="/test_sito_terabrain/use-cases/content-workflows">Content Workflows</a>
+            </div>
+          </div>
+        </details>
+        <details class="mobile-group">
+          <summary>Solutions <span aria-hidden="true">+</span></summary>
+          <div class="mobile-group-panel">
+            <a href="/test_sito_terabrain/solutions/ai-agents">AI Agents</a>
+            <a href="/test_sito_terabrain/solutions/process-automation">Process Automation</a>
+            <a href="/test_sito_terabrain/solutions/knowledge-systems">Knowledge Systems</a>
+          </div>
+        </details>
+        <details class="mobile-group">
+          <summary>Resources <span aria-hidden="true">+</span></summary>
+          <div class="mobile-group-panel">
+            <a href="/test_sito_terabrain/blog">Blog</a>
+            <a href="/test_sito_terabrain/case-studies">Case Studies</a>
+            <a href="/test_sito_terabrain/guides">Guides</a>
+          </div>
+        </details>
+        <a class="mobile-direct-link" href="/test_sito_terabrain/contatti">Contatti</a>
+        <a class="mobile-direct-link" href="../">Home</a>
+      </div>
+    </nav>
+  </header>
+
   <main>
     <section class="hero">
       <div class="container hero-grid">
