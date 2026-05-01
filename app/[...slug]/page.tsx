@@ -54,6 +54,8 @@ function titleFromSlug(slug: string[]) {
 export function generateStaticParams() {
   return collectMenuUrls()
     .filter((url) => url !== "/")
+    .filter((url) => !url.includes("#"))
+    .filter((url) => !url.endsWith(".html"))
     .map((url) => ({
       slug: url.split("/").filter(Boolean)
     }));
