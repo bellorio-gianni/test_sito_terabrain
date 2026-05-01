@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vittorio Marketing | Agent AI per Sales Intelligence TERABRAIN</title>
+  <meta name="description" content="Vittorio Marketing è l'agent AI Linegon per account enrichment, ricerca contatti, scoring commerciale e preparazione email outbound per TERABRAIN." />
+  <style>
+    :root{
+      --bg:#050509;
+      --bg-soft:#0d0f1a;
+      --panel:#111320;
+      --panel-2:#171a29;
+      --line:rgba(255,255,255,0.12);
+      --line-soft:rgba(255,255,255,0.07);
+      --text:#f6f6fb;
+      --muted:#b5b6c8;
+      --soft:#7e829a;
+      --accent:#ff6a00;
+      --accent-2:#2fd2c4;
+      --accent-3:#7c9cff;
+      --radius:18px;
+      --shadow:0 24px 70px rgba(0,0,0,0.5);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text",Segoe UI,sans-serif;
+      background:
+        radial-gradient(circle at 18% 0,rgba(255,106,0,0.18),transparent 34%),
+        radial-gradient(circle at 84% 12%,rgba(47,210,196,0.11),transparent 32%),
+        linear-gradient(180deg,#070811 0,#050509 45%,#080910 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none;}
+    .container{width:min(1120px,90vw);margin:0 auto;}
+    .hero{
+      min-height:96vh;
+      display:grid;
+      align-items:center;
+      padding:56px 0 44px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,0.95fr) minmax(360px,1.05fr);
+      gap:42px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border:1px solid rgba(255,106,0,0.42);
+      border-radius:999px;
+      background:rgba(255,106,0,0.08);
+      color:#ffb071;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      margin-bottom:22px;
+    }
+    .eyebrow::before{
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 18px var(--accent);
+    }
+    h1{
+      max-width:720px;
+      font-size:clamp(42px,6vw,76px);
+      line-height:0.98;
+      letter-spacing:0;
+      margin-bottom:22px;
+    }
+    h1 span{color:var(--accent);}
+    .hero-copy{
+      max-width:610px;
+      color:var(--muted);
+      font-size:18px;
+      margin-bottom:26px;
+    }
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-bottom:28px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.16);
+      font-size:14px;
+      font-weight:700;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,0.36);}
+    .btn-primary{
+      background:var(--accent);
+      color:#120700;
+      border-color:var(--accent);
+      box-shadow:0 14px 34px rgba(255,106,0,0.32);
+    }
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      max-width:620px;
+    }
+    .stat{
+      border-top:1px solid var(--line);
+      padding-top:12px;
+    }
+    .stat strong{
+      display:block;
+      font-size:24px;
+      color:#fff;
+      line-height:1.1;
+      margin-bottom:5px;
+    }
+    .stat span{font-size:12px;color:var(--soft);}
+    .hero-visual{
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 50% 0,rgba(124,156,255,0.18),transparent 48%),
+        radial-gradient(circle at 18% 85%,rgba(255,106,0,0.16),transparent 45%),
+        rgba(17,19,32,0.84);
+      box-shadow:var(--shadow);
+      padding:18px;
+      overflow:hidden;
+    }
+    .agent-map{
+      width:100%;
+      height:auto;
+      display:block;
+      min-height:420px;
+    }
+    .map-bg{fill:rgba(0,0,0,0.16);stroke:rgba(255,255,255,0.08);}
+    .map-node{fill:rgba(255,255,255,0.055);stroke:rgba(255,255,255,0.16);stroke-width:1.2;}
+    .map-node-hot{fill:rgba(255,106,0,0.13);stroke:rgba(255,106,0,0.72);stroke-width:1.6;}
+    .map-node-cool{fill:rgba(47,210,196,0.1);stroke:rgba(47,210,196,0.5);stroke-width:1.4;}
+    .map-line{fill:none;stroke:rgba(255,255,255,0.27);stroke-width:2;}
+    .map-line-hot{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;}
+    .map-line-cool{fill:none;stroke:var(--accent-2);stroke-width:2.5;stroke-linecap:round;}
+    .map-title{fill:#fff;font-size:22px;font-weight:800;}
+    .map-label{fill:#f1f2ff;font-size:15px;font-weight:700;}
+    .map-small{fill:#aeb1c6;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;}
+    section{padding:76px 0;border-top:1px solid var(--line-soft);}
+    .section-head{
+      display:grid;
+      grid-template-columns:minmax(0,0.9fr) minmax(280px,0.62fr);
+      gap:28px;
+      align-items:end;
+      margin-bottom:32px;
+    }
+    .kicker{
+      color:var(--accent);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+      margin-bottom:9px;
+    }
+    h2{
+      font-size:clamp(30px,4vw,48px);
+      line-height:1.05;
+      letter-spacing:0;
+    }
+    .section-lead{color:var(--muted);font-size:16px;}
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(17,19,32,0.74);
+      padding:22px;
+      box-shadow:0 14px 34px rgba(0,0,0,0.28);
+    }
+    .card h3{
+      font-size:19px;
+      line-height:1.2;
+      margin-bottom:9px;
+    }
+    .card p{color:var(--muted);font-size:14px;}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:0 9px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#d9daf0;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:0.07em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .tag.orange{color:#ffb071;background:rgba(255,106,0,0.1);border-color:rgba(255,106,0,0.26);}
+    .tag.teal{color:#8ff0e7;background:rgba(47,210,196,0.09);border-color:rgba(47,210,196,0.28);}
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      counter-reset:step;
+    }
+    .step{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.025));
+      min-height:178px;
+    }
+    .step::before{
+      counter-increment:step;
+      content:counter(step,decimal-leading-zero);
+      display:block;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:0.14em;
+      margin-bottom:20px;
+    }
+    .step h3{font-size:16px;margin-bottom:8px;}
+    .step p{font-size:13px;color:var(--muted);}
+    .output-strip{
+      display:grid;
+      grid-template-columns:1.15fr 1fr 1fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    .output{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:24px;
+      background:rgba(13,15,26,0.72);
+    }
+    .output ul{list-style:none;display:grid;gap:11px;margin-top:14px;}
+    .output li{
+      color:var(--muted);
+      font-size:14px;
+      padding-left:20px;
+      position:relative;
+    }
+    .output li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:9px;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent-2);
+    }
+    .decision{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:1px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
+      background:var(--line);
+    }
+    .decision div{
+      padding:22px;
+      background:#0c0e18;
+    }
+    .decision strong{
+      display:block;
+      font-size:30px;
+      color:var(--accent);
+      margin-bottom:5px;
+    }
+    .decision span{color:var(--muted);font-size:14px;}
+    .email-examples{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin-bottom:18px;
+    }
+    .email-example{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(17,19,32,0.72);
+      padding:20px;
+    }
+    .email-example h3{
+      font-size:17px;
+      margin-bottom:10px;
+    }
+    .example-block{
+      border-left:3px solid rgba(255,255,255,0.18);
+      padding-left:12px;
+      margin-top:13px;
+    }
+    .example-block.good{border-left-color:var(--accent);}
+    .example-label{
+      display:block;
+      color:var(--accent);
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      margin-bottom:5px;
+    }
+    .example-block p{
+      color:var(--muted);
+      font-size:13px;
+    }
+    .quality{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+    .quality-list{
+      list-style:none;
+      display:grid;
+      gap:12px;
+    }
+    .quality-list li{
+      border-left:3px solid var(--accent);
+      padding:10px 0 10px 14px;
+      color:var(--muted);
+      font-size:14px;
+      background:linear-gradient(90deg,rgba(255,106,0,0.07),transparent);
+    }
+    .cta{
+      padding:70px 0;
+      background:
+        radial-gradient(circle at 22% 50%,rgba(255,106,0,0.18),transparent 36%),
+        radial-gradient(circle at 78% 50%,rgba(47,210,196,0.13),transparent 34%),
+        #080910;
+    }
+    .cta-box{
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:38px;
+      background:rgba(17,19,32,0.78);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+    .cta h2{font-size:36px;margin-bottom:10px;}
+    .cta p{color:var(--muted);max-width:720px;}
+    footer{
+      padding:28px 0;
+      color:var(--soft);
+      font-size:13px;
+      border-top:1px solid var(--line-soft);
+    }
+    .footer-row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+    @media(max-width:980px){
+      .hero-grid,.section-head,.output-strip,.quality,.cta-box{grid-template-columns:1fr;}
+      .hero{min-height:auto;}
+      .grid-3,.steps,.email-examples{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .decision{grid-template-columns:1fr;}
+      .hero-stats{grid-template-columns:1fr;}
+      .agent-map{min-height:360px;}
+    }
+    @media(max-width:640px){
+      .container{width:min(92vw,1120px);}
+      .hero{padding-top:34px;}
+      .hero-grid{grid-template-columns:1fr;gap:28px;}
+      .grid-3,.grid-2,.steps,.email-examples{grid-template-columns:1fr;}
+      .hero-visual{padding:10px;border-radius:22px;}
+      .agent-map{min-height:310px;}
+      .cta-box{padding:24px;}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">TERABRAIN Agent</div>
+          <h1>Vittorio Marketing, l'agent AI per <span>sales intelligence</span> e outbound B2B.</h1>
+          <p class="hero-copy">
+            Vittorio Marketing supporta Linegon nelle attivita di ricerca commerciale:
+            analizza aziende, arricchisce account, individua contatti professionali,
+            valuta opportunita TERABRAIN e prepara email outbound pronte per il follow-up.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#workflow">Vedi il workflow</a>
+            <a class="btn" href="#output">Output prodotti</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>2</strong><span>processi operativi: societa e persone</span></div>
+            <div class="stat"><strong>3</strong><span>email outbound massime per account</span></div>
+            <div class="stat"><strong>100%</strong><span>distinzione tra dati certi, dedotti e non disponibili</span></div>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Mappa funzionale di Vittorio Marketing">
+          <svg class="agent-map" viewBox="0 0 760 620" role="img" aria-labelledby="mapTitle mapDesc">
+            <title id="mapTitle">Mappa delle funzioni di Vittorio Marketing</title>
+            <desc id="mapDesc">L'agent riceve input su societa o persone, applica il routing corretto e produce enrichment, contatti, scoring, report e email outbound.</desc>
+            <defs>
+              <marker id="mapArrowOrange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#ff6a00" />
+              </marker>
+              <marker id="mapArrowTeal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#2fd2c4" />
+              </marker>
+            </defs>
+            <rect class="map-bg" x="24" y="24" width="712" height="572" rx="28" />
+            <text class="map-small" x="58" y="68">ROUTER DUTY</text>
+            <text class="map-title" x="58" y="102">Da richiesta a dossier commerciale</text>
+
+            <rect class="map-node" x="58" y="150" width="166" height="84" rx="18" />
+            <text class="map-label" x="141" y="184" text-anchor="middle">Input societa</text>
+            <text class="map-small" x="141" y="208" text-anchor="middle">azienda, impresa, account</text>
+
+            <rect class="map-node" x="58" y="272" width="166" height="84" rx="18" />
+            <text class="map-label" x="141" y="306" text-anchor="middle">Input persona</text>
+            <text class="map-small" x="141" y="330" text-anchor="middle">nome, ruolo, email</text>
+
+            <rect class="map-node-hot" x="300" y="208" width="172" height="96" rx="22" />
+            <text class="map-label" x="386" y="242" text-anchor="middle">Vittorio</text>
+            <text class="map-label" x="386" y="266" text-anchor="middle">Marketing</text>
+            <text class="map-small" x="386" y="288" text-anchor="middle">routing + intelligence</text>
+
+            <rect class="map-node-cool" x="542" y="120" width="146" height="70" rx="17" />
+            <text class="map-label" x="615" y="151" text-anchor="middle">Enrichment</text>
+            <text class="map-small" x="615" y="171" text-anchor="middle">account + use case</text>
+
+            <rect class="map-node-cool" x="542" y="214" width="146" height="70" rx="17" />
+            <text class="map-label" x="615" y="245" text-anchor="middle">Contact finding</text>
+            <text class="map-small" x="615" y="265" text-anchor="middle">ruoli + attendibilita</text>
+
+            <rect class="map-node-cool" x="542" y="308" width="146" height="70" rx="17" />
+            <text class="map-label" x="615" y="339" text-anchor="middle">Scoring</text>
+            <text class="map-small" x="615" y="359" text-anchor="middle">account + priorita</text>
+
+            <rect class="map-node-cool" x="542" y="402" width="146" height="70" rx="17" />
+            <text class="map-label" x="615" y="433" text-anchor="middle">Outbound</text>
+            <text class="map-small" x="615" y="453" text-anchor="middle">email + follow-up</text>
+
+            <path class="map-line-hot" d="M224 192 C260 192,270 226,300 242" marker-end="url(#mapArrowOrange)" />
+            <path class="map-line-cool" d="M224 314 C264 314,270 280,300 268" marker-end="url(#mapArrowTeal)" />
+            <path class="map-line-cool" d="M472 246 C500 218,510 172,542 156" marker-end="url(#mapArrowTeal)" />
+            <path class="map-line-hot" d="M472 256 C500 250,512 250,542 250" marker-end="url(#mapArrowOrange)" />
+            <path class="map-line-cool" d="M472 270 C504 286,512 324,542 344" marker-end="url(#mapArrowTeal)" />
+            <path class="map-line-hot" d="M472 282 C504 322,512 402,542 438" marker-end="url(#mapArrowOrange)" />
+
+            <rect class="map-node" x="104" y="456" width="552" height="58" rx="18" />
+            <text class="map-label" x="380" y="480" text-anchor="middle">Output salvabili e riutilizzabili</text>
+            <text class="map-small" x="380" y="502" text-anchor="middle">report html · bozze email · scheda contatti · sintesi operativa</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="funzioni">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Funzioni principali</div>
+            <h2>Un agent operativo per trasformare una richiesta commerciale in azioni concrete.</h2>
+          </div>
+          <p class="section-lead">
+            Vittorio non si limita a descrivere un'azienda: applica un processo commerciale completo,
+            dalla raccolta dati fino alla preparazione di messaggi outbound mirati.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag orange">Account</span>
+            <h3>Enrichment societa</h3>
+            <p>Identifica azienda, settore, dimensione, presenza digitale, canali, segnali operativi e possibili aree di interesse per TERABRAIN.</p>
+          </article>
+          <article class="card">
+            <span class="tag teal">Contatti</span>
+            <h3>Ricerca ruoli chiave</h3>
+            <p>Trova contatti professionali rilevanti per CEO, Direzione, IT, Operations, Sales, Marketing, HR e Customer Care.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Email</span>
+            <h3>Outbound intelligence</h3>
+            <p>Genera email brevi, consulenziali e orientate a quick win, con oggetti alternativi, CTA forte e follow-up.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="routing">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Routing obbligatorio</div>
+            <h2>Due percorsi, scelti automaticamente in base alla richiesta.</h2>
+          </div>
+          <p class="section-lead">
+            Il router distingue se l'utente sta chiedendo un lavoro su una societa o su una persona.
+            In caso di elenchi misti, ogni elemento viene processato come task separato.
+          </p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <span class="tag orange">Caso 1</span>
+            <h3>Societa, azienda, impresa</h3>
+            <p>Attiva il processo di account enrichment: analisi aziendale, opportunita TERABRAIN, ricerca contatti, scoring, report HTML, bozze email e scheda contatti.</p>
+          </article>
+          <article class="card">
+            <span class="tag teal">Caso 2</span>
+            <h3>Persona, ruolo, email</h3>
+            <p>Attiva la ricerca contatto: identifica societa collegata, ruolo, fonti pubbliche, email certa o dedotta, attendibilita e passaggio al processo di enrichment quando possibile.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Workflow</div>
+            <h2>Dal nome dell'azienda al pacchetto di outreach.</h2>
+          </div>
+          <p class="section-lead">
+            Il workflow e pensato per produrre risultati progressivi e separati:
+            ogni societa o contatto viene trattato come un'elaborazione autonoma.
+          </p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <h3>Identificazione</h3>
+            <p>Verifica azienda o persona, contesto, dominio, ruolo e fonti pubbliche disponibili.</p>
+          </article>
+          <article class="step">
+            <h3>Raccolta dati</h3>
+            <p>Estrae informazioni aziendali, segnali digitali, canali, processi e potenziali pain point.</p>
+          </article>
+          <article class="step">
+            <h3>Opportunita TERABRAIN</h3>
+            <p>Collega problemi operativi reali a use case agentici: email, documenti, CRM, ERP, voce, customer care e workflow.</p>
+          </article>
+          <article class="step">
+            <h3>Contatti e priorita</h3>
+            <p>Individua ruoli chiave, classifica attendibilita email e ordina i contatti per valore commerciale.</p>
+          </article>
+          <article class="step">
+            <h3>Lead scoring</h3>
+            <p>Valuta fit, urgenza, accessibilita, digital maturity e interesse strategico per Linegon.</p>
+          </article>
+          <article class="step">
+            <h3>Decision tree email</h3>
+            <p>Sceglie automaticamente quante email generare e per quali ruoli, senza superare tre email per account.</p>
+          </article>
+          <article class="step">
+            <h3>Report e file</h3>
+            <p>Produce report HTML, bozze email, scheda contatti e, quando utile, una sintesi operativa.</p>
+          </article>
+          <article class="step">
+            <h3>Consegna interna</h3>
+            <p>Prepara materiale strutturato per revisione, invio interno e successivo uso commerciale.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="output">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Output</div>
+            <h2>File e contenuti pensati per essere subito utilizzabili.</h2>
+          </div>
+          <p class="section-lead">
+            Ogni output separa analisi, contatti e messaggi. I dati incerti sono sempre marcati
+            e le email outbound sono costruite come bozze professionali, non come brochure.
+          </p>
+        </div>
+        <div class="output-strip">
+          <article class="output">
+            <span class="tag orange">Report</span>
+            <h3>Account report HTML</h3>
+            <ul>
+              <li>Profilo aziendale e dati raccolti</li>
+              <li>Opportunita TERABRAIN e quick win</li>
+              <li>Lead score e motivazione</li>
+              <li>Tabella contatti con priorita</li>
+            </ul>
+          </article>
+          <article class="output">
+            <span class="tag teal">Bozze</span>
+            <h3>Email outbound</h3>
+            <ul>
+              <li>Target e obiettivo della mail</li>
+              <li>Pain point ipotizzato</li>
+              <li>Tre oggetti alternativi</li>
+              <li>Email finale e follow-up</li>
+            </ul>
+          </article>
+          <article class="output">
+            <span class="tag">Contatti</span>
+            <h3>Scheda contatti</h3>
+            <ul>
+              <li>Ruolo e societa collegata</li>
+              <li>Email certa, dedotta o NULL</li>
+              <li>Fonte o pattern utilizzato</li>
+              <li>Priority score operativo</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="email">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Outbound B2B</div>
+            <h2>Email costruite sul contesto del prospect, non sulla tecnologia.</h2>
+          </div>
+          <p class="section-lead">
+            La logica di scrittura parte dal problema probabile dell'azienda e solo dopo introduce
+            TERABRAIN come piattaforma per agenti AI operativi integrati nei sistemi.
+          </p>
+        </div>
+        <div class="email-examples">
+          <article class="email-example">
+            <span class="tag orange">Direzione</span>
+            <h3>Account multi-sede o multi-brand</h3>
+            <div class="example-block">
+              <span class="example-label">Problema probabile</span>
+              <p>Molte richieste operative arrivano da canali diversi e richiedono coordinamento tra team, documenti, email e sistemi interni.</p>
+            </div>
+            <div class="example-block good">
+              <span class="example-label">Angolo email</span>
+              <p>Proporre un agente TERABRAIN per presidiare un flusso specifico, ridurre passaggi manuali e misurare backlog, tempi di risposta ed errori.</p>
+            </div>
+          </article>
+          <article class="email-example">
+            <span class="tag teal">IT / Operations</span>
+            <h3>Processi con CRM, ERP e documenti</h3>
+            <div class="example-block">
+              <span class="example-label">Problema probabile</span>
+              <p>I dati utili sono distribuiti tra sistemi aziendali, allegati, repository e conversazioni, rendendo lento il recupero delle informazioni.</p>
+            </div>
+            <div class="example-block good">
+              <span class="example-label">Angolo email</span>
+              <p>Proporre una call tecnica su un processo ad alto volume dove un agente AI legge, classifica, prepara output e aggiorna i sistemi autorizzati.</p>
+            </div>
+          </article>
+          <article class="email-example">
+            <span class="tag">Customer Care</span>
+            <h3>Richieste ricorrenti e tempi di risposta</h3>
+            <div class="example-block">
+              <span class="example-label">Problema probabile</span>
+              <p>Il team deve gestire ticket, email e telefonate ripetitive mantenendo qualita, tracciabilita e controllo sulle risposte finali.</p>
+            </div>
+            <div class="example-block good">
+              <span class="example-label">Angolo email</span>
+              <p>Proporre un agente TERABRAIN per triage, recupero dati cliente, bozza risposta e prioritizzazione, lasciando al team la validazione finale.</p>
+            </div>
+          </article>
+        </div>
+        <div class="decision" aria-label="Decision tree per il numero di email outbound">
+          <div><strong>1</strong><span>email quando esiste un solo use case dominante.</span></div>
+          <div><strong>2</strong><span>email quando emergono due ruoli o due angoli commerciali forti.</span></div>
+          <div><strong>3</strong><span>email massimo per account ricchi e multi-funzione.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="guardrail">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Qualita e guardrail</div>
+            <h2>Accuratezza commerciale prima della velocita.</h2>
+          </div>
+          <p class="section-lead">
+            Vittorio Marketing usa le fonti come base di lavoro, ma non inventa dati. Ogni informazione viene qualificata
+            in modo da distinguere cio che e certo da cio che e dedotto o non disponibile.
+          </p>
+        </div>
+        <div class="quality">
+          <article class="card">
+            <h3>Regole sui dati</h3>
+            <ul class="quality-list">
+              <li>Non inventare societa, ruoli, contatti o email.</li>
+              <li>Classificare sempre l'attendibilita delle email.</li>
+              <li>Non usare email personali per outreach B2B se il contesto e professionale.</li>
+              <li>Mantenere i prefissi per email dedotte: forte o debole.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Regole commerciali</h3>
+            <ul class="quality-list">
+              <li>Collegare TERABRAIN a problemi operativi reali.</li>
+              <li>Proporre un quick win concreto, misurabile e verificabile.</li>
+              <li>Scrivere email brevi, consulenziali e orientate alla call.</li>
+              <li>Separare sempre i risultati quando ci sono piu account o contatti.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Un agent marketing operativo per alimentare pipeline TERABRAIN.</h2>
+            <p>
+              Vittorio Marketing trasforma richieste sparse, nomi di aziende o contatti singoli
+              in dossier commerciali, liste prioritarie e messaggi outbound pronti per il team.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="#funzioni">Rivedi le funzioni</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>Vittorio Marketing · Agent AI TERABRAIN / Linegon Srl</span>
+      <span>Account enrichment · Contact finding · Outbound intelligence</span>
+    </div>
+  </footer>
+</body>
+</html>

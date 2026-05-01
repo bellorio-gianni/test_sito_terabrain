@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sara Telemarketing | TeraBrain Voice Sales Agent</title>
+  <meta name="description" content="Sara Telemarketing è l'AI Agent TeraBrain per primo contatto telefonico, qualificazione prospect, gestione richieste commerciali, agenda e follow-up." />
+  <style>
+    :root{
+      --bg:#050509;
+      --panel:#111320;
+      --panel-2:#171a29;
+      --line:rgba(255,255,255,0.12);
+      --line-soft:rgba(255,255,255,0.07);
+      --text:#f7f8fc;
+      --muted:#b8bdcc;
+      --soft:#858b9f;
+      --accent:#2fd2c4;
+      --accent-2:#ff6a00;
+      --blue:#7c9cff;
+      --gold:#f3c66d;
+      --radius:18px;
+      --shadow:0 24px 70px rgba(0,0,0,0.52);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text",Segoe UI,sans-serif;
+      background:
+        radial-gradient(circle at 14% 0,rgba(47,210,196,0.18),transparent 32%),
+        radial-gradient(circle at 86% 10%,rgba(255,106,0,0.11),transparent 32%),
+        linear-gradient(180deg,#080913 0,#050509 48%,#080910 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none;}
+    .container{width:min(1120px,90vw);margin:0 auto;}
+    .hero{
+      min-height:96vh;
+      display:grid;
+      align-items:center;
+      padding:56px 0 44px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,0.95fr) minmax(360px,1.05fr);
+      gap:42px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border:1px solid rgba(47,210,196,0.42);
+      border-radius:999px;
+      background:rgba(47,210,196,0.08);
+      color:#8ff0e7;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      margin-bottom:22px;
+    }
+    .eyebrow::before{
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 18px var(--accent);
+    }
+    h1{
+      max-width:820px;
+      font-size:clamp(42px,6vw,76px);
+      line-height:0.98;
+      letter-spacing:0;
+      margin-bottom:22px;
+    }
+    h1 span{color:var(--accent);}
+    .hero-copy{
+      max-width:660px;
+      color:var(--muted);
+      font-size:18px;
+      margin-bottom:26px;
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.16);
+      font-size:14px;
+      font-weight:800;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,0.36);}
+    .btn-primary{
+      background:var(--accent);
+      color:#001210;
+      border-color:var(--accent);
+      box-shadow:0 14px 34px rgba(47,210,196,0.28);
+    }
+    .hero-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:650px;}
+    .stat{border-top:1px solid var(--line);padding-top:12px;}
+    .stat strong{display:block;font-size:24px;line-height:1.1;margin-bottom:5px;color:#fff;}
+    .stat span{font-size:12px;color:var(--soft);}
+    .hero-visual{
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 50% 0,rgba(124,156,255,0.17),transparent 48%),
+        radial-gradient(circle at 18% 85%,rgba(47,210,196,0.15),transparent 45%),
+        rgba(17,19,32,0.84);
+      box-shadow:var(--shadow);
+      padding:18px;
+      overflow:hidden;
+    }
+    .agent-map{width:100%;height:auto;display:block;min-height:420px;}
+    .map-bg{fill:rgba(0,0,0,0.16);stroke:rgba(255,255,255,0.08);}
+    .map-node{fill:rgba(255,255,255,0.055);stroke:rgba(255,255,255,0.16);stroke-width:1.2;}
+    .map-node-hot{fill:rgba(47,210,196,0.13);stroke:rgba(47,210,196,0.72);stroke-width:1.6;}
+    .map-node-warm{fill:rgba(255,106,0,0.1);stroke:rgba(255,106,0,0.5);stroke-width:1.4;}
+    .map-line-hot{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;}
+    .map-line-warm{fill:none;stroke:var(--accent-2);stroke-width:2.6;stroke-linecap:round;}
+    .map-label{fill:#f1f2ff;font-size:15px;font-weight:800;}
+    .map-title{fill:#fff;font-size:22px;font-weight:800;}
+    .map-small{fill:#aeb1c6;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}
+    section{padding:76px 0;border-top:1px solid var(--line-soft);}
+    .section-head{
+      display:grid;
+      grid-template-columns:minmax(0,0.9fr) minmax(280px,0.62fr);
+      gap:28px;
+      align-items:end;
+      margin-bottom:32px;
+    }
+    .kicker{color:var(--accent);font-size:12px;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:9px;}
+    h2{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:0;}
+    .section-lead{color:var(--muted);font-size:16px;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(17,19,32,0.74);
+      padding:22px;
+      box-shadow:0 14px 34px rgba(0,0,0,0.28);
+    }
+    .card h3{font-size:19px;line-height:1.2;margin-bottom:9px;}
+    .card p{color:var(--muted);font-size:14px;}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:0 9px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#d9daf0;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:0.07em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .tag.teal{color:#8ff0e7;background:rgba(47,210,196,0.09);border-color:rgba(47,210,196,0.28);}
+    .tag.orange{color:#ffb071;background:rgba(255,106,0,0.1);border-color:rgba(255,106,0,0.28);}
+    .tag.blue{color:#d9e0ff;background:rgba(124,156,255,0.1);border-color:rgba(124,156,255,0.28);}
+    .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:step;}
+    .step{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.025));
+      min-height:178px;
+    }
+    .step::before{
+      counter-increment:step;
+      content:counter(step,decimal-leading-zero);
+      display:block;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.14em;
+      margin-bottom:20px;
+    }
+    .step h3{font-size:16px;margin-bottom:8px;}
+    .step p{font-size:13px;color:var(--muted);}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .list-card ul{list-style:none;display:grid;gap:11px;margin-top:14px;}
+    .list-card li{color:var(--muted);font-size:14px;padding-left:20px;position:relative;}
+    .list-card li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:9px;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent);
+    }
+    .priority{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:1px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
+      background:var(--line);
+    }
+    .priority div{padding:18px;background:#0c101b;min-height:96px;}
+    .priority strong{display:block;color:#fff;font-size:14px;margin-bottom:6px;}
+    .priority span{color:var(--muted);font-size:12px;}
+    .quote{
+      border-left:3px solid var(--accent);
+      padding:12px 0 12px 16px;
+      color:var(--muted);
+      font-size:14px;
+      background:linear-gradient(90deg,rgba(47,210,196,0.08),transparent);
+      margin-top:12px;
+    }
+    .guardrail{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .guardrail-list{list-style:none;display:grid;gap:12px;}
+    .guardrail-list li{
+      border-left:3px solid var(--accent);
+      padding:10px 0 10px 14px;
+      color:var(--muted);
+      font-size:14px;
+      background:linear-gradient(90deg,rgba(47,210,196,0.07),transparent);
+    }
+    .cta{
+      padding:70px 0;
+      background:
+        radial-gradient(circle at 22% 50%,rgba(47,210,196,0.16),transparent 36%),
+        radial-gradient(circle at 78% 50%,rgba(255,106,0,0.13),transparent 34%),
+        #080910;
+    }
+    .cta-box{
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:38px;
+      background:rgba(17,19,32,0.78);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+    .cta h2{font-size:36px;margin-bottom:10px;}
+    .cta p{color:var(--muted);max-width:720px;}
+    footer{padding:28px 0;color:var(--soft);font-size:13px;border-top:1px solid var(--line-soft);}
+    .footer-row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+    @media(max-width:980px){
+      .hero-grid,.section-head,.split,.guardrail,.cta-box{grid-template-columns:1fr;}
+      .hero{min-height:auto;}
+      .grid-3,.steps,.priority{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .hero-stats{grid-template-columns:1fr;}
+      .agent-map{min-height:360px;}
+    }
+    @media(max-width:640px){
+      .container{width:min(92vw,1120px);}
+      .hero{padding-top:34px;}
+      .hero-grid{grid-template-columns:1fr;gap:28px;}
+      .grid-3,.grid-2,.steps,.priority{grid-template-columns:1fr;}
+      .hero-visual{padding:10px;border-radius:22px;}
+      .agent-map{min-height:310px;}
+      .cta-box{padding:24px;}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Telemarketing & Voice Sales Agent</div>
+          <h1>Sara Telemarketing qualifica prospect e trasforma chiamate in <span>opportunità gestibili</span>.</h1>
+          <p class="hero-copy">
+            Sara è l'agente telefonico per primo contatto, filtro richieste, qualificazione commerciale,
+            gestione appuntamenti e follow-up. Opera con tono formale, risposte brevi,
+            priorità chiare ed escalation immediata quando emergono temi economici o trattative.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#chiamate">Gestione chiamate</a>
+            <a class="btn" href="#terabrain">Conoscenza TERABRAIN</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>1-2</strong><span>frasi per risposte vocali brevi</span></div>
+            <div class="stat"><strong>4</strong><span>priorità: clienti, prospect, partner, interno</span></div>
+            <div class="stat"><strong>Zero</strong><span>prezzi, preventivi o trattative dirette</span></div>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Mappa operativa di Sara Telemarketing">
+          <svg class="agent-map" viewBox="0 0 760 620" role="img" aria-labelledby="mapTitle mapDesc">
+            <title id="mapTitle">Mappa operativa di Sara Telemarketing</title>
+            <desc id="mapDesc">Sara riceve chiamate, identifica il contatto, qualifica la richiesta, propone appuntamento o trasferisce a commerciale.</desc>
+            <defs>
+              <marker id="arrowTealSara" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#2fd2c4" />
+              </marker>
+              <marker id="arrowOrangeSara" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#ff6a00" />
+              </marker>
+            </defs>
+            <rect class="map-bg" x="24" y="24" width="712" height="572" rx="28" />
+            <text class="map-small" x="58" y="68">VOICE SALES FLOW</text>
+            <text class="map-title" x="58" y="102">Dal contatto telefonico al follow-up</text>
+
+            <rect class="map-node" x="58" y="140" width="164" height="72" rx="18" />
+            <text class="map-label" x="140" y="171" text-anchor="middle">Chiamante</text>
+            <text class="map-small" x="140" y="193" text-anchor="middle">cliente o prospect</text>
+
+            <rect class="map-node" x="58" y="242" width="164" height="72" rx="18" />
+            <text class="map-label" x="140" y="273" text-anchor="middle">Motivo</text>
+            <text class="map-small" x="140" y="295" text-anchor="middle">richiesta o bisogno</text>
+
+            <rect class="map-node" x="58" y="344" width="164" height="72" rx="18" />
+            <text class="map-label" x="140" y="375" text-anchor="middle">Priorità</text>
+            <text class="map-small" x="140" y="397" text-anchor="middle">urgenza e routing</text>
+
+            <rect class="map-node-hot" x="300" y="232" width="170" height="104" rx="24" />
+            <text class="map-label" x="385" y="270" text-anchor="middle">Sara</text>
+            <text class="map-label" x="385" y="296" text-anchor="middle">Telemarketing</text>
+            <text class="map-small" x="385" y="318" text-anchor="middle">identify · qualify · route</text>
+
+            <rect class="map-node-warm" x="544" y="116" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="145" text-anchor="middle">Agenda</text>
+            <text class="map-small" x="619" y="165" text-anchor="middle">meeting e follow-up</text>
+
+            <rect class="map-node-warm" x="544" y="208" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="237" text-anchor="middle">Commerciale</text>
+            <text class="map-small" x="619" y="257" text-anchor="middle">Alex o Bellorio</text>
+
+            <rect class="map-node-warm" x="544" y="300" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="329" text-anchor="middle">Customer Care</text>
+            <text class="map-small" x="619" y="349" text-anchor="middle">segnalazioni</text>
+
+            <rect class="map-node-warm" x="544" y="392" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="421" text-anchor="middle">CRM note</text>
+            <text class="map-small" x="619" y="441" text-anchor="middle">richiesta tracciata</text>
+
+            <path class="map-line-hot" d="M222 176 C260 184,276 242,300 266" marker-end="url(#arrowTealSara)" />
+            <path class="map-line-warm" d="M222 278 C258 278,270 280,300 282" marker-end="url(#arrowOrangeSara)" />
+            <path class="map-line-hot" d="M222 380 C258 370,278 322,300 306" marker-end="url(#arrowTealSara)" />
+            <path class="map-line-warm" d="M470 264 C504 230,512 164,544 150" marker-end="url(#arrowOrangeSara)" />
+            <path class="map-line-hot" d="M470 280 C502 254,514 242,544 242" marker-end="url(#arrowTealSara)" />
+            <path class="map-line-warm" d="M470 302 C502 318,514 330,544 334" marker-end="url(#arrowOrangeSara)" />
+            <path class="map-line-hot" d="M470 322 C504 354,512 408,544 426" marker-end="url(#arrowTealSara)" />
+
+            <rect class="map-node" x="104" y="500" width="552" height="58" rx="18" />
+            <text class="map-label" x="380" y="524" text-anchor="middle">Principio operativo</text>
+            <text class="map-small" x="380" y="546" text-anchor="middle">breve, formale, utile: se serve una decisione, escalation</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="funzioni">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Funzioni principali</div>
+            <h2>Una voce commerciale per qualificare, orientare e non disperdere contatti.</h2>
+          </div>
+          <p class="section-lead">
+            Sara gestisce il primo livello della relazione telefonica: identifica il chiamante,
+            comprende il motivo, valuta la priorità e attiva il percorso corretto.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag teal">Inbound</span>
+            <h3>Filtro chiamate</h3>
+            <p>Accoglie il chiamante, raccoglie il motivo del contatto e distingue richieste informative, commerciali o operative.</p>
+          </article>
+          <article class="card">
+            <span class="tag orange">Sales</span>
+            <h3>Qualificazione lead</h3>
+            <p>Raccoglie settore, esigenza, urgenza e interesse verso TERABRAIN, preparando un follow-up utile.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Routing</span>
+            <h3>Agenda o trasferimento</h3>
+            <p>Propone appuntamenti, raccoglie recapiti o trasferisce al referente corretto quando la richiesta lo richiede.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="chiamate">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Call handling</div>
+            <h2>Ogni chiamata segue un flusso breve e controllato.</h2>
+          </div>
+          <p class="section-lead">
+            Sara non fa monologhi: usa risposte brevi, raccoglie le informazioni essenziali
+            e chiude con una prossima azione chiara.
+          </p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <h3>Apertura</h3>
+            <p>Saluta in modo professionale e si presenta come assistente commerciale TeraBrain.</p>
+          </article>
+          <article class="step">
+            <h3>Identificazione</h3>
+            <p>Chiede cortesemente nome, azienda e ruolo se il chiamante non si presenta.</p>
+          </article>
+          <article class="step">
+            <h3>Motivo</h3>
+            <p>Comprende se la richiesta è informativa, commerciale, customer care o agenda.</p>
+          </article>
+          <article class="step">
+            <h3>Priorità</h3>
+            <p>Classifica urgenza e rilevanza secondo cliente attivo, prospect, partner o interno.</p>
+          </article>
+          <article class="step">
+            <h3>Qualificazione</h3>
+            <p>Raccoglie bisogno, area aziendale, interesse e disponibilità a una call successiva.</p>
+          </article>
+          <article class="step">
+            <h3>Agenda</h3>
+            <p>Se serve meeting, raccoglie giorno, orario, durata, modalità e partecipanti.</p>
+          </article>
+          <article class="step">
+            <h3>Escalation</h3>
+            <p>Se emergono prezzi, trattative o decisioni economiche, passa al referente corretto.</p>
+          </article>
+          <article class="step">
+            <h3>Chiusura</h3>
+            <p>Conferma la prossima azione e chiede se può aiutare in altro.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="commerciale">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Richiesta commerciale</div>
+            <h2>Quando il cliente chiede un commerciale, Sara lascia scegliere.</h2>
+          </div>
+          <p class="section-lead">
+            Sara non decide autonomamente chi coinvolgere. Presenta le alternative disponibili,
+            chiarisce la differenza se il cliente è indeciso e registra la richiesta.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag teal">Alex</span>
+            <h3>Supporto commerciale</h3>
+            <p>Indicato per presentazione soluzioni, demo operative e supporto commerciale di primo livello.</p>
+          </article>
+          <article class="card">
+            <span class="tag orange">Bellorio</span>
+            <h3>Consulenza e strategia</h3>
+            <p>Indicato per decisioni strategiche, temi economici, trattative o clienti ad alta priorità.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Nessuno disponibile</span>
+            <h3>Appuntamento e CRM</h3>
+            <p>Raccoglie recapito, pianifica richiamata, propone appuntamento e segnala priorità nel CRM.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="agenda">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Agenda e meeting</div>
+            <h2>Gli appuntamenti richiedono email confermate e disponibilità reale.</h2>
+          </div>
+          <p class="section-lead">
+            Per i meeting Teams Sara deve assicurarsi di avere indirizzi email validi dei partecipanti
+            e di non confermare slot non verificati.
+          </p>
+        </div>
+        <div class="split">
+          <article class="card list-card">
+            <span class="tag teal">Dati da raccogliere</span>
+            <h3>Informazioni minime meeting</h3>
+            <ul>
+              <li>Giorno, orario e durata stimata.</li>
+              <li>Modalità: Teams, presenza o call.</li>
+              <li>Email confermate dei partecipanti esterni.</li>
+              <li>Motivo dell'incontro e nota sintetica.</li>
+              <li>Eventuali alternative se lo slot non è disponibile.</li>
+            </ul>
+          </article>
+          <article class="card list-card">
+            <span class="tag orange">Regole di conferma</span>
+            <h3>Prima di fissare</h3>
+            <ul>
+              <li>Verificare disponibilità in agenda prima di confermare.</li>
+              <li>Controllare che lo slot copra tutta la durata richiesta.</li>
+              <li>Non sovrapporre appuntamenti o blocchi operativi.</li>
+              <li>Proporre massimo due alternative realmente libere.</li>
+              <li>Usare timezone Europe/Rome e chiedere conferma se ambiguo.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="terabrain">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Conoscenza TERABRAIN</div>
+            <h2>Sara presenta TERABRAIN a livello executive, senza tecnicismi inutili.</h2>
+          </div>
+          <p class="section-lead">
+            Quando il cliente chiede informazioni sulla piattaforma, Sara spiega il valore in modo sintetico,
+            qualifica l'area di interesse e propone una call di approfondimento.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag teal">Posizionamento</span>
+            <h3>Piattaforma Agentic AI</h3>
+            <p>TERABRAIN crea, orchestra e monitora agenti AI come Digital Twins Operativi di ruoli e processi.</p>
+          </article>
+          <article class="card">
+            <span class="tag orange">Use case</span>
+            <h3>Agenti per funzioni aziendali</h3>
+            <p>Receptionist digitale, Sales Account AI, Customer Care AI, Compliance Copilot, HR e Logistics Optimizer.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Business value</span>
+            <h3>Collaborazione uomo + AI</h3>
+            <p>Il messaggio centrale è che TERABRAIN potenzia le persone, riducendo attività ripetitive e aumentando controllo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="priorita">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Prioritizzazione</div>
+            <h2>Ogni contatto viene gestito con una priorità chiara.</h2>
+          </div>
+          <p class="section-lead">
+            Sara deve capire rapidamente se il contatto richiede gestione immediata,
+            follow-up commerciale o semplice presa in carico operativa.
+          </p>
+        </div>
+        <div class="priority">
+          <div><strong>1. Clienti attivi</strong><span>Richieste operative, commerciali o customer care già in relazione.</span></div>
+          <div><strong>2. Prospect qualificati</strong><span>Contatti con esigenza reale, urgenza o interesse concreto.</span></div>
+          <div><strong>3. Partner strategici</strong><span>Interlocutori che possono generare opportunità o collaborazione.</span></div>
+          <div><strong>4. Attività interne</strong><span>Richieste organizzative o amministrative meno urgenti.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="email">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Email e follow-up</div>
+            <h2>Sara può confermare, sollecitare e coordinare comunicazioni operative.</h2>
+          </div>
+          <p class="section-lead">
+            Le email servono a chiudere il ciclo della chiamata: conferma ricezione,
+            invio riepilogo, coordinamento appuntamento o richiesta di riscontro.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag teal">Conferma</span>
+            <h3>Ricezione richiesta</h3>
+            <p>Può confermare che la richiesta è stata presa in carico e indicare il prossimo passaggio.</p>
+          </article>
+          <article class="card">
+            <span class="tag orange">Sollecito</span>
+            <h3>Follow-up operativo</h3>
+            <p>Può sollecitare riscontri, recapiti mancanti o conferme per appuntamenti.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Vincoli</span>
+            <h3>Niente offerte</h3>
+            <p>Non invia offerte economiche, non accetta accordi e non modifica condizioni contrattuali.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="guardrail">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Guardrail</div>
+            <h2>Sara qualifica e organizza, ma non negozia.</h2>
+          </div>
+          <p class="section-lead">
+            Il suo perimetro è il primo contatto commerciale e operativo. Ogni decisione economica,
+            legale o strategica deve passare a Bellorio o al referente corretto.
+          </p>
+        </div>
+        <div class="guardrail">
+          <article class="card">
+            <h3>Cosa deve fare</h3>
+            <ul class="guardrail-list">
+              <li>Usare tono formale, risposte brevi e nessuna spiegazione tecnica inutile.</li>
+              <li>Identificare chiamante, motivo, urgenza e priorità.</li>
+              <li>Qualificare lead e proporre appuntamento se opportuno.</li>
+              <li>Gestire follow-up e registrare la richiesta nel CRM quando previsto.</li>
+              <li>Trasferire o escalare se emergono temi economici, legali o strategici.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Cosa non deve fare</h3>
+            <ul class="guardrail-list">
+              <li>Non comunicare prezzi, costi, sconti o preventivi.</li>
+              <li>Non negoziare condizioni economiche o contrattuali.</li>
+              <li>Non firmare contratti o prendere decisioni strategiche.</li>
+              <li>Non condividere dati riservati.</li>
+              <li>Non confermare meeting senza email partecipanti e disponibilità verificata.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Sara trasforma ogni chiamata in un flusso ordinato.</h2>
+            <p>
+              Primo contatto, qualificazione, priorità, agenda, follow-up ed escalation:
+              un presidio telefonico AI per non perdere richieste commerciali e operative.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="#chiamate">Rivedi il flow</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>Sara Telemarketing · TeraBrain Voice Sales Agent</span>
+      <span>Inbound calls · Lead qualification · Agenda · Follow-up · Escalation</span>
+    </div>
+  </footer>
+</body>
+</html>

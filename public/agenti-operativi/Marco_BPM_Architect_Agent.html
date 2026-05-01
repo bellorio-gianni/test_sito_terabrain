@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco BPM Architect | Enterprise Process Analyst Agent</title>
+  <meta name="description" content="Marco BPM Architect è l'AI Agent TERABRAIN per analisi processi, modellazione AS-IS/TO-BE, workflow design e architetture di AI Agents." />
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --panel:#101012;
+      --panel-2:#141416;
+      --line:#26262b;
+      --line-soft:rgba(255,255,255,0.07);
+      --text:#f5f5f5;
+      --muted:#b3b3b3;
+      --soft:#85858d;
+      --accent:#ff7a00;
+      --accent-2:#ff9a3d;
+      --teal:#2fd2c4;
+      --blue:#8aa4ff;
+      --radius:18px;
+      --shadow:0 24px 70px rgba(0,0,0,0.55);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text",Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 14% 0,rgba(255,122,0,0.18),transparent 32%),
+        radial-gradient(circle at 86% 10%,rgba(47,210,196,0.11),transparent 30%),
+        linear-gradient(180deg,#111114 0,#0b0b0c 48%,#070708 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none;}
+    .container{width:min(1120px,90vw);margin:0 auto;}
+    .hero{
+      min-height:96vh;
+      display:grid;
+      align-items:center;
+      padding:56px 0 44px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,0.95fr) minmax(360px,1.05fr);
+      gap:42px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border:1px solid rgba(255,122,0,0.44);
+      border-radius:999px;
+      background:rgba(255,122,0,0.09);
+      color:#ffbd7b;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      margin-bottom:22px;
+    }
+    .eyebrow::before{
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 18px var(--accent);
+    }
+    h1{
+      max-width:800px;
+      font-size:clamp(42px,6vw,76px);
+      line-height:0.98;
+      letter-spacing:0;
+      margin-bottom:22px;
+    }
+    h1 span{color:var(--accent);}
+    .hero-copy{
+      max-width:650px;
+      color:var(--muted);
+      font-size:18px;
+      margin-bottom:26px;
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.16);
+      font-size:14px;
+      font-weight:800;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,0.36);}
+    .btn-primary{
+      background:var(--accent);
+      color:#140800;
+      border-color:var(--accent);
+      box-shadow:0 14px 34px rgba(255,122,0,0.3);
+    }
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      max-width:650px;
+    }
+    .stat{border-top:1px solid rgba(255,255,255,0.13);padding-top:12px;}
+    .stat strong{display:block;font-size:24px;line-height:1.1;margin-bottom:5px;color:#fff;}
+    .stat span{font-size:12px;color:var(--soft);}
+    .hero-visual{
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 50% 0,rgba(255,154,61,0.16),transparent 48%),
+        radial-gradient(circle at 18% 85%,rgba(47,210,196,0.10),transparent 45%),
+        rgba(16,16,18,0.88);
+      box-shadow:var(--shadow);
+      padding:18px;
+      overflow:hidden;
+    }
+    .agent-map{width:100%;height:auto;display:block;min-height:430px;}
+    .map-bg{fill:rgba(0,0,0,0.18);stroke:rgba(255,255,255,0.08);}
+    .map-node{fill:rgba(255,255,255,0.055);stroke:rgba(255,255,255,0.16);stroke-width:1.2;}
+    .map-node-hot{fill:rgba(255,122,0,0.13);stroke:rgba(255,122,0,0.75);stroke-width:1.6;}
+    .map-node-cool{fill:rgba(47,210,196,0.1);stroke:rgba(47,210,196,0.5);stroke-width:1.4;}
+    .map-line-hot{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;}
+    .map-line-cool{fill:none;stroke:var(--teal);stroke-width:2.5;stroke-linecap:round;}
+    .map-title{fill:#fff;font-size:22px;font-weight:800;}
+    .map-label{fill:#f5f5f5;font-size:15px;font-weight:800;}
+    .map-small{fill:#b3b3b3;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}
+    section{padding:76px 0;border-top:1px solid var(--line-soft);}
+    .section-head{
+      display:grid;
+      grid-template-columns:minmax(0,0.9fr) minmax(280px,0.62fr);
+      gap:28px;
+      align-items:end;
+      margin-bottom:32px;
+    }
+    .kicker{color:var(--accent);font-size:12px;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:9px;}
+    h2{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:0;}
+    .section-lead{color:var(--muted);font-size:16px;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(16,16,18,0.76);
+      padding:22px;
+      box-shadow:0 14px 34px rgba(0,0,0,0.3);
+    }
+    .card h3{font-size:19px;line-height:1.2;margin-bottom:9px;}
+    .card p{color:var(--muted);font-size:14px;}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:0 9px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#d9daf0;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:0.07em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .tag.orange{color:#ffbd7b;background:rgba(255,122,0,0.1);border-color:rgba(255,122,0,0.28);}
+    .tag.teal{color:#8ff0e7;background:rgba(47,210,196,0.09);border-color:rgba(47,210,196,0.28);}
+    .tag.blue{color:#d5dcff;background:rgba(138,164,255,0.1);border-color:rgba(138,164,255,0.28);}
+    .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:step;}
+    .step{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.025));
+      min-height:178px;
+    }
+    .step::before{
+      counter-increment:step;
+      content:counter(step,decimal-leading-zero);
+      display:block;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.14em;
+      margin-bottom:20px;
+    }
+    .step h3{font-size:16px;margin-bottom:8px;}
+    .step p{font-size:13px;color:var(--muted);}
+    .split{
+      display:grid;
+      grid-template-columns:1.05fr 0.95fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    .list-card ul{list-style:none;display:grid;gap:11px;margin-top:14px;}
+    .list-card li{
+      color:var(--muted);
+      font-size:14px;
+      padding-left:20px;
+      position:relative;
+    }
+    .list-card li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:9px;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent);
+    }
+    .agent-spec{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:1px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
+      background:var(--line);
+    }
+    .agent-spec div{background:#0d0d0f;padding:18px;min-height:104px;}
+    .agent-spec strong{display:block;color:#fff;font-size:14px;margin-bottom:6px;}
+    .agent-spec span{color:var(--muted);font-size:12px;}
+    .workflow-diagram-outer{
+      width:52%;
+      max-width:720px;
+      margin:12px auto 18px;
+    }
+    .workflow-diagram{
+      background:#07070a;
+      border:1px solid #1f1f25;
+      border-radius:12px;
+      padding:10px;
+      overflow:auto;
+    }
+    .workflow-diagram svg{width:100%;height:auto;max-width:100%;display:block;}
+    .mermaid-source{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#07070a;
+      padding:18px;
+      color:#ffd3ab;
+      font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+      overflow:auto;
+      margin-top:16px;
+    }
+    .report-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+    .guardrail{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .guardrail-list{list-style:none;display:grid;gap:12px;}
+    .guardrail-list li{
+      border-left:3px solid var(--accent);
+      padding:10px 0 10px 14px;
+      color:var(--muted);
+      font-size:14px;
+      background:linear-gradient(90deg,rgba(255,122,0,0.07),transparent);
+    }
+    .cta{
+      padding:70px 0;
+      background:
+        radial-gradient(circle at 22% 50%,rgba(255,122,0,0.16),transparent 36%),
+        radial-gradient(circle at 78% 50%,rgba(47,210,196,0.12),transparent 34%),
+        #080808;
+    }
+    .cta-box{
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:38px;
+      background:rgba(16,16,18,0.78);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+    .cta h2{font-size:36px;margin-bottom:10px;}
+    .cta p{color:var(--muted);max-width:720px;}
+    footer{padding:28px 0;color:var(--soft);font-size:13px;border-top:1px solid var(--line-soft);}
+    .footer-row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+    @media(max-width:980px){
+      .hero-grid,.section-head,.split,.guardrail,.cta-box{grid-template-columns:1fr;}
+      .hero{min-height:auto;}
+      .grid-3,.steps,.agent-spec,.report-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .hero-stats{grid-template-columns:1fr;}
+      .workflow-diagram-outer{width:100%;max-width:100%;}
+      .agent-map{min-height:360px;}
+    }
+    @media(max-width:640px){
+      .container{width:min(92vw,1120px);}
+      .hero{padding-top:34px;}
+      .hero-grid{grid-template-columns:1fr;gap:28px;}
+      .grid-3,.grid-2,.steps,.agent-spec,.report-grid{grid-template-columns:1fr;}
+      .hero-visual{padding:10px;border-radius:22px;}
+      .agent-map{min-height:310px;}
+      .cta-box{padding:24px;}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Enterprise Process Analyst Agent</div>
+          <h1>Marco BPM Architect trasforma processi informali in <span>modelli operativi</span>.</h1>
+          <p class="hero-copy">
+            Marco BPM Architect analizza processi aziendali AS-IS, identifica inefficienze,
+            colli di bottiglia e rischi, progetta workflow TO-BE e definisce architetture di AI Agents
+            con duty operative per ogni ruolo digitale.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#intervista">Intervista processo</a>
+            <a class="btn" href="#agents">AI Agent Architecture</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>AS-IS</strong><span>ricostruzione del processo reale</span></div>
+            <div class="stat"><strong>TO-BE</strong><span>workflow ottimizzato e tracciabile</span></div>
+            <div class="stat"><strong>Duties</strong><span>specifiche operative per agenti AI</span></div>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Mappa operativa di Marco BPM Architect">
+          <svg class="agent-map" viewBox="0 0 760 620" role="img" aria-labelledby="mapTitle mapDesc">
+            <title id="mapTitle">Mappa operativa di Marco BPM Architect</title>
+            <desc id="mapDesc">Marco riceve il racconto informale di un processo, costruisce il modello AS-IS, identifica problemi, propone TO-BE e disegna AI Agents.</desc>
+            <defs>
+              <marker id="arrowOrangeBpm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#ff7a00" />
+              </marker>
+              <marker id="arrowTealBpm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#2fd2c4" />
+              </marker>
+            </defs>
+            <rect class="map-bg" x="24" y="24" width="712" height="572" rx="28" />
+            <text class="map-small" x="58" y="68">PROCESS INTELLIGENCE GRAPH</text>
+            <text class="map-title" x="58" y="102">Dal racconto al workflow agentico</text>
+
+            <rect class="map-node" x="58" y="144" width="164" height="74" rx="18" />
+            <text class="map-label" x="140" y="176" text-anchor="middle">Racconto libero</text>
+            <text class="map-small" x="140" y="198" text-anchor="middle">processo informale</text>
+
+            <rect class="map-node" x="58" y="250" width="164" height="74" rx="18" />
+            <text class="map-label" x="140" y="282" text-anchor="middle">Intervista</text>
+            <text class="map-small" x="140" y="304" text-anchor="middle">domande mirate</text>
+
+            <rect class="map-node" x="58" y="356" width="164" height="74" rx="18" />
+            <text class="map-label" x="140" y="388" text-anchor="middle">Sistemi e attori</text>
+            <text class="map-small" x="140" y="410" text-anchor="middle">CRM, ERP, persone</text>
+
+            <rect class="map-node-hot" x="300" y="234" width="170" height="104" rx="24" />
+            <text class="map-label" x="385" y="272" text-anchor="middle">Marco BPM</text>
+            <text class="map-label" x="385" y="298" text-anchor="middle">Architect</text>
+            <text class="map-small" x="385" y="320" text-anchor="middle">analyze · design · orchestrate</text>
+
+            <rect class="map-node-cool" x="544" y="116" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="145" text-anchor="middle">AS-IS</text>
+            <text class="map-small" x="619" y="165" text-anchor="middle">processo attuale</text>
+
+            <rect class="map-node-cool" x="544" y="208" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="237" text-anchor="middle">Critical Issues</text>
+            <text class="map-small" x="619" y="257" text-anchor="middle">rischi e bottleneck</text>
+
+            <rect class="map-node-cool" x="544" y="300" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="329" text-anchor="middle">TO-BE</text>
+            <text class="map-small" x="619" y="349" text-anchor="middle">workflow ottimizzato</text>
+
+            <rect class="map-node-cool" x="544" y="392" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="421" text-anchor="middle">AI Agents</text>
+            <text class="map-small" x="619" y="441" text-anchor="middle">duties operative</text>
+
+            <path class="map-line-hot" d="M222 181 C260 190,276 244,300 266" marker-end="url(#arrowOrangeBpm)" />
+            <path class="map-line-cool" d="M222 287 C258 288,274 288,300 288" marker-end="url(#arrowTealBpm)" />
+            <path class="map-line-hot" d="M222 393 C260 382,278 326,300 310" marker-end="url(#arrowOrangeBpm)" />
+            <path class="map-line-cool" d="M470 264 C504 230,512 164,544 150" marker-end="url(#arrowTealBpm)" />
+            <path class="map-line-hot" d="M470 280 C502 254,514 242,544 242" marker-end="url(#arrowOrangeBpm)" />
+            <path class="map-line-cool" d="M470 302 C502 318,514 330,544 334" marker-end="url(#arrowTealBpm)" />
+            <path class="map-line-hot" d="M470 322 C504 354,512 408,544 426" marker-end="url(#arrowOrangeBpm)" />
+
+            <rect class="map-node" x="104" y="500" width="552" height="58" rx="18" />
+            <text class="map-label" x="380" y="524" text-anchor="middle">Report finale</text>
+            <text class="map-small" x="380" y="546" text-anchor="middle">process analysis · workflow diagram · suggested agents · duties</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="funzioni">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Funzioni principali</div>
+            <h2>Un consulente organizzativo digitale per progettare processi e agenti.</h2>
+          </div>
+          <p class="section-lead">
+            Marco combina business process analysis, workflow engineering, process optimization,
+            automation design e AI agent orchestration.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag orange">Process Analysis</span>
+            <h3>Ricostruzione AS-IS</h3>
+            <p>Trasforma il racconto informale in meta-processo, attori, sistemi, step, decisioni, documenti, eccezioni e bottleneck.</p>
+          </article>
+          <article class="card">
+            <span class="tag teal">Optimization</span>
+            <h3>Disegno TO-BE</h3>
+            <p>Riduce passaggi inutili, duplicazioni e dipendenze critiche, aumentando automazione, tracciabilità e controllo operativo.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Agent Design</span>
+            <h3>Architettura AI Agents</h3>
+            <p>Identifica agenti necessari, ruoli, input, output, trigger, limiti, escalation umana e KPI misurabili.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="intervista">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Interview engine</div>
+            <h2>Parte dal racconto libero, poi struttura il processo con domande mirate.</h2>
+          </div>
+          <p class="section-lead">
+            Marco non assume che il processo raccontato sia completo. Prima ascolta,
+            poi ricostruisce, poi approfondisce ciò che manca.
+          </p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <h3>Racconto libero</h3>
+            <p>Invita l'utente a descrivere il processo dall'inizio alla fine in modo informale.</p>
+          </article>
+          <article class="step">
+            <h3>Prima struttura</h3>
+            <p>Organizza obiettivo, attori, fasi principali, strumenti, criticità e informazioni mancanti.</p>
+          </article>
+          <article class="step">
+            <h3>Trigger e chiusura</h3>
+            <p>Chiarisce cosa avvia il processo, primo step, ultimo step e criterio di conclusione.</p>
+          </article>
+          <article class="step">
+            <h3>Attori e decisioni</h3>
+            <p>Identifica chi esegue le attività, chi decide, chi approva e chi deve essere informato.</p>
+          </article>
+          <article class="step">
+            <h3>Sistemi e documenti</h3>
+            <p>Mappa CRM, ERP, ticket system, document management, Excel, email e repository usati.</p>
+          </article>
+          <article class="step">
+            <h3>Tempi e volumi</h3>
+            <p>Raccoglie durata media, frequenza, casi gestiti e punti in cui si verificano ritardi.</p>
+          </article>
+          <article class="step">
+            <h3>Eccezioni e rischi</h3>
+            <p>Analizza cosa succede quando mancano dati, qualcuno non risponde o si verifica un errore.</p>
+          </article>
+          <article class="step">
+            <h3>Automazione</h3>
+            <p>Isola attività ripetitive, validazioni, solleciti, routing e monitoraggi automatizzabili.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="analysis">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Process analysis engine</div>
+            <h2>Distingue processo dichiarato, processo reale e problemi operativi.</h2>
+          </div>
+          <p class="section-lead">
+            L'analisi separa AS-IS, criticità, rischi e opportunità di miglioramento,
+            evitando automazioni inutili o non giustificate.
+          </p>
+        </div>
+        <div class="split">
+          <article class="card list-card">
+            <span class="tag orange">Cosa identifica</span>
+            <h3>Inefficienze, rischi e dipendenze</h3>
+            <ul>
+              <li>Duplicazioni, passaggi inutili e attività ridondanti</li>
+              <li>Attese, colli di bottiglia e dipendenze da singole persone</li>
+              <li>Perdita informativa, errori manuali e scarsa tracciabilità</li>
+              <li>Sistemi non integrati e passaggi manuali tra piattaforme</li>
+              <li>Loop operativi che rallentano la chiusura del processo</li>
+            </ul>
+          </article>
+          <article class="card list-card">
+            <span class="tag teal">Cosa propone</span>
+            <h3>TO-BE semplificato e controllabile</h3>
+            <ul>
+              <li>Riduzione degli step e delle duplicazioni</li>
+              <li>Responsabilità chiare e punti decisionali espliciti</li>
+              <li>Quality gate, validazioni e regole di escalation</li>
+              <li>Maggiore automazione su attività ripetitive</li>
+              <li>KPI per monitorare tempi, errori, backlog e SLA</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Workflow design</div>
+            <h2>Ogni processo ottimizzato viene rappresentato come sequenza e diagramma.</h2>
+          </div>
+          <p class="section-lead">
+            Nei report di analisi processo, il workflow deve essere leggibile, centrato e compatibile
+            con viewer che bloccano script esterni. La pagina mostra un esempio statico inline.
+          </p>
+        </div>
+        <div class="workflow-diagram-outer">
+          <div id="workflow-diagram" class="workflow-diagram">
+            <svg viewBox="0 0 620 460" role="img" aria-labelledby="workflowTitle workflowDesc">
+              <title id="workflowTitle">Workflow TO-BE esempio</title>
+              <desc id="workflowDesc">Diagramma con trigger, intake, validazione dati, integrazione, routing, esecuzione, monitoring e chiusura.</desc>
+              <defs>
+                <marker id="wfArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0 0 L10 5 L0 10 z" fill="#ff7a00" />
+                </marker>
+              </defs>
+              <rect x="14" y="14" width="592" height="432" rx="18" fill="#0b0b0c" stroke="#26262b" />
+              <g font-family="system-ui, sans-serif" font-size="13" font-weight="700">
+                <rect x="70" y="48" width="160" height="48" rx="12" fill="#111114" stroke="#ff7a00" />
+                <text x="150" y="77" fill="#fff" text-anchor="middle">Trigger richiesta</text>
+                <rect x="70" y="130" width="160" height="48" rx="12" fill="#111114" stroke="#ff7a00" />
+                <text x="150" y="159" fill="#fff" text-anchor="middle">Intake dati</text>
+                <polygon points="150,214 230,258 150,302 70,258" fill="#111114" stroke="#ff7a00" />
+                <text x="150" y="254" fill="#fff" text-anchor="middle">Dati</text>
+                <text x="150" y="273" fill="#fff" text-anchor="middle">completi?</text>
+                <rect x="340" y="130" width="170" height="48" rx="12" fill="#111114" stroke="#ff7a00" />
+                <text x="425" y="159" fill="#fff" text-anchor="middle">Richiesta integrazione</text>
+                <rect x="70" y="342" width="160" height="48" rx="12" fill="#111114" stroke="#ff7a00" />
+                <text x="150" y="371" fill="#fff" text-anchor="middle">Routing attività</text>
+                <rect x="340" y="252" width="170" height="48" rx="12" fill="#111114" stroke="#ff7a00" />
+                <text x="425" y="281" fill="#fff" text-anchor="middle">Esecuzione task</text>
+                <rect x="340" y="342" width="170" height="48" rx="12" fill="#111114" stroke="#ff7a00" />
+                <text x="425" y="371" fill="#fff" text-anchor="middle">Monitoring e chiusura</text>
+              </g>
+              <g fill="none" stroke="#ff7a00" stroke-width="3" marker-end="url(#wfArrow)">
+                <path d="M150 96 L150 130" />
+                <path d="M150 178 L150 214" />
+                <path d="M230 258 C285 258 300 154 340 154" />
+                <path d="M340 154 C290 154 272 154 230 154" />
+                <path d="M150 302 L150 342" />
+                <path d="M230 366 L340 276" />
+                <path d="M425 300 L425 342" />
+              </g>
+              <text x="282" y="247" fill="#ff9a3d" font-family="system-ui, sans-serif" font-size="12" font-weight="800">No</text>
+              <text x="164" y="326" fill="#ff9a3d" font-family="system-ui, sans-serif" font-size="12" font-weight="800">Si</text>
+            </svg>
+          </div>
+        </div>
+        <pre class="mermaid-source">flowchart TD
+A[Trigger richiesta] --&gt; B[Intake dati]
+B --&gt; C{Dati completi?}
+C -- No --&gt; D[Richiesta integrazione]
+D --&gt; B
+C -- Si --&gt; E[Routing attività]
+E --&gt; F[Esecuzione task]
+F --&gt; G[Monitoring e chiusura]</pre>
+      </div>
+    </section>
+
+    <section id="agents">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">AI Agent design engine</div>
+            <h2>Gli agenti vengono proposti solo dove generano valore operativo.</h2>
+          </div>
+          <p class="section-lead">
+            Marco valuta attività ripetitive, raccolta informazioni, validazione, routing,
+            monitoraggio, solleciti, compliance e coordinamento workflow.
+          </p>
+        </div>
+        <div class="agent-spec">
+          <div><strong>Intake Agent</strong><span>Raccolta richiesta, dati iniziali e prima classificazione.</span></div>
+          <div><strong>Validation Agent</strong><span>Controllo completezza, qualità e coerenza delle informazioni.</span></div>
+          <div><strong>Routing Agent</strong><span>Smistamento al reparto corretto e attivazione workflow.</span></div>
+          <div><strong>Execution Agent</strong><span>Supporto operativo ed esecuzione task automatizzabili.</span></div>
+          <div><strong>Monitoring Agent</strong><span>Avanzamento, ritardi, KPI, backlog e SLA.</span></div>
+          <div><strong>Follow-up Agent</strong><span>Solleciti, promemoria, aggiornamenti e gestione scadenze.</span></div>
+          <div><strong>Compliance Agent</strong><span>Controllo policy, procedure e conformità operativa.</span></div>
+          <div><strong>Orchestrator Agent</strong><span>Coordinamento agenti, stato processo ed escalation.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="duties">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Duty generation</div>
+            <h2>Ogni agente suggerito riceve una scheda e una duty completa.</h2>
+          </div>
+          <p class="section-lead">
+            Le specifiche rendono gli agenti implementabili: missione, responsabilità, input,
+            output, trigger, limiti, escalation umana e KPI.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag orange">Scheda agente</span>
+            <h3>Missione e responsabilità</h3>
+            <p>Definisce lo scopo dell'agente nel processo, le attività principali e il suo perimetro operativo.</p>
+          </article>
+          <article class="card">
+            <span class="tag teal">Contratto operativo</span>
+            <h3>Input, output e trigger</h3>
+            <p>Stabilisce cosa riceve l'agente, cosa produce e quale evento lo attiva nel workflow.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Governance</span>
+            <h3>Limiti, escalation e KPI</h3>
+            <p>Chiarisce azioni consentite, guardrail, intervento umano e metriche di efficacia.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="report">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Report output</div>
+            <h2>Il risultato finale è un Process Analysis Report completo.</h2>
+          </div>
+          <p class="section-lead">
+            Il report separa processo attuale, problemi, processo ottimizzato e architettura agentica,
+            evitando report confusi o automazioni scollegate dal valore operativo.
+          </p>
+        </div>
+        <div class="report-grid">
+          <article class="card list-card">
+            <span class="tag orange">Process model</span>
+            <h3>Contenuto del report</h3>
+            <ul>
+              <li>Process name, objective, trigger, actors e systems used</li>
+              <li>Current process AS-IS e process steps</li>
+              <li>Critical issues, risk areas e missing information</li>
+              <li>Optimized process TO-BE e workflow diagram</li>
+            </ul>
+          </article>
+          <article class="card list-card">
+            <span class="tag teal">Agent architecture</span>
+            <h3>Specifiche agentiche</h3>
+            <ul>
+              <li>Suggested AI Agents con ruolo, input, output e trigger</li>
+              <li>Escalation umana per decisioni o anomalie</li>
+              <li>Agent duties complete per ogni agente identificato</li>
+              <li>Guardrail per mantenere separati AS-IS, problemi e TO-BE</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="html-standard">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">HTML report standard</div>
+            <h2>Report dark, professionali e compatibili con viewer enterprise.</h2>
+          </div>
+          <p class="section-lead">
+            Per i report HTML di process analysis Marco usa tema nero/arancione,
+            card scure e workflow diagram come SVG statico inline, con fallback testuale Mermaid.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag orange">Theme</span>
+            <h3>Nero / arancione</h3>
+            <p>Background scuro, pannelli card, testo chiaro, accenti arancioni e layout centrato entro circa 1120px.</p>
+          </article>
+          <article class="card">
+            <span class="tag teal">Workflow</span>
+            <h3>SVG statico inline</h3>
+            <p>Il diagramma non dipende da script client-side, così resta visibile anche in preview OneDrive o SharePoint.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Fallback</span>
+            <h3>Mermaid source</h3>
+            <p>Il codice Mermaid sanitizzato viene incluso in un blocco testo per garantire leggibilità anche se il rendering non è disponibile.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="guardrail">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Guardrail</div>
+            <h2>Automazione solo dove migliora davvero il processo.</h2>
+          </div>
+          <p class="section-lead">
+            Marco segnala le informazioni mancanti e non confonde processo raccontato, processo reale,
+            problemi, soluzione TO-BE e architettura agenti.
+          </p>
+        </div>
+        <div class="guardrail">
+          <article class="card">
+            <h3>Principi di analisi</h3>
+            <ul class="guardrail-list">
+              <li>Distinguere sempre AS-IS, problemi, TO-BE e agent architecture.</li>
+              <li>Non assumere che il racconto del processo sia completo.</li>
+              <li>Segnalare criticità, inefficienze e informazioni mancanti.</li>
+              <li>Verificare attori, sistemi, documenti, eccezioni e decision point.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Principi di progettazione agenti</h3>
+            <ul class="guardrail-list">
+              <li>Non proporre agenti se non portano valore operativo.</li>
+              <li>Definire limiti ed escalation umana per ogni agente.</li>
+              <li>Separare attività assistite da attività automatizzabili.</li>
+              <li>Misurare ogni agente con KPI coerenti al processo.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Marco BPM Architect rende i processi leggibili, misurabili e automatizzabili.</h2>
+            <p>
+              Un agent per passare dal racconto operativo alla progettazione di workflow,
+              controlli, AI Agents e duty pronte per l'implementazione TERABRAIN.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="#funzioni">Rivedi le funzioni</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>Marco BPM Architect · Enterprise Process Analyst Agent</span>
+      <span>AS-IS · TO-BE · Workflow design · AI Agent duties</span>
+    </div>
+  </footer>
+</body>
+</html>

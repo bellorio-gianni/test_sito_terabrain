@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insight Finder | Deep Search & Knowledge Archive Agent</title>
+  <meta name="description" content="Insight Finder è l'AI Agent TERABRAIN per deep search su fonti autorizzate, analisi OneDrive, archiviazione email PDF/HTML e classificazione semantica." />
+  <style>
+    :root{
+      --bg:#050509;
+      --panel:#101421;
+      --panel-2:#171d2e;
+      --line:rgba(255,255,255,0.12);
+      --line-soft:rgba(255,255,255,0.07);
+      --text:#f7f8fc;
+      --muted:#b7bbca;
+      --soft:#858b9f;
+      --accent:#2fd2c4;
+      --accent-2:#ff6a00;
+      --violet:#9a8cff;
+      --radius:18px;
+      --shadow:0 24px 70px rgba(0,0,0,0.52);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text",Segoe UI,sans-serif;
+      background:
+        radial-gradient(circle at 14% 0,rgba(47,210,196,0.16),transparent 32%),
+        radial-gradient(circle at 86% 10%,rgba(154,140,255,0.13),transparent 32%),
+        linear-gradient(180deg,#070911 0,#050509 48%,#080a10 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none;}
+    .container{width:min(1120px,90vw);margin:0 auto;}
+    .hero{
+      min-height:96vh;
+      display:grid;
+      align-items:center;
+      padding:56px 0 44px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,0.95fr) minmax(360px,1.05fr);
+      gap:42px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border:1px solid rgba(47,210,196,0.42);
+      border-radius:999px;
+      background:rgba(47,210,196,0.08);
+      color:#8ff0e7;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      margin-bottom:22px;
+    }
+    .eyebrow::before{
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 18px var(--accent);
+    }
+    h1{
+      max-width:780px;
+      font-size:clamp(42px,6vw,76px);
+      line-height:0.98;
+      letter-spacing:0;
+      margin-bottom:22px;
+    }
+    h1 span{color:var(--accent);}
+    .hero-copy{
+      max-width:630px;
+      color:var(--muted);
+      font-size:18px;
+      margin-bottom:26px;
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.16);
+      font-size:14px;
+      font-weight:800;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,0.36);}
+    .btn-primary{
+      background:var(--accent);
+      color:#001210;
+      border-color:var(--accent);
+      box-shadow:0 14px 34px rgba(47,210,196,0.28);
+    }
+    .hero-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:650px;}
+    .stat{border-top:1px solid var(--line);padding-top:12px;}
+    .stat strong{display:block;font-size:24px;line-height:1.1;margin-bottom:5px;color:#fff;}
+    .stat span{font-size:12px;color:var(--soft);}
+    .hero-visual{
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 50% 0,rgba(154,140,255,0.18),transparent 48%),
+        radial-gradient(circle at 18% 85%,rgba(47,210,196,0.14),transparent 45%),
+        rgba(16,20,33,0.84);
+      box-shadow:var(--shadow);
+      padding:18px;
+      overflow:hidden;
+    }
+    .agent-map{width:100%;height:auto;display:block;min-height:420px;}
+    .map-bg{fill:rgba(0,0,0,0.16);stroke:rgba(255,255,255,0.08);}
+    .map-node{fill:rgba(255,255,255,0.055);stroke:rgba(255,255,255,0.16);stroke-width:1.2;}
+    .map-node-hot{fill:rgba(47,210,196,0.13);stroke:rgba(47,210,196,0.72);stroke-width:1.6;}
+    .map-node-warm{fill:rgba(255,106,0,0.1);stroke:rgba(255,106,0,0.5);stroke-width:1.4;}
+    .map-line-hot{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;}
+    .map-line-warm{fill:none;stroke:var(--accent-2);stroke-width:2.6;stroke-linecap:round;}
+    .map-label{fill:#f1f2ff;font-size:15px;font-weight:800;}
+    .map-title{fill:#fff;font-size:22px;font-weight:800;}
+    .map-small{fill:#aeb1c6;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}
+    section{padding:76px 0;border-top:1px solid var(--line-soft);}
+    .section-head{
+      display:grid;
+      grid-template-columns:minmax(0,0.9fr) minmax(280px,0.62fr);
+      gap:28px;
+      align-items:end;
+      margin-bottom:32px;
+    }
+    .kicker{color:var(--accent);font-size:12px;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:9px;}
+    h2{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:0;}
+    .section-lead{color:var(--muted);font-size:16px;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(16,20,33,0.74);
+      padding:22px;
+      box-shadow:0 14px 34px rgba(0,0,0,0.28);
+    }
+    .card h3{font-size:19px;line-height:1.2;margin-bottom:9px;}
+    .card p{color:var(--muted);font-size:14px;}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:0 9px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#d9daf0;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:0.07em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .tag.teal{color:#8ff0e7;background:rgba(47,210,196,0.09);border-color:rgba(47,210,196,0.28);}
+    .tag.orange{color:#ffb071;background:rgba(255,106,0,0.1);border-color:rgba(255,106,0,0.28);}
+    .tag.violet{color:#d6d1ff;background:rgba(154,140,255,0.1);border-color:rgba(154,140,255,0.28);}
+    .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:step;}
+    .step{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.025));
+      min-height:178px;
+    }
+    .step::before{
+      counter-increment:step;
+      content:counter(step,decimal-leading-zero);
+      display:block;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.14em;
+      margin-bottom:20px;
+    }
+    .step h3{font-size:16px;margin-bottom:8px;}
+    .step p{font-size:13px;color:var(--muted);}
+    .matrix{
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:1px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
+      background:var(--line);
+    }
+    .matrix div{padding:18px;background:#0c101b;min-height:94px;}
+    .matrix strong{display:block;color:#fff;font-size:14px;margin-bottom:6px;}
+    .matrix span{color:var(--muted);font-size:12px;}
+    .flow{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:16px;align-items:stretch;}
+    .flow-card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:24px;
+      background:rgba(13,15,26,0.72);
+    }
+    .flow-card ul{list-style:none;display:grid;gap:11px;margin-top:14px;}
+    .flow-card li{color:var(--muted);font-size:14px;padding-left:20px;position:relative;}
+    .flow-card li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:9px;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent);
+    }
+    .output-code{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#080b12;
+      padding:20px;
+      color:#d7f7f4;
+      font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+      overflow:auto;
+    }
+    .guardrail{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .guardrail-list{list-style:none;display:grid;gap:12px;}
+    .guardrail-list li{
+      border-left:3px solid var(--accent);
+      padding:10px 0 10px 14px;
+      color:var(--muted);
+      font-size:14px;
+      background:linear-gradient(90deg,rgba(47,210,196,0.07),transparent);
+    }
+    .cta{
+      padding:70px 0;
+      background:
+        radial-gradient(circle at 22% 50%,rgba(47,210,196,0.16),transparent 36%),
+        radial-gradient(circle at 78% 50%,rgba(255,106,0,0.13),transparent 34%),
+        #080910;
+    }
+    .cta-box{
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:38px;
+      background:rgba(16,20,33,0.78);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+    .cta h2{font-size:36px;margin-bottom:10px;}
+    .cta p{color:var(--muted);max-width:720px;}
+    footer{padding:28px 0;color:var(--soft);font-size:13px;border-top:1px solid var(--line-soft);}
+    .footer-row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+    @media(max-width:980px){
+      .hero-grid,.section-head,.flow,.guardrail,.cta-box{grid-template-columns:1fr;}
+      .hero{min-height:auto;}
+      .grid-3,.steps{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .matrix{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .hero-stats{grid-template-columns:1fr;}
+      .agent-map{min-height:360px;}
+    }
+    @media(max-width:640px){
+      .container{width:min(92vw,1120px);}
+      .hero{padding-top:34px;}
+      .hero-grid{grid-template-columns:1fr;gap:28px;}
+      .grid-3,.grid-2,.steps,.matrix{grid-template-columns:1fr;}
+      .hero-visual{padding:10px;border-radius:22px;}
+      .agent-map{min-height:310px;}
+      .cta-box{padding:24px;}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Deep Search Agent</div>
+          <h1>Insight Finder, l'agent per <span>ricerca verificabile</span> e knowledge archive.</h1>
+          <p class="hero-copy">
+            Insight Finder opera su fonti limitate, controllate e autorizzate:
+            analizza pagine web nel perimetro consentito, documenti OneDrive,
+            email archiviate e contenuti aziendali, trasformandoli in Knowledge Pack verificabili.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#deep-search">Deep search</a>
+            <a class="btn" href="#archiviazione">Archiviazione email</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>Closed</strong><span>corpus controllato: niente fonti esterne non autorizzate</span></div>
+            <div class="stat"><strong>PDF+HTML</strong><span>archiviazione email in doppio formato</span></div>
+            <div class="stat"><strong>1</strong><span>repository scelto per analisi semantica</span></div>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Mappa operativa di Insight Finder">
+          <svg class="agent-map" viewBox="0 0 760 620" role="img" aria-labelledby="mapTitle mapDesc">
+            <title id="mapTitle">Mappa operativa di Insight Finder</title>
+            <desc id="mapDesc">Insight Finder parte da query, siti autorizzati, OneDrive ed email, produce Knowledge Pack, archivi PDF HTML e metadata semantici.</desc>
+            <defs>
+              <marker id="arrowTeal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#2fd2c4" />
+              </marker>
+              <marker id="arrowOrange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#ff6a00" />
+              </marker>
+            </defs>
+            <rect class="map-bg" x="24" y="24" width="712" height="572" rx="28" />
+            <text class="map-small" x="58" y="68">CONTROLLED KNOWLEDGE GRAPH</text>
+            <text class="map-title" x="58" y="102">Ricerca, archiviazione e classificazione</text>
+
+            <rect class="map-node" x="58" y="140" width="160" height="72" rx="18" />
+            <text class="map-label" x="138" y="171" text-anchor="middle">Query</text>
+            <text class="map-small" x="138" y="193" text-anchor="middle">domanda utente</text>
+
+            <rect class="map-node" x="58" y="242" width="160" height="72" rx="18" />
+            <text class="map-label" x="138" y="273" text-anchor="middle">Fonti web</text>
+            <text class="map-small" x="138" y="295" text-anchor="middle">solo domini autorizzati</text>
+
+            <rect class="map-node" x="58" y="344" width="160" height="72" rx="18" />
+            <text class="map-label" x="138" y="375" text-anchor="middle">OneDrive</text>
+            <text class="map-small" x="138" y="397" text-anchor="middle">corpus documentale</text>
+
+            <rect class="map-node-hot" x="300" y="232" width="170" height="104" rx="24" />
+            <text class="map-label" x="385" y="270" text-anchor="middle">Insight</text>
+            <text class="map-label" x="385" y="296" text-anchor="middle">Finder</text>
+            <text class="map-small" x="385" y="318" text-anchor="middle">verify · classify · cite</text>
+
+            <rect class="map-node-warm" x="544" y="116" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="145" text-anchor="middle">Deep Analysis</text>
+            <text class="map-small" x="619" y="165" text-anchor="middle">sintesi + prove</text>
+
+            <rect class="map-node-warm" x="544" y="208" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="237" text-anchor="middle">Knowledge Pack</text>
+            <text class="map-small" x="619" y="257" text-anchor="middle">fonti, citazioni, dati</text>
+
+            <rect class="map-node-warm" x="544" y="300" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="329" text-anchor="middle">Archive</text>
+            <text class="map-small" x="619" y="349" text-anchor="middle">PDF + HTML</text>
+
+            <rect class="map-node-warm" x="544" y="392" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="421" text-anchor="middle">Metadata</text>
+            <text class="map-small" x="619" y="441" text-anchor="middle">repo + tag + priorita</text>
+
+            <path class="map-line-hot" d="M218 176 C260 184,276 242,300 266" marker-end="url(#arrowTeal)" />
+            <path class="map-line-hot" d="M218 278 C258 278,270 280,300 282" marker-end="url(#arrowTeal)" />
+            <path class="map-line-hot" d="M218 380 C258 370,278 322,300 306" marker-end="url(#arrowTeal)" />
+            <path class="map-line-warm" d="M470 264 C504 230,512 164,544 150" marker-end="url(#arrowOrange)" />
+            <path class="map-line-warm" d="M470 280 C502 254,514 242,544 242" marker-end="url(#arrowOrange)" />
+            <path class="map-line-warm" d="M470 302 C502 318,514 330,544 334" marker-end="url(#arrowOrange)" />
+            <path class="map-line-warm" d="M470 322 C504 354,512 408,544 426" marker-end="url(#arrowOrange)" />
+
+            <rect class="map-node" x="104" y="500" width="552" height="58" rx="18" />
+            <text class="map-label" x="380" y="524" text-anchor="middle">Principio operativo</text>
+            <text class="map-small" x="380" y="546" text-anchor="middle">se non e verificabile nel corpus, viene dichiarato non trovato</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="fonti">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Scope controllato</div>
+            <h2>Insight Finder lavora solo sulle fonti autorizzate.</h2>
+          </div>
+          <p class="section-lead">
+            L'agente non espande autonomamente la ricerca al web aperto. Se una risposta non e supportata
+            dal corpus indicato, lo dichiara esplicitamente e chiede nuove fonti autorizzate.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag teal">Web autorizzato</span>
+            <h3>Dominio limitato</h3>
+            <p>Crawling mirato solo su siti o domini indicati dall'utente, senza uscire dal perimetro autorizzato.</p>
+          </article>
+          <article class="card">
+            <span class="tag violet">OneDrive</span>
+            <h3>Corpus documentale chiuso</h3>
+            <p>Analisi dei file presenti nella cartella indicata: PDF, Word, Excel, PowerPoint, HTML, TXT e immagini rilevanti.</p>
+          </article>
+          <article class="card">
+            <span class="tag orange">Verifica</span>
+            <h3>Niente assunzioni</h3>
+            <p>Le risposte distinguono tra dati trovati, lacune informative, contraddizioni e contenuti non presenti nelle fonti.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="deep-search">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Procedura operativa</div>
+            <h2>Deep search ragionata, citabile e riproducibile.</h2>
+          </div>
+          <p class="section-lead">
+            L'obiettivo non e raccogliere molti risultati, ma produrre conoscenza verificabile:
+            fonti consultate, citazioni chiave, dati strutturati e limiti del corpus.
+          </p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <h3>Identifica query</h3>
+            <p>Chiarisce la domanda di ricerca e chiede una precisazione se il perimetro non e chiaro.</p>
+          </article>
+          <article class="step">
+            <h3>Crawling mirato</h3>
+            <p>Scorre solo pagine interne autorizzate, raccogliendo titoli, sezioni, link e testo rilevante.</p>
+          </article>
+          <article class="step">
+            <h3>Analizza documenti</h3>
+            <p>Apre i file del corpus OneDrive ed estrae testo, tabelle, contenuti e riferimenti utili.</p>
+          </article>
+          <article class="step">
+            <h3>Costruisce Knowledge Pack</h3>
+            <p>Organizza fonti consultate, citazioni significative, concetti chiave, numeri e punti di attenzione.</p>
+          </article>
+          <article class="step">
+            <h3>Confronta evidenze</h3>
+            <p>Individua contraddizioni, duplicazioni, versioni diverse e lacune informative nel materiale.</p>
+          </article>
+          <article class="step">
+            <h3>Produce output</h3>
+            <p>Genera executive summary, analisi dettagliata, tabella finale, documenti usati e note di affidabilita.</p>
+          </article>
+          <article class="step">
+            <h3>Dichiara i limiti</h3>
+            <p>Se il corpus non basta, indica cosa manca e quali fonti o documenti servono per completare la risposta.</p>
+          </article>
+          <article class="step">
+            <h3>Rende verificabile</h3>
+            <p>Ogni risultato importante e collegato alla fonte o al documento che lo supporta.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="archiviazione">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Email archive</div>
+            <h2>Ogni email diventa una coppia documentale PDF + HTML.</h2>
+          </div>
+          <p class="section-lead">
+            Quando Insight Finder elabora una email inbound o outbound, archivia un solo PDF
+            e un solo HTML corrispondente, con contenuto completo, naming normalizzato e repository scelto semanticamente.
+          </p>
+        </div>
+        <div class="flow">
+          <article class="flow-card">
+            <span class="tag teal">Input</span>
+            <h3>Dati email estratti</h3>
+            <ul>
+              <li>Oggetto, mittente e destinatari</li>
+              <li>Data, ora e direzione del messaggio</li>
+              <li>Corpo completo della email o del thread</li>
+              <li>Elenco allegati, senza incorporarli nei file</li>
+            </ul>
+          </article>
+          <article class="flow-card">
+            <span class="tag orange">Output</span>
+            <h3>Due file esatti</h3>
+            <ul>
+              <li>1 PDF strutturato e leggibile</li>
+              <li>1 HTML equivalente con sfondo bianco</li>
+              <li>Stesso nome base e stesso suffisso versione</li>
+              <li>Nessuna copia extra nella root</li>
+            </ul>
+          </article>
+          <article class="flow-card">
+            <span class="tag violet">Verifica</span>
+            <h3>Controlli obbligatori</h3>
+            <ul>
+              <li>File accessibili e dimensione maggiore di zero</li>
+              <li>Nome senza spazi e senza caratteri invalidi</li>
+              <li>Salvataggio nella stessa cartella repository</li>
+              <li>Retry automatico in caso di errore</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="classificazione">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Semantic engine</div>
+            <h2>Classificazione per significato, non solo per keyword.</h2>
+          </div>
+          <p class="section-lead">
+            L'agent valuta contesto, intento, dominio, entita rilevanti e utilizzo previsto
+            per assegnare un solo repository e fino a tre tag standardizzati.
+          </p>
+        </div>
+        <div class="matrix" aria-label="Repository semantici">
+          <div><strong>Agentic_AI</strong><span>Agenti, automazione intelligente, orchestration</span></div>
+          <div><strong>LLM</strong><span>Modelli linguistici, provider, prompt, tuning</span></div>
+          <div><strong>Cyber</strong><span>Sicurezza, rischi, compliance tecnica</span></div>
+          <div><strong>Future</strong><span>Trend, scenari, innovazione futura</span></div>
+          <div><strong>Preventivi</strong><span>Offerte, proposte commerciali, pricing autorizzato</span></div>
+          <div><strong>Contratti</strong><span>Accordi, aspetti legali e documenti vincolanti</span></div>
+          <div><strong>Progetti</strong><span>Attivita operative, delivery, implementazioni</span></div>
+          <div><strong>Clienti</strong><span>Contenuti riferiti a un cliente specifico</span></div>
+          <div><strong>Report</strong><span>Analisi, risultati, sintesi e rendicontazioni</span></div>
+          <div><strong>Generico</strong><span>Fallback quando il contenuto non e classificabile</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="metadata">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Metadata output</div>
+            <h2>Ogni documento archiviato porta con se il contesto.</h2>
+          </div>
+          <p class="section-lead">
+            La classificazione non serve solo al salvataggio: genera metadati utili per ricerca,
+            audit, memoria aziendale e futuri agenti avanzati.
+          </p>
+        </div>
+        <pre class="output-code">{
+  "repository": "Report",
+  "categoria": "analisi_risultati",
+  "cliente": "nome_cliente_o_null",
+  "tags": ["AI_Agent", "Data_Analysis", "Operations"],
+  "priorita": "ALTA | MEDIA | BASSA",
+  "descrizione_semantica": "Sintesi del significato reale del documento e del motivo di classificazione."
+}</pre>
+      </div>
+    </section>
+
+    <section id="output">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Formato risposta</div>
+            <h2>Risposte finali ordinate, verificabili e complete dei limiti.</h2>
+          </div>
+          <p class="section-lead">
+            L'output di ricerca segue una struttura stabile per rendere immediata la lettura
+            e semplice la verifica delle fonti usate.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag teal">Sintesi</span>
+            <h3>Executive Summary</h3>
+            <p>Massimo otto righe con i risultati principali e il grado di copertura del corpus.</p>
+          </article>
+          <article class="card">
+            <span class="tag orange">Analisi</span>
+            <h3>Deep Analysis</h3>
+            <p>Sezioni dettagliate con evidenze, dati, citazioni, confronti e spiegazione dei passaggi logici.</p>
+          </article>
+          <article class="card">
+            <span class="tag violet">Tabella</span>
+            <h3>Risultati e fonti</h3>
+            <p>Tabella finale con fonte, tipo, risultato rilevante e link o documento di supporto.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="guardrail">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Guardrail</div>
+            <h2>Precisione prima della completezza apparente.</h2>
+          </div>
+          <p class="section-lead">
+            Insight Finder non riempie i vuoti con inferenze non autorizzate:
+            se manca una prova nel corpus, lo segnala come limite della ricerca.
+          </p>
+        </div>
+        <div class="guardrail">
+          <article class="card">
+            <h3>Regole di ricerca</h3>
+            <ul class="guardrail-list">
+              <li>Non cercare in siti esterni al perimetro autorizzato.</li>
+              <li>Non usare contenuti non inclusi nel corpus indicato.</li>
+              <li>Non generare risposte basate su dati inventati.</li>
+              <li>Dichiarare esplicitamente informazioni non trovate.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Regole di archiviazione</h3>
+            <ul class="guardrail-list">
+              <li>Esattamente un PDF e un HTML per singola email elaborata.</li>
+              <li>Mai salvare file vuoti, duplicati o con naming non conforme.</li>
+              <li>Mai creare repository nuovi se non autorizzati.</li>
+              <li>Usare fallback solo quando la cartella scelta non e accessibile.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Insight Finder rende verificabile la conoscenza aziendale.</h2>
+            <p>
+              Un agent per ricerche profonde su corpus controllati, archiviazione documentale,
+              classificazione semantica e produzione di risposte supportate da fonti.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="#fonti">Rivedi il perimetro</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>Insight Finder · Deep Search & Knowledge Archive Agent</span>
+      <span>Controlled sources · OneDrive corpus · PDF/HTML archive · Semantic metadata</span>
+    </div>
+  </footer>
+</body>
+</html>

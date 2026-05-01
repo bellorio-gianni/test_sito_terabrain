@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Sales Account | TeraBrain Commercial Agent</title>
+  <meta name="description" content="Alex Sales Account è l'AI Agent TeraBrain per demo commerciali, qualificazione cliente, presentazioni guidate, discussione preventivi e follow-up consulenziale." />
+  <style>
+    :root{
+      --bg:#050509;
+      --panel:#111320;
+      --panel-2:#171a29;
+      --line:rgba(255,255,255,0.12);
+      --line-soft:rgba(255,255,255,0.07);
+      --text:#f7f8fc;
+      --muted:#b8bdcc;
+      --soft:#858b9f;
+      --accent:#ff6a00;
+      --accent-2:#2fd2c4;
+      --blue:#7c9cff;
+      --green:#8de38d;
+      --radius:18px;
+      --shadow:0 24px 70px rgba(0,0,0,0.52);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text",Segoe UI,sans-serif;
+      background:
+        radial-gradient(circle at 14% 0,rgba(255,106,0,0.18),transparent 32%),
+        radial-gradient(circle at 86% 10%,rgba(47,210,196,0.12),transparent 32%),
+        linear-gradient(180deg,#080913 0,#050509 48%,#080910 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none;}
+    .container{width:min(1120px,90vw);margin:0 auto;}
+    .hero{
+      min-height:96vh;
+      display:grid;
+      align-items:center;
+      padding:56px 0 44px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,0.95fr) minmax(360px,1.05fr);
+      gap:42px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border:1px solid rgba(255,106,0,0.42);
+      border-radius:999px;
+      background:rgba(255,106,0,0.08);
+      color:#ffb071;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      margin-bottom:22px;
+    }
+    .eyebrow::before{
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 18px var(--accent);
+    }
+    h1{
+      max-width:820px;
+      font-size:clamp(42px,6vw,76px);
+      line-height:0.98;
+      letter-spacing:0;
+      margin-bottom:22px;
+    }
+    h1 span{color:var(--accent);}
+    .hero-copy{
+      max-width:660px;
+      color:var(--muted);
+      font-size:18px;
+      margin-bottom:26px;
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.16);
+      font-size:14px;
+      font-weight:800;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,0.36);}
+    .btn-primary{
+      background:var(--accent);
+      color:#120700;
+      border-color:var(--accent);
+      box-shadow:0 14px 34px rgba(255,106,0,0.3);
+    }
+    .hero-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:650px;}
+    .stat{border-top:1px solid var(--line);padding-top:12px;}
+    .stat strong{display:block;font-size:24px;line-height:1.1;margin-bottom:5px;color:#fff;}
+    .stat span{font-size:12px;color:var(--soft);}
+    .hero-visual{
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 50% 0,rgba(124,156,255,0.17),transparent 48%),
+        radial-gradient(circle at 18% 85%,rgba(255,106,0,0.15),transparent 45%),
+        rgba(17,19,32,0.84);
+      box-shadow:var(--shadow);
+      padding:18px;
+      overflow:hidden;
+    }
+    .agent-map{width:100%;height:auto;display:block;min-height:420px;}
+    .map-bg{fill:rgba(0,0,0,0.16);stroke:rgba(255,255,255,0.08);}
+    .map-node{fill:rgba(255,255,255,0.055);stroke:rgba(255,255,255,0.16);stroke-width:1.2;}
+    .map-node-hot{fill:rgba(255,106,0,0.13);stroke:rgba(255,106,0,0.72);stroke-width:1.6;}
+    .map-node-cool{fill:rgba(47,210,196,0.1);stroke:rgba(47,210,196,0.5);stroke-width:1.4;}
+    .map-line-hot{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;}
+    .map-line-cool{fill:none;stroke:var(--accent-2);stroke-width:2.6;stroke-linecap:round;}
+    .map-label{fill:#f1f2ff;font-size:15px;font-weight:800;}
+    .map-title{fill:#fff;font-size:22px;font-weight:800;}
+    .map-small{fill:#aeb1c6;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}
+    section{padding:76px 0;border-top:1px solid var(--line-soft);}
+    .section-head{
+      display:grid;
+      grid-template-columns:minmax(0,0.9fr) minmax(280px,0.62fr);
+      gap:28px;
+      align-items:end;
+      margin-bottom:32px;
+    }
+    .kicker{color:var(--accent);font-size:12px;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:9px;}
+    h2{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:0;}
+    .section-lead{color:var(--muted);font-size:16px;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(17,19,32,0.74);
+      padding:22px;
+      box-shadow:0 14px 34px rgba(0,0,0,0.28);
+    }
+    .card h3{font-size:19px;line-height:1.2;margin-bottom:9px;}
+    .card p{color:var(--muted);font-size:14px;}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:0 9px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#d9daf0;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:0.07em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .tag.orange{color:#ffb071;background:rgba(255,106,0,0.1);border-color:rgba(255,106,0,0.28);}
+    .tag.teal{color:#8ff0e7;background:rgba(47,210,196,0.09);border-color:rgba(47,210,196,0.28);}
+    .tag.blue{color:#d9e0ff;background:rgba(124,156,255,0.1);border-color:rgba(124,156,255,0.28);}
+    .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:step;}
+    .step{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.025));
+      min-height:178px;
+    }
+    .step::before{
+      counter-increment:step;
+      content:counter(step,decimal-leading-zero);
+      display:block;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.14em;
+      margin-bottom:20px;
+    }
+    .step h3{font-size:16px;margin-bottom:8px;}
+    .step p{font-size:13px;color:var(--muted);}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .list-card ul{list-style:none;display:grid;gap:11px;margin-top:14px;}
+    .list-card li{color:var(--muted);font-size:14px;padding-left:20px;position:relative;}
+    .list-card li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:9px;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent-2);
+    }
+    .slide-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:1px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
+      background:var(--line);
+    }
+    .slide-grid div{padding:18px;background:#0c101b;min-height:104px;}
+    .slide-grid strong{display:block;color:#fff;font-size:14px;margin-bottom:6px;}
+    .slide-grid span{color:var(--muted);font-size:12px;}
+    .quote{
+      border-left:3px solid var(--accent);
+      padding:12px 0 12px 16px;
+      color:var(--muted);
+      font-size:14px;
+      background:linear-gradient(90deg,rgba(255,106,0,0.08),transparent);
+      margin-top:12px;
+    }
+    .guardrail{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .guardrail-list{list-style:none;display:grid;gap:12px;}
+    .guardrail-list li{
+      border-left:3px solid var(--accent);
+      padding:10px 0 10px 14px;
+      color:var(--muted);
+      font-size:14px;
+      background:linear-gradient(90deg,rgba(255,106,0,0.07),transparent);
+    }
+    .cta{
+      padding:70px 0;
+      background:
+        radial-gradient(circle at 22% 50%,rgba(255,106,0,0.16),transparent 36%),
+        radial-gradient(circle at 78% 50%,rgba(47,210,196,0.13),transparent 34%),
+        #080910;
+    }
+    .cta-box{
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:38px;
+      background:rgba(17,19,32,0.78);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+    .cta h2{font-size:36px;margin-bottom:10px;}
+    .cta p{color:var(--muted);max-width:720px;}
+    footer{padding:28px 0;color:var(--soft);font-size:13px;border-top:1px solid var(--line-soft);}
+    .footer-row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+    @media(max-width:980px){
+      .hero-grid,.section-head,.split,.guardrail,.cta-box{grid-template-columns:1fr;}
+      .hero{min-height:auto;}
+      .grid-3,.steps,.slide-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .hero-stats{grid-template-columns:1fr;}
+      .agent-map{min-height:360px;}
+    }
+    @media(max-width:640px){
+      .container{width:min(92vw,1120px);}
+      .hero{padding-top:34px;}
+      .hero-grid{grid-template-columns:1fr;gap:28px;}
+      .grid-3,.grid-2,.steps,.slide-grid{grid-template-columns:1fr;}
+      .hero-visual{padding:10px;border-radius:22px;}
+      .agent-map{min-height:310px;}
+      .cta-box{padding:24px;}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">TeraBrain Sales Account</div>
+          <h1>Alex guida demo commerciali TeraBrain con <span>dialogo consulenziale</span>.</h1>
+          <p class="hero-copy">
+            Alex è il Sales Account AI di TeraBrain: qualifica il contesto cliente,
+            sceglie il percorso migliore tra call informativa e demo guidata,
+            collega le slide ai problemi reali e mantiene la conversazione breve, concreta e orientata al valore.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#meeting">Apertura meeting</a>
+            <a class="btn" href="#deck">Deck TeraBrain</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>15'</strong><span>conversazione breve e orientata al cliente</span></div>
+            <div class="stat"><strong>2-3</strong><span>frasi per intervento, poi domanda</span></div>
+            <div class="stat"><strong>Zero</strong><span>prezzi o preventivi senza Bellorio</span></div>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Mappa operativa di Alex Sales Account">
+          <svg class="agent-map" viewBox="0 0 760 620" role="img" aria-labelledby="mapTitle mapDesc">
+            <title id="mapTitle">Mappa operativa di Alex Sales Account</title>
+            <desc id="mapDesc">Alex qualifica cliente, sceglie modalità call, seleziona temi, guida slide e gestisce follow-up o escalation.</desc>
+            <defs>
+              <marker id="arrowOrangeAlex" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#ff6a00" />
+              </marker>
+              <marker id="arrowTealAlex" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#2fd2c4" />
+              </marker>
+            </defs>
+            <rect class="map-bg" x="24" y="24" width="712" height="572" rx="28" />
+            <text class="map-small" x="58" y="68">SALES CONVERSATION GRAPH</text>
+            <text class="map-title" x="58" y="102">Dal primo contatto alla demo utile</text>
+
+            <rect class="map-node" x="58" y="140" width="164" height="72" rx="18" />
+            <text class="map-label" x="140" y="171" text-anchor="middle">Cliente</text>
+            <text class="map-small" x="140" y="193" text-anchor="middle">settore e tipo azienda</text>
+
+            <rect class="map-node" x="58" y="242" width="164" height="72" rx="18" />
+            <text class="map-label" x="140" y="273" text-anchor="middle">Tema</text>
+            <text class="map-small" x="140" y="295" text-anchor="middle">care, sales, manualità</text>
+
+            <rect class="map-node" x="58" y="344" width="164" height="72" rx="18" />
+            <text class="map-label" x="140" y="375" text-anchor="middle">Modalità</text>
+            <text class="map-small" x="140" y="397" text-anchor="middle">call o slide guidate</text>
+
+            <rect class="map-node-hot" x="300" y="232" width="170" height="104" rx="24" />
+            <text class="map-label" x="385" y="270" text-anchor="middle">Alex</text>
+            <text class="map-label" x="385" y="296" text-anchor="middle">Sales Account</text>
+            <text class="map-small" x="385" y="318" text-anchor="middle">qualify · guide · ask</text>
+
+            <rect class="map-node-cool" x="544" y="116" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="145" text-anchor="middle">Slide route</text>
+            <text class="map-small" x="619" y="165" text-anchor="middle">slide consigliata</text>
+
+            <rect class="map-node-cool" x="544" y="208" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="237" text-anchor="middle">Valore</text>
+            <text class="map-small" x="619" y="257" text-anchor="middle">problema reale</text>
+
+            <rect class="map-node-cool" x="544" y="300" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="329" text-anchor="middle">Domanda</text>
+            <text class="map-small" x="619" y="349" text-anchor="middle">cliente parla</text>
+
+            <rect class="map-node-cool" x="544" y="392" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="421" text-anchor="middle">Escalation</text>
+            <text class="map-small" x="619" y="441" text-anchor="middle">Bellorio se pricing</text>
+
+            <path class="map-line-hot" d="M222 176 C260 184,276 242,300 266" marker-end="url(#arrowOrangeAlex)" />
+            <path class="map-line-cool" d="M222 278 C258 278,270 280,300 282" marker-end="url(#arrowTealAlex)" />
+            <path class="map-line-hot" d="M222 380 C258 370,278 322,300 306" marker-end="url(#arrowOrangeAlex)" />
+            <path class="map-line-cool" d="M470 264 C504 230,512 164,544 150" marker-end="url(#arrowTealAlex)" />
+            <path class="map-line-hot" d="M470 280 C502 254,514 242,544 242" marker-end="url(#arrowOrangeAlex)" />
+            <path class="map-line-cool" d="M470 302 C502 318,514 330,544 334" marker-end="url(#arrowTealAlex)" />
+            <path class="map-line-hot" d="M470 322 C504 354,512 408,544 426" marker-end="url(#arrowOrangeAlex)" />
+
+            <rect class="map-node" x="104" y="500" width="552" height="58" rx="18" />
+            <text class="map-label" x="380" y="524" text-anchor="middle">Principio sales</text>
+            <text class="map-small" x="380" y="546" text-anchor="middle">parla poco, fai domande, collega TeraBrain al contesto reale</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="funzioni">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Funzioni principali</div>
+            <h2>Un sales account digitale che guida il cliente, non le slide.</h2>
+          </div>
+          <p class="section-lead">
+            Alex si comporta come un consulente commerciale: ascolta, qualifica, interpreta il contesto,
+            seleziona i contenuti utili e porta la conversazione verso un'esigenza concreta.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag orange">Qualifica</span>
+            <h3>Settore, azienda e tema</h3>
+            <p>Prima di presentare TeraBrain raccoglie settore, tipo di azienda e area di interesse del cliente.</p>
+          </article>
+          <article class="card">
+            <span class="tag teal">Demo</span>
+            <h3>Call informativa o slide guidate</h3>
+            <p>Chiede al cliente se preferisce una conversazione libera oppure una demo con supporto delle slide.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Valore</span>
+            <h3>Problemi reali e use case</h3>
+            <p>Collega TeraBrain ad attività manuali, customer care, vendite, finance, operations e processi aziendali.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="meeting">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Meeting opening</div>
+            <h2>L'apertura è breve, qualificante e obbligatoria.</h2>
+          </div>
+          <p class="section-lead">
+            Alex non entra subito nella demo: prima capisce chi ha davanti e quale problema il cliente vuole affrontare.
+          </p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <h3>Presentazione</h3>
+            <p>Si presenta come Sales Account di TeraBrain con tono professionale e naturale.</p>
+          </article>
+          <article class="step">
+            <h3>Scelta modalità</h3>
+            <p>Chiede se il cliente preferisce una call informativa o una call guidata con slide.</p>
+          </article>
+          <article class="step">
+            <h3>Settore</h3>
+            <p>Domanda sempre in che settore opera l'azienda prima di procedere.</p>
+          </article>
+          <article class="step">
+            <h3>Tipo azienda</h3>
+            <p>Chiarisce se la realtà è più orientata alla produzione o alla commercializzazione.</p>
+          </article>
+          <article class="step">
+            <h3>Tema focus</h3>
+            <p>Chiede se concentrarsi su servizio clienti, aumento clienti o riduzione attività manuali.</p>
+          </article>
+          <article class="step">
+            <h3>Slide consigliata</h3>
+            <p>Dopo settore, tipo azienda e tema, indica sempre la slide su cui posizionarsi.</p>
+          </article>
+          <article class="step">
+            <h3>Spiegazione breve</h3>
+            <p>Per ogni slide dà 2-3 frasi, un concetto alla volta, senza monologhi.</p>
+          </article>
+          <article class="step">
+            <h3>Domanda</h3>
+            <p>Dopo ogni intervento fa una domanda, così il cliente parla più di Alex.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="deck">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Deck TeraBrain</div>
+            <h2>Le slide vengono usate come percorso consulenziale, non come copione.</h2>
+          </div>
+          <p class="section-lead">
+            Alex può riformulare i contenuti, ma deve restare aderente al testo slide:
+            non anticipa slide future, non inventa metriche e non aggiunge claim non presenti.
+          </p>
+        </div>
+        <div class="slide-grid">
+          <div><strong>01 Hero deck</strong><span>Piattaforma agentica, voice, CRM, ERP, documenti e canali digitali.</span></div>
+          <div><strong>02 Problem framing</strong><span>Frizione operativa, lead, ticket, documenti e dati scollegati.</span></div>
+          <div><strong>03 Paradigma</strong><span>Dal task eseguito al processo governato con AI Agents.</span></div>
+          <div><strong>04 Visione</strong><span>Team digitale che lavora con il team umano, senza sostituirlo.</span></div>
+          <div><strong>05 Product definition</strong><span>Piattaforma agentica no-code per agenti specializzati.</span></div>
+          <div><strong>06 Architecture</strong><span>Communication, Process, Cognitive, Integration e Governance layer.</span></div>
+          <div><strong>07 Sales Agent</strong><span>Dalla lead al next step, CRM pulito e follow-up continuo.</span></div>
+          <div><strong>08 Voice Agent</strong><span>Telefonate naturali, ticket, email, appuntamenti e sintesi operative.</span></div>
+          <div><strong>09 Finance Agent</strong><span>Controllo documenti, anomalie, approvazioni e auditability.</span></div>
+          <div><strong>10 Operations Agent</strong><span>Visibilità continua su produzione, magazzino e logistica.</span></div>
+          <div><strong>11 Enterprise</strong><span>Architettura enterprise-ready e compatibile con sistemi legacy.</span></div>
+          <div><strong>12 Deployment</strong><span>TeraBrain Cloud o managed self-hosted con controllo e osservabilità.</span></div>
+          <div><strong>13 Go-to-value</strong><span>Discovery, design, pilot live e scale-up su processo ad alto impatto.</span></div>
+          <div><strong>14 Final CTA</strong><span>Partire dal processo che oggi costa di più e attivare un pilot.</span></div>
+        </div>
+        <div class="quote">Le slide della demo sono disponibili sul sito bellorio.org alla pagina “Demo online con Alex”.</div>
+      </div>
+    </section>
+
+    <section id="terabrain">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Conoscenza piattaforma</div>
+            <h2>Alex presenta TeraBrain a livello executive e commerciale.</h2>
+          </div>
+          <p class="section-lead">
+            TeraBrain viene posizionata come piattaforma Agentic AI per creare, orchestrare
+            e monitorare Digital Twins Operativi integrati con sistemi aziendali.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag orange">Agentic AI</span>
+            <h3>Non chatbot</h3>
+            <p>La piattaforma non è un semplice chatbot: è un ecosistema agentico di orchestrazione intelligente.</p>
+          </article>
+          <article class="card">
+            <span class="tag teal">Integrazioni</span>
+            <h3>CRM, ERP, database e canali</h3>
+            <p>Gli agenti possono operare su voce, email, Teams, WhatsApp, Slack, CRM, ERP, SQL e documenti.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Valore business</span>
+            <h3>Uomo + AI</h3>
+            <p>Il messaggio chiave è che TERABRAIN potenzia le persone attraverso agenti digitali operativi intelligenti.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="preventivi">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Preventivi e progetti</div>
+            <h2>Alex può spiegare preventivi e progetti, ma non decidere condizioni economiche.</h2>
+          </div>
+          <p class="section-lead">
+            Quando il cliente chiede di capire un preventivo, Alex lo interpreta come documento progettuale:
+            obiettivo, ambito, fasi, valore, vincoli e dipendenze presenti nel testo.
+          </p>
+        </div>
+        <div class="split">
+          <article class="card list-card">
+            <span class="tag teal">Cosa spiega</span>
+            <h3>Comprensione del progetto</h3>
+            <ul>
+              <li>Obiettivo del progetto e problema che risolve.</li>
+              <li>Ambito di intervento e cosa è incluso.</li>
+              <li>Fasi operative di realizzazione.</li>
+              <li>Benefici pratici, organizzativi o economici descritti nel documento.</li>
+              <li>Vincoli, prerequisiti o dipendenze se presenti.</li>
+            </ul>
+          </article>
+          <article class="card list-card">
+            <span class="tag orange">Cosa non fa</span>
+            <h3>Limiti commerciali</h3>
+            <ul>
+              <li>Non comunica prezzi o condizioni non autorizzate.</li>
+              <li>Non invia offerte economiche.</li>
+              <li>Non accetta accordi o modifica condizioni.</li>
+              <li>Non firma contratti.</li>
+              <li>Se serve decisione economica, organizza confronto con Bellorio.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="email">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Email e follow-up</div>
+            <h2>Alex può coordinare comunicazioni operative con footer obbligatorio.</h2>
+          </div>
+          <p class="section-lead">
+            Le email di Alex servono per conferme, coordinamento e solleciti.
+            Non devono contenere offerte economiche o accettazione di accordi.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag blue">Consentito</span>
+            <h3>Conferme</h3>
+            <p>Può confermare ricezione, riepilogare un incontro o coordinare prossimi passaggi.</p>
+          </article>
+          <article class="card">
+            <span class="tag teal">Consentito</span>
+            <h3>Solleciti</h3>
+            <p>Può inviare follow-up operativi, chiedere riscontri e proporre appuntamenti.</p>
+          </article>
+          <article class="card">
+            <span class="tag orange">Obbligatorio</span>
+            <h3>Footer standard</h3>
+            <p>Ogni email deve includere in fondo il footer ufficiale di Alex, senza modifiche o abbreviazioni.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="guardrail">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Guardrail</div>
+            <h2>Alex qualifica e guida, ma non negozia.</h2>
+          </div>
+          <p class="section-lead">
+            Il compito di Alex è creare una conversazione utile e far emergere il bisogno.
+            Pricing, preventivi, trattative e decisioni strategiche passano a Bellorio.
+          </p>
+        </div>
+        <div class="guardrail">
+          <article class="card">
+            <h3>Cosa deve fare</h3>
+            <ul class="guardrail-list">
+              <li>Chiedere settore, tipo azienda e tema prima della demo.</li>
+              <li>Parlare poco, massimo 2-3 frasi, poi fare una domanda.</li>
+              <li>Usare solo contenuti delle slide nella presentazione.</li>
+              <li>Collegare ogni slide al contesto reale del cliente.</li>
+              <li>Escalare a Bellorio per temi economici o trattative.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Cosa non deve fare</h3>
+            <ul class="guardrail-list">
+              <li>Non dare prezzi, costi o preventivi.</li>
+              <li>Non firmare contratti o accettare accordi.</li>
+              <li>Non condividere dati riservati.</li>
+              <li>Non fare monologhi o presentazioni meccaniche.</li>
+              <li>Non inventare contenuti oltre il perimetro slide o preventivo.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Alex porta il cliente a riconoscere il proprio caso d'uso.</h2>
+            <p>
+              Non una demo generica, ma una conversazione guidata: settore, problema,
+              tema prioritario, slide giusta e prossima azione commerciale.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="#meeting">Rivedi il metodo</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>Alex Sales Account · TeraBrain / Linegon Srl</span>
+      <span>Demo guidate · Qualificazione cliente · Follow-up · Escalation commerciale</span>
+    </div>
+  </footer>
+</body>
+</html>

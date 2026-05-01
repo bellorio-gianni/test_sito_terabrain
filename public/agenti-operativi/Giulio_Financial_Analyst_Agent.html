@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giulio Financial Analyst | TeraBrain Agent</title>
+  <meta name="description" content="Giulio Financial Analyst è l'AI Agent TeraBrain per analisi di bilancio, revisione contabile, controllo di gestione, KPI finanziari, benchmark e reportistica con Robert." />
+  <style>
+    :root{
+      --bg:#050608;
+      --panel:#10151b;
+      --panel-2:#151c24;
+      --line:rgba(255,255,255,0.12);
+      --line-soft:rgba(255,255,255,0.07);
+      --text:#f8f9f5;
+      --muted:#bac2bd;
+      --soft:#87918d;
+      --accent:#ff7a00;
+      --accent-2:#45d19d;
+      --accent-3:#76b7ff;
+      --warning:#ffd166;
+      --radius:18px;
+      --shadow:0 26px 76px rgba(0,0,0,0.52);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text",Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 12% 0,rgba(255,122,0,0.18),transparent 32%),
+        radial-gradient(circle at 88% 12%,rgba(69,209,157,0.12),transparent 34%),
+        linear-gradient(180deg,#08090d 0,#050608 48%,#070a0c 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none;}
+    .container{width:min(1120px,90vw);margin:0 auto;}
+    .hero{
+      min-height:96vh;
+      display:grid;
+      align-items:center;
+      padding:56px 0 44px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,0.95fr) minmax(360px,1.05fr);
+      gap:42px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border:1px solid rgba(255,122,0,0.42);
+      border-radius:999px;
+      background:rgba(255,122,0,0.09);
+      color:#ffd2aa;
+      font-size:12px;
+      font-weight:850;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      margin-bottom:22px;
+    }
+    .eyebrow::before{
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 18px var(--accent);
+    }
+    h1{
+      max-width:820px;
+      font-size:clamp(42px,6vw,76px);
+      line-height:0.98;
+      letter-spacing:0;
+      margin-bottom:22px;
+    }
+    h1 span{color:var(--accent);}
+    .hero-copy{
+      max-width:660px;
+      color:var(--muted);
+      font-size:18px;
+      margin-bottom:26px;
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.16);
+      font-size:14px;
+      font-weight:850;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,0.34);}
+    .btn-primary{
+      background:var(--accent);
+      color:#160b02;
+      border-color:var(--accent);
+      box-shadow:0 14px 34px rgba(255,122,0,0.26);
+    }
+    .hero-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:650px;}
+    .stat{border-top:1px solid var(--line);padding-top:12px;}
+    .stat strong{display:block;font-size:24px;line-height:1.1;margin-bottom:5px;color:#fff;}
+    .stat span{font-size:12px;color:var(--soft);}
+    .hero-visual{
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 50% 0,rgba(255,122,0,0.17),transparent 48%),
+        radial-gradient(circle at 18% 85%,rgba(69,209,157,0.13),transparent 45%),
+        rgba(16,21,27,0.86);
+      box-shadow:var(--shadow);
+      padding:18px;
+      overflow:hidden;
+    }
+    .finance-map{width:100%;height:auto;display:block;min-height:420px;}
+    .map-bg{fill:rgba(0,0,0,0.16);stroke:rgba(255,255,255,0.08);}
+    .map-card{fill:rgba(255,255,255,0.055);stroke:rgba(255,255,255,0.16);stroke-width:1.2;}
+    .map-card-hot{fill:rgba(255,122,0,0.13);stroke:rgba(255,122,0,0.72);stroke-width:1.6;}
+    .map-card-ok{fill:rgba(69,209,157,0.1);stroke:rgba(69,209,157,0.58);stroke-width:1.4;}
+    .map-card-blue{fill:rgba(118,183,255,0.1);stroke:rgba(118,183,255,0.58);stroke-width:1.4;}
+    .map-line{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+    .map-line-ok{fill:none;stroke:var(--accent-2);stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round;}
+    .map-title{fill:#fff;font-size:22px;font-weight:850;}
+    .map-label{fill:#f8f9f5;font-size:15px;font-weight:850;}
+    .map-small{fill:#bac2bd;font-size:11px;font-weight:750;letter-spacing:0.06em;text-transform:uppercase;}
+    section{padding:76px 0;border-top:1px solid var(--line-soft);}
+    .section-head{
+      display:grid;
+      grid-template-columns:minmax(0,0.92fr) minmax(280px,0.62fr);
+      gap:28px;
+      align-items:end;
+      margin-bottom:32px;
+    }
+    .kicker{color:var(--accent);font-size:12px;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:9px;}
+    h2{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:0;}
+    .section-lead{color:var(--muted);font-size:16px;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(16,21,27,0.74);
+      padding:22px;
+      box-shadow:0 14px 34px rgba(0,0,0,0.28);
+    }
+    .card h3{font-size:19px;line-height:1.2;margin-bottom:9px;}
+    .card p{color:var(--muted);font-size:14px;}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:0 9px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#dee3e0;
+      font-size:11px;
+      font-weight:850;
+      letter-spacing:0.07em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .tag.orange{color:#ffbc82;background:rgba(255,122,0,0.1);border-color:rgba(255,122,0,0.28);}
+    .tag.green{color:#a5f0d0;background:rgba(69,209,157,0.09);border-color:rgba(69,209,157,0.28);}
+    .tag.blue{color:#b9d9ff;background:rgba(118,183,255,0.09);border-color:rgba(118,183,255,0.28);}
+    .tag.yellow{color:#ffe19a;background:rgba(255,209,102,0.09);border-color:rgba(255,209,102,0.28);}
+    .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:step;}
+    .step{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.025));
+      min-height:196px;
+    }
+    .step::before{
+      counter-increment:step;
+      content:counter(step,decimal-leading-zero);
+      display:block;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.14em;
+      margin-bottom:18px;
+    }
+    .step h3{font-size:16px;margin-bottom:8px;}
+    .step p{font-size:13px;color:var(--muted);}
+    .matrix{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:1px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
+      background:var(--line);
+    }
+    .matrix div{padding:18px;background:#0c1116;min-height:128px;}
+    .matrix strong{display:block;color:#fff;font-size:14px;margin-bottom:6px;}
+    .matrix span{color:var(--muted);font-size:12px;}
+    .list-card ul{list-style:none;display:grid;gap:11px;margin-top:14px;}
+    .list-card li{color:var(--muted);font-size:14px;padding-left:20px;position:relative;}
+    .list-card li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:9px;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent-2);
+    }
+    .kpi-board{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:16px;
+    }
+    .kpi{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#0c1116;
+      padding:20px;
+      min-height:148px;
+    }
+    .kpi strong{display:block;font-size:28px;color:#fff;line-height:1;margin-bottom:12px;}
+    .kpi h3{font-size:15px;margin-bottom:7px;}
+    .kpi p{color:var(--muted);font-size:13px;}
+    .output-box{
+      border:1px solid rgba(255,122,0,0.28);
+      border-radius:20px;
+      background:
+        linear-gradient(135deg,rgba(255,122,0,0.12),rgba(69,209,157,0.06)),
+        #0c1116;
+      padding:24px;
+    }
+    .output-box pre{
+      white-space:pre-wrap;
+      color:#eef5f1;
+      font:13px/1.65 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+      margin-top:16px;
+    }
+    .handoff{
+      border:1px solid rgba(118,183,255,0.32);
+      border-radius:22px;
+      background:
+        linear-gradient(135deg,rgba(118,183,255,0.12),rgba(255,122,0,0.07)),
+        rgba(16,21,27,0.78);
+      padding:26px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .handoff-panel{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(0,0,0,0.18);
+      padding:18px;
+    }
+    .handoff-panel h3{font-size:18px;margin-bottom:9px;}
+    .handoff-panel p{color:var(--muted);font-size:14px;}
+    .cta{
+      padding:72px 0 82px;
+      border-top:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(255,122,0,0.06),transparent);
+    }
+    .cta-box{
+      border:1px solid rgba(255,122,0,0.34);
+      border-radius:26px;
+      padding:34px;
+      background:rgba(16,21,27,0.84);
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:24px;
+      align-items:center;
+    }
+    .cta h2{font-size:clamp(28px,3.8vw,44px);margin-bottom:10px;}
+    .cta p{color:var(--muted);max-width:760px;}
+    footer{
+      padding:26px 0;
+      color:var(--soft);
+      border-top:1px solid var(--line-soft);
+      font-size:13px;
+    }
+    footer .container{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+    @media (max-width:960px){
+      .hero-grid,.section-head,.cta-box,.handoff{grid-template-columns:1fr;}
+      .hero{min-height:auto;}
+      .hero-visual{order:-1;}
+      .steps,.matrix,.kpi-board{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .grid-3{grid-template-columns:1fr;}
+      .grid-2{grid-template-columns:1fr;}
+    }
+    @media (max-width:620px){
+      .container{width:min(100% - 28px,1120px);}
+      .hero{padding-top:30px;}
+      h1{font-size:40px;}
+      .hero-stats,.steps,.matrix,.kpi-board{grid-template-columns:1fr;}
+      .hero-visual{padding:10px;border-radius:20px;}
+      .finance-map{min-height:320px;}
+      .card,.cta-box,.handoff{padding:20px;}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Giulio Financial Analyst</div>
+          <h1>Numeri contabili trasformati in <span>decisioni difendibili</span>.</h1>
+          <p class="hero-copy">
+            Giulio è il Financial Intelligence Agent TeraBrain per revisione contabile,
+            analisi di bilancio, fiscalita d'impresa, controllo di gestione, benchmark e
+            valutazioni finanziarie prudenti.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#analysis">Vedi analisi</a>
+            <a class="btn" href="#handoff">Handoff Robert</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>ERP</strong><span>Fonte primaria prioritaria</span></div>
+            <div class="stat"><strong>KPI</strong><span>Redditivita, liquidita, struttura</span></div>
+            <div class="stat"><strong>PDF</strong><span>Report generato con Robert</span></div>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Mappa operativa di Giulio Financial Analyst">
+          <svg class="finance-map" viewBox="0 0 760 560" role="img" aria-labelledby="mapTitle mapDesc">
+            <title id="mapTitle">Mappa operativa di Giulio Financial Analyst</title>
+            <desc id="mapDesc">Flusso dai dati finanziari alla normalizzazione, analisi KPI, commento professionale e generazione report con Robert.</desc>
+            <rect class="map-bg" x="18" y="18" width="724" height="524" rx="26" />
+            <text class="map-title" x="54" y="64">Financial Intelligence Pipeline</text>
+            <text class="map-small" x="54" y="88">source · normalize · analyze · delegate report</text>
+
+            <rect class="map-card" x="54" y="126" width="166" height="84" rx="18" />
+            <text class="map-label" x="137" y="162" text-anchor="middle">ERP</text>
+            <text class="map-small" x="137" y="186" text-anchor="middle">bilanci · mastri · cash flow</text>
+
+            <rect class="map-card" x="54" y="254" width="166" height="84" rx="18" />
+            <text class="map-label" x="137" y="290" text-anchor="middle">Fonti esterne</text>
+            <text class="map-small" x="137" y="314" text-anchor="middle">fonte · anno · attendibilita</text>
+
+            <rect class="map-card" x="54" y="382" width="166" height="84" rx="18" />
+            <text class="map-label" x="137" y="418" text-anchor="middle">Multi-azienda</text>
+            <text class="map-small" x="137" y="442" text-anchor="middle">benchmark normalizzato</text>
+
+            <rect class="map-card-hot" x="300" y="226" width="170" height="122" rx="22" />
+            <text class="map-label" x="385" y="268" text-anchor="middle">Giulio</text>
+            <text class="map-label" x="385" y="294" text-anchor="middle">Financial</text>
+            <text class="map-label" x="385" y="320" text-anchor="middle">Analyst</text>
+
+            <rect class="map-card-ok" x="548" y="112" width="158" height="84" rx="18" />
+            <text class="map-label" x="627" y="148" text-anchor="middle">KPI</text>
+            <text class="map-small" x="627" y="172" text-anchor="middle">ROI · ROE · cash flow</text>
+
+            <rect class="map-card-blue" x="548" y="238" width="158" height="84" rx="18" />
+            <text class="map-label" x="627" y="274" text-anchor="middle">Commento</text>
+            <text class="map-small" x="627" y="298" text-anchor="middle">dati vs interpretazioni</text>
+
+            <rect class="map-card-blue" x="548" y="364" width="158" height="84" rx="18" />
+            <text class="map-label" x="627" y="400" text-anchor="middle">Robert</text>
+            <text class="map-small" x="627" y="424" text-anchor="middle">HTML · PDF · PNG</text>
+
+            <path class="map-line" d="M220 168 C258 180 268 230 300 258" />
+            <path class="map-line" d="M220 296 C250 296 270 294 300 292" />
+            <path class="map-line" d="M220 424 C260 404 276 350 306 318" />
+            <path class="map-line-ok" d="M470 262 C506 224 514 174 548 154" />
+            <path class="map-line-ok" d="M470 288 C500 284 518 282 548 280" />
+            <path class="map-line-ok" d="M470 322 C510 348 520 390 548 406" />
+            <circle cx="258" cy="180" r="5" fill="#ff7a00" />
+            <circle cx="510" cy="284" r="5" fill="#45d19d" />
+            <circle cx="520" cy="390" r="5" fill="#76b7ff" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="role">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Ruolo</div>
+            <h2>Un revisore digitale con metodo da commercialista senior.</h2>
+          </div>
+          <p class="section-lead">
+            Giulio lavora con rigore professionale: separa i dati dalle interpretazioni,
+            dichiara fonti e assunzioni, segnala incertezze e protegge l'utente da letture errate.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag orange">Audit</span>
+            <h3>Revisione e bilancio</h3>
+            <p>Analizza conto economico, stato patrimoniale, rendiconto finanziario, mastri e dati fiscali.</p>
+          </article>
+          <article class="card">
+            <span class="tag green">Performance</span>
+            <h3>Controllo di gestione</h3>
+            <p>Valuta costi fissi e variabili, scostamenti budget-consuntivo, efficienza operativa e margini.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Advisory</span>
+            <h3>Decision support</h3>
+            <p>Produce commenti professionali, raccomandazioni e contenuti pronti per report CDA o investitori.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Input supportati</div>
+            <h2>La priorita e ai dati ERP. Le altre fonti restano dichiarate.</h2>
+          </div>
+          <p class="section-lead">
+            Quando i dati arrivano da sistemi aziendali, sono fonte primaria. Se l'input e solo il nome
+            di una societa, Giulio deve indicare fonte, anno, attendibilita e limiti.
+          </p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <h3>Dati ERP</h3>
+            <p>Bilanci, prima nota, piano dei conti, fatturato, costi, IVA, cash flow, budget e consuntivi.</p>
+          </div>
+          <div class="step">
+            <h3>Nome azienda</h3>
+            <p>Ricerca dati disponibili, dichiarando fonte, anno, attendibilita e assunzioni prudenziali.</p>
+          </div>
+          <div class="step">
+            <h3>Confronto aziende</h3>
+            <p>Normalizzazione dei dati per rendere comparabili marginalita, solidita ed efficienza.</p>
+          </div>
+          <div class="step">
+            <h3>Dati incompleti</h3>
+            <p>Nessuna invenzione: analisi prudenziale, evidenza dei limiti e richiesta di integrazioni.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="analysis">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Checklist obbligatoria</div>
+            <h2>Ogni analisi copre bilancio, redditivita, finanza e gestione.</h2>
+          </div>
+          <p class="section-lead">
+            L'output non e un semplice commento: e una lettura strutturata con indicatori,
+            anomalie, rischi, benchmark e raccomandazioni.
+          </p>
+        </div>
+        <div class="matrix">
+          <div><strong>Analisi di bilancio</strong><span>SP, CE, RF, analisi verticale e orizzontale, trend storici.</span></div>
+          <div><strong>Redditivita</strong><span>EBITDA, EBIT, ROS, ROI, ROE, margine di contribuzione e break-even se disponibile.</span></div>
+          <div><strong>Controllo gestione</strong><span>Costi fissi e variabili, incidenze, scostamenti budget-consuntivo, efficienza operativa.</span></div>
+          <div><strong>Finanza</strong><span>PFN, cash flow operativo, liquidita, solvibilita, struttura e indebitamento.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kpi">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">KPI</div>
+            <h2>Indicatori finanziari calcolati e commentati con prudenza.</h2>
+          </div>
+          <p class="section-lead">
+            Gli indicatori vengono calcolati quando i dati sono disponibili e accompagnati da una lettura
+            professionale che distingue situazione, rischio e possibile azione.
+          </p>
+        </div>
+        <div class="kpi-board">
+          <article class="kpi">
+            <strong>ROS</strong>
+            <h3>Marginalita vendite</h3>
+            <p>Valuta la capacita di trasformare ricavi in risultato operativo.</p>
+          </article>
+          <article class="kpi">
+            <strong>ROI</strong>
+            <h3>Rendimento operativo</h3>
+            <p>Misura la redditivita del capitale investito nella gestione caratteristica.</p>
+          </article>
+          <article class="kpi">
+            <strong>D/E</strong>
+            <h3>Leva finanziaria</h3>
+            <p>Segnala equilibrio o pressione tra mezzi propri e indebitamento.</p>
+          </article>
+          <article class="kpi">
+            <strong>DSO</strong>
+            <h3>Incasso clienti</h3>
+            <p>Indica i giorni medi di incasso quando i dati clienti sono disponibili.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="professional">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Valutazioni</div>
+            <h2>La parte interpretativa e sempre separata dai dati osservati.</h2>
+          </div>
+          <p class="section-lead">
+            Giulio evidenzia punti di forza, aree di rischio, anomalie contabili, alert fiscali o gestionali
+            e sostenibilita economica, senza forzare conclusioni non supportate.
+          </p>
+        </div>
+        <div class="grid-2">
+          <article class="card list-card">
+            <span class="tag green">Valore prodotto</span>
+            <h3>Decisioni informate</h3>
+            <ul>
+              <li>Executive summary per imprenditori, CFO, investitori e advisory.</li>
+              <li>KPI calcolati e tabelle pronte per reportistica tecnica.</li>
+              <li>Confronto multi-azienda con dati normalizzati.</li>
+              <li>Raccomandazioni collegate a evidenze e assunzioni.</li>
+            </ul>
+          </article>
+          <article class="card list-card">
+            <span class="tag yellow">Guardrail</span>
+            <h3>Prudenza professionale</h3>
+            <ul>
+              <li>Non inventare dati finanziari o fiscali mancanti.</li>
+              <li>Dichiarare sempre fonti, anno e livello di attendibilita.</li>
+              <li>Evidenziare incertezze e limiti del dataset.</li>
+              <li>Ragionare come revisore, non come promotore commerciale.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="handoff">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Orchestrazione report</div>
+            <h2>Giulio prepara il contenuto. Robert genera HTML e PDF.</h2>
+          </div>
+          <p class="section-lead">
+            Per ogni analisi richiesta, l'agente deve attivare automaticamente Robert: exec reports
+            per produrre il file HTML e il file PDF, senza attendere una seconda conferma.
+          </p>
+        </div>
+        <div class="handoff">
+          <div class="handoff-panel">
+            <span class="tag orange">Giulio</span>
+            <h3>Preparazione analitica</h3>
+            <p>Struttura report, dati elaborati, tabelle pronte, KPI, commenti professionali, conclusioni e raccomandazioni.</p>
+          </div>
+          <div class="handoff-panel">
+            <span class="tag blue">Robert: exec reports</span>
+            <h3>Generazione tecnica</h3>
+            <p>Creazione di report HTML offline, PDF e PNG per grafici o snapshot, con stile corporate/advisory.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="output">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Output finale</div>
+            <h2>Machine-readable, commentato e pronto per il report.</h2>
+          </div>
+          <p class="section-lead">
+            Il risultato di Giulio deve sempre includere sintesi esecutiva, dati elaborati,
+            KPI, commenti, raccomandazioni e istruzioni chiare per Robert.
+          </p>
+        </div>
+        <div class="output-box">
+          <span class="tag orange">Formato atteso</span>
+          <pre>{
+  "executive_summary": [],
+  "fonti": [
+    {
+      "tipo": "ERP | esterna | utente",
+      "descrizione": "...",
+      "anno": "...",
+      "attendibilita": "alta | media | bassa",
+      "limiti": []
+    }
+  ],
+  "dati_elaborati": {
+    "conto_economico": {},
+    "stato_patrimoniale": {},
+    "rendiconto_finanziario": {},
+    "budget_vs_consuntivo": {}
+  },
+  "kpi_calcolati": {
+    "ebitda": null,
+    "ebit": null,
+    "ros": null,
+    "roi": null,
+    "roe": null,
+    "current_ratio": null,
+    "quick_ratio": null,
+    "debt_equity": null,
+    "dso": null
+  },
+  "commenti_analitici": [],
+  "rischi_e_anomalie": [],
+  "raccomandazioni": [],
+  "handoff_robert_exec_reports": {
+    "formati": ["HTML", "PDF", "PNG"],
+    "stile": "corporate / advisory",
+    "istruzioni": "generare automaticamente report finale con dati, tabelle, grafici e commenti"
+  }
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Giulio rende l'analisi finanziaria tracciabile, prudente e utilizzabile.</h2>
+            <p>
+              Il valore non e solo calcolare indicatori: e costruire una lettura economico-finanziaria
+              verificabile, difendibile e pronta per decisioni aziendali.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="#role">Torna all'inizio</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container">
+      <span>Giulio Financial Analyst · TeraBrain Agent</span>
+      <span>Audit · Bilancio · KPI · Robert exec reports</span>
+    </div>
+  </footer>
+</body>
+</html>

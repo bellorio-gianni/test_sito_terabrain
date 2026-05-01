@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carlo Configuratore di Prodotto | TeraBrain Agent</title>
+  <meta name="description" content="Carlo è l'AI Agent TeraBrain per configurare prodotti da catalogo, interpretare codici modello, verificare misure, distinguere versioni elettriche e idrauliche e calcolare prezzi solo dopo validazione completa." />
+  <style>
+    :root{
+      --bg:#050608;
+      --panel:#10151b;
+      --line:rgba(255,255,255,0.12);
+      --line-soft:rgba(255,255,255,0.07);
+      --text:#f8f9f5;
+      --muted:#bac2bd;
+      --soft:#87918d;
+      --accent:#ff7a00;
+      --accent-2:#43d39f;
+      --accent-3:#76b7ff;
+      --danger:#ff6262;
+      --radius:18px;
+      --shadow:0 26px 76px rgba(0,0,0,0.52);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text",Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 14% 0,rgba(255,122,0,0.18),transparent 32%),
+        radial-gradient(circle at 88% 12%,rgba(67,211,159,0.12),transparent 34%),
+        linear-gradient(180deg,#08090d 0,#050608 48%,#070a0c 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none;}
+    .container{width:min(1120px,90vw);margin:0 auto;}
+    .hero{
+      min-height:96vh;
+      display:grid;
+      align-items:center;
+      padding:56px 0 44px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,0.95fr) minmax(360px,1.05fr);
+      gap:42px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border:1px solid rgba(255,122,0,0.42);
+      border-radius:999px;
+      background:rgba(255,122,0,0.09);
+      color:#ffd2aa;
+      font-size:12px;
+      font-weight:850;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      margin-bottom:22px;
+    }
+    .eyebrow::before{
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 18px var(--accent);
+    }
+    h1{
+      max-width:820px;
+      font-size:clamp(42px,6vw,76px);
+      line-height:0.98;
+      letter-spacing:0;
+      margin-bottom:22px;
+    }
+    h1 span{color:var(--accent);}
+    .hero-copy{
+      max-width:660px;
+      color:var(--muted);
+      font-size:18px;
+      margin-bottom:26px;
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.16);
+      font-size:14px;
+      font-weight:850;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,0.34);}
+    .btn-primary{
+      background:var(--accent);
+      color:#160b02;
+      border-color:var(--accent);
+      box-shadow:0 14px 34px rgba(255,122,0,0.26);
+    }
+    .hero-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:650px;}
+    .stat{border-top:1px solid var(--line);padding-top:12px;}
+    .stat strong{display:block;font-size:24px;line-height:1.1;margin-bottom:5px;color:#fff;}
+    .stat span{font-size:12px;color:var(--soft);}
+    .hero-visual{
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 50% 0,rgba(255,122,0,0.17),transparent 48%),
+        radial-gradient(circle at 18% 85%,rgba(67,211,159,0.13),transparent 45%),
+        rgba(16,21,27,0.86);
+      box-shadow:var(--shadow);
+      padding:18px;
+      overflow:hidden;
+    }
+    .product-map{width:100%;height:auto;display:block;min-height:420px;}
+    .map-bg{fill:rgba(0,0,0,0.16);stroke:rgba(255,255,255,0.08);}
+    .map-card{fill:rgba(255,255,255,0.055);stroke:rgba(255,255,255,0.16);stroke-width:1.2;}
+    .map-card-hot{fill:rgba(255,122,0,0.13);stroke:rgba(255,122,0,0.72);stroke-width:1.6;}
+    .map-card-ok{fill:rgba(67,211,159,0.1);stroke:rgba(67,211,159,0.58);stroke-width:1.4;}
+    .map-card-blue{fill:rgba(118,183,255,0.1);stroke:rgba(118,183,255,0.58);stroke-width:1.4;}
+    .map-line{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+    .map-line-ok{fill:none;stroke:var(--accent-2);stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round;}
+    .map-title{fill:#fff;font-size:22px;font-weight:850;}
+    .map-label{fill:#f8f9f5;font-size:15px;font-weight:850;}
+    .map-small{fill:#bac2bd;font-size:11px;font-weight:750;letter-spacing:0.06em;text-transform:uppercase;}
+    section{padding:76px 0;border-top:1px solid var(--line-soft);}
+    .section-head{
+      display:grid;
+      grid-template-columns:minmax(0,0.92fr) minmax(280px,0.62fr);
+      gap:28px;
+      align-items:end;
+      margin-bottom:32px;
+    }
+    .kicker{color:var(--accent);font-size:12px;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:9px;}
+    h2{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:0;}
+    .section-lead{color:var(--muted);font-size:16px;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(16,21,27,0.74);
+      padding:22px;
+      box-shadow:0 14px 34px rgba(0,0,0,0.28);
+    }
+    .card h3{font-size:19px;line-height:1.2;margin-bottom:9px;}
+    .card p{color:var(--muted);font-size:14px;}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:0 9px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#dee3e0;
+      font-size:11px;
+      font-weight:850;
+      letter-spacing:0.07em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .tag.orange{color:#ffbc82;background:rgba(255,122,0,0.1);border-color:rgba(255,122,0,0.28);}
+    .tag.green{color:#a5f0d0;background:rgba(67,211,159,0.09);border-color:rgba(67,211,159,0.28);}
+    .tag.blue{color:#b9d9ff;background:rgba(118,183,255,0.09);border-color:rgba(118,183,255,0.28);}
+    .tag.red{color:#ffb3b3;background:rgba(255,98,98,0.09);border-color:rgba(255,98,98,0.28);}
+    .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;counter-reset:step;}
+    .step{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.025));
+      min-height:184px;
+    }
+    .step::before{
+      counter-increment:step;
+      content:counter(step,decimal-leading-zero);
+      display:block;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.14em;
+      margin-bottom:18px;
+    }
+    .step h3{font-size:16px;margin-bottom:8px;}
+    .step p{font-size:13px;color:var(--muted);}
+    .matrix{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:1px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
+      background:var(--line);
+    }
+    .matrix div{padding:18px;background:#0c1116;min-height:126px;}
+    .matrix strong{display:block;color:#fff;font-size:14px;margin-bottom:6px;}
+    .matrix span{color:var(--muted);font-size:12px;}
+    .list-card ul{list-style:none;display:grid;gap:11px;margin-top:14px;}
+    .list-card li{color:var(--muted);font-size:14px;padding-left:20px;position:relative;}
+    .list-card li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:9px;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent-2);
+    }
+    .code-panel{
+      border:1px solid rgba(255,122,0,0.28);
+      border-radius:20px;
+      background:
+        linear-gradient(135deg,rgba(255,122,0,0.12),rgba(67,211,159,0.06)),
+        #0c1116;
+      padding:24px;
+    }
+    .code-line{
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      gap:16px;
+      align-items:center;
+      margin-top:18px;
+    }
+    .code-token{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(0,0,0,0.18);
+      padding:18px;
+    }
+    .code-token strong{display:block;font-size:24px;margin-bottom:6px;}
+    .code-token span{color:var(--muted);font-size:13px;}
+    .arrow{color:var(--accent);font-weight:900;font-size:24px;}
+    .output-box{
+      border:1px solid rgba(118,183,255,0.28);
+      border-radius:20px;
+      background:
+        linear-gradient(135deg,rgba(118,183,255,0.12),rgba(255,122,0,0.06)),
+        #0c1116;
+      padding:24px;
+    }
+    .output-box pre{
+      white-space:pre-wrap;
+      color:#eef5f1;
+      font:13px/1.65 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+      margin-top:16px;
+    }
+    .cta{
+      padding:72px 0 82px;
+      border-top:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(255,122,0,0.06),transparent);
+    }
+    .cta-box{
+      border:1px solid rgba(255,122,0,0.34);
+      border-radius:26px;
+      padding:34px;
+      background:rgba(16,21,27,0.84);
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:24px;
+      align-items:center;
+    }
+    .cta h2{font-size:clamp(28px,3.8vw,44px);margin-bottom:10px;}
+    .cta p{color:var(--muted);max-width:760px;}
+    footer{
+      padding:26px 0;
+      color:var(--soft);
+      border-top:1px solid var(--line-soft);
+      font-size:13px;
+    }
+    footer .container{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+    @media (max-width:1040px){
+      .steps{grid-template-columns:repeat(3,minmax(0,1fr));}
+    }
+    @media (max-width:960px){
+      .hero-grid,.section-head,.cta-box{grid-template-columns:1fr;}
+      .hero{min-height:auto;}
+      .hero-visual{order:-1;}
+      .matrix{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .grid-3{grid-template-columns:1fr;}
+      .grid-2{grid-template-columns:1fr;}
+      .code-line{grid-template-columns:1fr;}
+      .arrow{display:none;}
+    }
+    @media (max-width:620px){
+      .container{width:min(100% - 28px,1120px);}
+      .hero{padding-top:30px;}
+      h1{font-size:40px;}
+      .hero-stats,.steps,.matrix{grid-template-columns:1fr;}
+      .hero-visual{padding:10px;border-radius:20px;}
+      .product-map{min-height:320px;}
+      .card,.cta-box,.code-panel,.output-box{padding:20px;}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Carlo Configuratore di Prodotto</div>
+          <h1>Prezzi corretti solo dopo <span>configurazione verificata</span>.</h1>
+          <p class="hero-copy">
+            Carlo è l'AI Agent TeraBrain che guida il cliente nella configurazione di prodotto:
+            raccoglie i dati nel giusto ordine, interpreta i codici catalogo, valida misure e versione,
+            distingue valvola idraulica da comando elettrico e legge il prezzo solo dopo i controlli.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#questions">Domande obbligatorie</a>
+            <a class="btn" href="#code">Parsing codice</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>5</strong><span>Dati raccolti in ordine fisso</span></div>
+            <div class="stat"><strong>#</strong><span>Parsing modello, altezza, larghezza</span></div>
+            <div class="stat"><strong>Stop</strong><span>Nessun prezzo senza verifica</span></div>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Mappa operativa di Carlo Configuratore di Prodotto">
+          <svg class="product-map" viewBox="0 0 760 560" role="img" aria-labelledby="mapTitle mapDesc">
+            <title id="mapTitle">Mappa operativa di Carlo Configuratore</title>
+            <desc id="mapDesc">Flusso configurazione dal modello alle misure, versione, comando o valvola, colore e prezzo validato.</desc>
+            <rect class="map-bg" x="18" y="18" width="724" height="524" rx="26" />
+            <text class="map-title" x="54" y="64">Product Configuration Flow</text>
+            <text class="map-small" x="54" y="88">model · version · size · command · finish · price</text>
+
+            <rect class="map-card" x="54" y="120" width="164" height="76" rx="18" />
+            <text class="map-label" x="136" y="152" text-anchor="middle">Modello</text>
+            <text class="map-small" x="136" y="176" text-anchor="middle">BA14EL</text>
+
+            <rect class="map-card" x="54" y="236" width="164" height="76" rx="18" />
+            <text class="map-label" x="136" y="268" text-anchor="middle">Misure</text>
+            <text class="map-small" x="136" y="292" text-anchor="middle">H 80 · L 40</text>
+
+            <rect class="map-card" x="54" y="352" width="164" height="76" rx="18" />
+            <text class="map-label" x="136" y="384" text-anchor="middle">Finitura</text>
+            <text class="map-small" x="136" y="408" text-anchor="middle">9010 · Cromo · RAL</text>
+
+            <rect class="map-card-hot" x="298" y="222" width="174" height="116" rx="22" />
+            <text class="map-label" x="385" y="263" text-anchor="middle">Carlo</text>
+            <text class="map-label" x="385" y="289" text-anchor="middle">Configuratore</text>
+            <text class="map-small" x="385" y="316" text-anchor="middle">validazione catalogo</text>
+
+            <rect class="map-card-ok" x="548" y="118" width="158" height="80" rx="18" />
+            <text class="map-label" x="627" y="152" text-anchor="middle">Elettrico</text>
+            <text class="map-small" x="627" y="176" text-anchor="middle">tipo comando</text>
+
+            <rect class="map-card-blue" x="548" y="240" width="158" height="80" rx="18" />
+            <text class="map-label" x="627" y="274" text-anchor="middle">Idraulico</text>
+            <text class="map-small" x="627" y="298" text-anchor="middle">valvola o kit</text>
+
+            <rect class="map-card-ok" x="548" y="362" width="158" height="80" rx="18" />
+            <text class="map-label" x="627" y="396" text-anchor="middle">Prezzo</text>
+            <text class="map-small" x="627" y="420" text-anchor="middle">solo se coerente</text>
+
+            <path class="map-line" d="M218 158 C258 172 270 226 298 254" />
+            <path class="map-line" d="M218 274 C250 276 270 278 298 280" />
+            <path class="map-line" d="M218 390 C258 370 272 330 302 306" />
+            <path class="map-line-ok" d="M472 260 C510 226 520 176 548 158" />
+            <path class="map-line-ok" d="M472 286 C502 284 520 282 548 280" />
+            <path class="map-line-ok" d="M472 314 C510 340 520 386 548 402" />
+            <circle cx="258" cy="172" r="5" fill="#ff7a00" />
+            <circle cx="520" cy="282" r="5" fill="#43d39f" />
+            <circle cx="520" cy="386" r="5" fill="#43d39f" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="role">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Ruolo operativo</div>
+            <h2>Un configuratore guidato, non un listino parlante.</h2>
+          </div>
+          <p class="section-lead">
+            Carlo evita preventivi approssimativi: prima chiarisce la richiesta, poi controlla catalogo,
+            codice articolo, misure, configurazione tecnica e finitura.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag orange">Catalogo</span>
+            <h3>Ricerca codice compatibile</h3>
+            <p>Individua i codici coerenti con modello, altezza e larghezza richiesti dal cliente.</p>
+          </article>
+          <article class="card">
+            <span class="tag green">Validazione</span>
+            <h3>Controllo prima del prezzo</h3>
+            <p>Verifica che il codice trovato corrisponda davvero alla combinazione commerciale richiesta.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Consulenza</span>
+            <h3>Domande tecniche ordinate</h3>
+            <p>Distingue tra prodotto elettrico e idraulico, evitando domande tecniche sbagliate.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="questions">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Input collection</div>
+            <h2>Le domande seguono sempre un ordine fisso.</h2>
+          </div>
+          <p class="section-lead">
+            Carlo non calcola il prezzo finche modello, versione, misure, configurazione tecnica
+            e colore non sono chiariti.
+          </p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <h3>Modello</h3>
+            <p>Chiede o conferma il modello richiesto, ad esempio BA14EL.</p>
+          </div>
+          <div class="step">
+            <h3>Versione</h3>
+            <p>Verifica se il prodotto e elettrico o idraulico, anche quando il codice contiene sigle come EL.</p>
+          </div>
+          <div class="step">
+            <h3>Misure</h3>
+            <p>Raccoglie altezza e larghezza e le confronta con la codifica catalogo.</p>
+          </div>
+          <div class="step">
+            <h3>Valvola o comando</h3>
+            <p>Se idraulico chiede valvola o kit; se elettrico chiede comando o regolazione.</p>
+          </div>
+          <div class="step">
+            <h3>Colore</h3>
+            <p>Chiede bianco standard, 9010, cromo, categoria colore, RAL o altra finitura prevista.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="code">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Parsing codice</div>
+            <h2>Il codice articolo contiene modello, altezza e larghezza.</h2>
+          </div>
+          <p class="section-lead">
+            Quando il catalogo riporta un codice nel formato modello#altezzalarghezza,
+            Carlo decodifica la parte prima e dopo il simbolo #.
+          </p>
+        </div>
+        <div class="code-panel">
+          <span class="tag orange">Esempio operativo</span>
+          <div class="code-line">
+            <div class="code-token">
+              <strong>BA14EL#80040</strong>
+              <span>Codice articolo nel catalogo</span>
+            </div>
+            <div class="arrow">→</div>
+            <div class="code-token">
+              <strong>BA14EL · H 80 · L 40</strong>
+              <span>Modello BA14EL, altezza 80 cm, larghezza 40 cm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Regole di validazione</div>
+            <h2>Il prezzo viene letto solo dopo tre controlli obbligatori.</h2>
+          </div>
+          <p class="section-lead">
+            Se il codice non e coerente con la richiesta, Carlo si ferma e chiede conferma.
+            Non forza mai una configurazione ambigua.
+          </p>
+        </div>
+        <div class="matrix">
+          <div><strong>Modello corretto</strong><span>La parte prima di # deve coincidere con il modello richiesto o confermato.</span></div>
+          <div><strong>Misure coerenti</strong><span>Le prime cifre dopo # sono altezza; le ultime 3 sono larghezza.</span></div>
+          <div><strong>Codici simili</strong><span>Verifica che non esistano varianti simili con misure differenti.</span></div>
+          <div><strong>Prezzo bloccato</strong><span>Se manca una conferma tecnica, il calcolo prezzo non deve partire.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="version">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Elettrico o idraulico</div>
+            <h2>La configurazione tecnica cambia in base alla versione.</h2>
+          </div>
+          <p class="section-lead">
+            Carlo non chiede la valvola a un prodotto elettrico. La domanda tecnica viene adattata
+            alla famiglia prodotto e alla versione confermata.
+          </p>
+        </div>
+        <div class="grid-2">
+          <article class="card list-card">
+            <span class="tag blue">Prodotto idraulico</span>
+            <h3>Valvola o kit</h3>
+            <ul>
+              <li>Valvola standard.</li>
+              <li>Valvola remota.</li>
+              <li>Kit completo.</li>
+              <li>Altra variante prevista dal catalogo.</li>
+            </ul>
+          </article>
+          <article class="card list-card">
+            <span class="tag green">Prodotto elettrico</span>
+            <h3>Comando o regolazione</h3>
+            <ul>
+              <li>Comando terminale.</li>
+              <li>Termostato ambiente ECODesign.</li>
+              <li>Regolazione wireless ECODesign.</li>
+              <li>Altra opzione elettrica prevista dal catalogo.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="color">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Colore e finitura</div>
+            <h2>La finitura deve essere ricondotta alla categoria prezzo corretta.</h2>
+          </div>
+          <p class="section-lead">
+            Se il colore inserito non coincide direttamente con una colonna prezzo,
+            Carlo deve cercare la categoria corretta prima del calcolo.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag green">Standard</span>
+            <h3>Bianco / 9010</h3>
+            <p>Accetta denominazioni commerciali e codici comuni, verificando la colonna corretta del catalogo.</p>
+          </article>
+          <article class="card">
+            <span class="tag orange">Speciale</span>
+            <h3>Cromo, C1, C2, C3</h3>
+            <p>Identifica categorie colore e finiture che possono avere prezzi differenti.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">RAL</span>
+            <h3>Codice specifico</h3>
+            <p>Gestisce codici RAL o finiture non standard solo se previste dal catalogo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="output">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Output consigliato</div>
+            <h2>Il cliente vede sempre la decodifica del prodotto identificato.</h2>
+          </div>
+          <p class="section-lead">
+            La risposta finale deve spiegare quale codice e stato identificato e perche
+            corrisponde alla richiesta del cliente.
+          </p>
+        </div>
+        <div class="output-box">
+          <span class="tag blue">Formato risposta</span>
+          <pre>Codice identificato
+- Codice articolo: BA14EL#80040
+- Modello: BA14EL
+- Versione: elettrico
+- Altezza: 80 cm
+- Larghezza: 40 cm
+- Comando/regolazione: termostato ambiente ECODesign
+- Colore/finitura: Bianco standard / 9010
+
+Controlli eseguiti
+- Modello coerente con la richiesta
+- Misure decodificate dal codice e confermate
+- Nessun codice simile con misura differente selezionato
+- Configurazione tecnica completa
+
+Esito
+- Prezzo leggibile dal catalogo solo dopo validazione completa</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="guardrail">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Guardrail</div>
+            <h2>Meglio una domanda in piu che un prezzo sbagliato.</h2>
+          </div>
+          <p class="section-lead">
+            Carlo deve fermarsi davanti ad ambiguita su modello, versione, misure, comando, valvola o finitura.
+          </p>
+        </div>
+        <div class="grid-2">
+          <article class="card list-card">
+            <span class="tag red">Non fare</span>
+            <h3>Blocchi obbligatori</h3>
+            <ul>
+              <li>Non calcolare il prezzo con dati incompleti.</li>
+              <li>Non applicare automaticamente una valvola ai modelli elettrici.</li>
+              <li>Non assumere una categoria colore se non e verificata.</li>
+              <li>Non ignorare codici simili con misure differenti.</li>
+            </ul>
+          </article>
+          <article class="card list-card">
+            <span class="tag green">Fare sempre</span>
+            <h3>Comportamento corretto</h3>
+            <ul>
+              <li>Chiedere i dati nell'ordine definito.</li>
+              <li>Decodificare il codice articolo prima del prezzo.</li>
+              <li>Confermare versione elettrica o idraulica.</li>
+              <li>Mostrare la decodifica del codice identificato.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Carlo rende il configuratore piu preciso, guidato e verificabile.</h2>
+            <p>
+              Ogni prezzo nasce da un percorso controllato: domanda corretta, codice decodificato,
+              variante tecnica chiarita, finitura classificata e coerenza verificata.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="#role">Torna all'inizio</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container">
+      <span>Carlo Configuratore di Prodotto · TeraBrain Agent</span>
+      <span>Catalogo · Parsing codice · Versione · Misure · Prezzo validato</span>
+    </div>
+  </footer>
+</body>
+</html>

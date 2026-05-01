@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alberto Invoice Compliance | TeraBrain Agent</title>
+  <meta name="description" content="Alberto Invoice Compliance è l'AI Agent TeraBrain per controllo amministrativo, ciclo passivo, verifica fatture fornitori, approvazione, protocollo e archiviazione tracciabile." />
+  <style>
+    :root{
+      --bg:#050608;
+      --panel:#10151b;
+      --panel-2:#151c24;
+      --line:rgba(255,255,255,0.12);
+      --line-soft:rgba(255,255,255,0.07);
+      --text:#f7f8f5;
+      --muted:#b8c0bd;
+      --soft:#87918d;
+      --accent:#ff7a00;
+      --accent-2:#42d39b;
+      --accent-3:#7ab8ff;
+      --danger:#ff5b5b;
+      --radius:18px;
+      --shadow:0 26px 76px rgba(0,0,0,0.52);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text",Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 14% 0,rgba(255,122,0,0.18),transparent 32%),
+        radial-gradient(circle at 88% 12%,rgba(66,211,155,0.12),transparent 34%),
+        linear-gradient(180deg,#08090d 0,#050608 48%,#070a0c 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none;}
+    .container{width:min(1120px,90vw);margin:0 auto;}
+    .hero{
+      min-height:96vh;
+      display:grid;
+      align-items:center;
+      padding:56px 0 44px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,0.95fr) minmax(360px,1.05fr);
+      gap:42px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border:1px solid rgba(255,122,0,0.42);
+      border-radius:999px;
+      background:rgba(255,122,0,0.09);
+      color:#ffd2aa;
+      font-size:12px;
+      font-weight:850;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      margin-bottom:22px;
+    }
+    .eyebrow::before{
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 18px var(--accent);
+    }
+    h1{
+      max-width:820px;
+      font-size:clamp(42px,6vw,76px);
+      line-height:0.98;
+      letter-spacing:0;
+      margin-bottom:22px;
+    }
+    h1 span{color:var(--accent);}
+    .hero-copy{
+      max-width:660px;
+      color:var(--muted);
+      font-size:18px;
+      margin-bottom:26px;
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.16);
+      font-size:14px;
+      font-weight:850;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,0.34);}
+    .btn-primary{
+      background:var(--accent);
+      color:#160b02;
+      border-color:var(--accent);
+      box-shadow:0 14px 34px rgba(255,122,0,0.26);
+    }
+    .hero-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:650px;}
+    .stat{border-top:1px solid var(--line);padding-top:12px;}
+    .stat strong{display:block;font-size:24px;line-height:1.1;margin-bottom:5px;color:#fff;}
+    .stat span{font-size:12px;color:var(--soft);}
+    .hero-visual{
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 50% 0,rgba(255,122,0,0.17),transparent 48%),
+        radial-gradient(circle at 18% 85%,rgba(66,211,155,0.13),transparent 45%),
+        rgba(16,21,27,0.86);
+      box-shadow:var(--shadow);
+      padding:18px;
+      overflow:hidden;
+    }
+    .invoice-map{width:100%;height:auto;display:block;min-height:420px;}
+    .map-bg{fill:rgba(0,0,0,0.16);stroke:rgba(255,255,255,0.08);}
+    .map-card{fill:rgba(255,255,255,0.055);stroke:rgba(255,255,255,0.16);stroke-width:1.2;}
+    .map-card-hot{fill:rgba(255,122,0,0.13);stroke:rgba(255,122,0,0.72);stroke-width:1.6;}
+    .map-card-ok{fill:rgba(66,211,155,0.1);stroke:rgba(66,211,155,0.58);stroke-width:1.4;}
+    .map-line{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+    .map-line-ok{fill:none;stroke:var(--accent-2);stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round;}
+    .map-title{fill:#fff;font-size:22px;font-weight:850;}
+    .map-label{fill:#f7f8f5;font-size:15px;font-weight:850;}
+    .map-small{fill:#b8c0bd;font-size:11px;font-weight:750;letter-spacing:0.06em;text-transform:uppercase;}
+    section{padding:76px 0;border-top:1px solid var(--line-soft);}
+    .section-head{
+      display:grid;
+      grid-template-columns:minmax(0,0.92fr) minmax(280px,0.62fr);
+      gap:28px;
+      align-items:end;
+      margin-bottom:32px;
+    }
+    .kicker{color:var(--accent);font-size:12px;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:9px;}
+    h2{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:0;}
+    .section-lead{color:var(--muted);font-size:16px;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(16,21,27,0.74);
+      padding:22px;
+      box-shadow:0 14px 34px rgba(0,0,0,0.28);
+    }
+    .card h3{font-size:19px;line-height:1.2;margin-bottom:9px;}
+    .card p{color:var(--muted);font-size:14px;}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:0 9px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#dee3e0;
+      font-size:11px;
+      font-weight:850;
+      letter-spacing:0.07em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .tag.orange{color:#ffbc82;background:rgba(255,122,0,0.1);border-color:rgba(255,122,0,0.28);}
+    .tag.green{color:#9ff0ce;background:rgba(66,211,155,0.09);border-color:rgba(66,211,155,0.28);}
+    .tag.blue{color:#b9d9ff;background:rgba(122,184,255,0.09);border-color:rgba(122,184,255,0.28);}
+    .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:step;}
+    .step{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.025));
+      min-height:190px;
+    }
+    .step::before{
+      counter-increment:step;
+      content:counter(step,decimal-leading-zero);
+      display:block;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.14em;
+      margin-bottom:18px;
+    }
+    .step h3{font-size:16px;margin-bottom:8px;}
+    .step p{font-size:13px;color:var(--muted);}
+    .matrix{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:1px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
+      background:var(--line);
+    }
+    .matrix div{padding:18px;background:#0c1116;min-height:118px;}
+    .matrix strong{display:block;color:#fff;font-size:14px;margin-bottom:6px;}
+    .matrix span{color:var(--muted);font-size:12px;}
+    .list-card ul{list-style:none;display:grid;gap:11px;margin-top:14px;}
+    .list-card li{color:var(--muted);font-size:14px;padding-left:20px;position:relative;}
+    .list-card li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:9px;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent-2);
+    }
+    .status-board{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+    .status{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#0c1116;
+      padding:22px;
+      min-height:180px;
+    }
+    .status .dot{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      display:inline-block;
+      margin-bottom:18px;
+      box-shadow:0 0 20px currentColor;
+    }
+    .status.ok .dot{background:var(--accent-2);color:var(--accent-2);}
+    .status.wait .dot{background:var(--accent-3);color:var(--accent-3);}
+    .status.fix .dot{background:var(--danger);color:var(--danger);}
+    .status h3{font-size:18px;margin-bottom:8px;}
+    .status p{color:var(--muted);font-size:14px;}
+    .output-box{
+      border:1px solid rgba(255,122,0,0.28);
+      border-radius:20px;
+      background:
+        linear-gradient(135deg,rgba(255,122,0,0.12),rgba(66,211,155,0.06)),
+        #0c1116;
+      padding:24px;
+    }
+    .output-box pre{
+      white-space:pre-wrap;
+      color:#eef5f1;
+      font:13px/1.65 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+      margin-top:16px;
+    }
+    .cta{
+      padding:72px 0 82px;
+      border-top:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(255,122,0,0.06),transparent);
+    }
+    .cta-box{
+      border:1px solid rgba(255,122,0,0.34);
+      border-radius:26px;
+      padding:34px;
+      background:rgba(16,21,27,0.84);
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:24px;
+      align-items:center;
+    }
+    .cta h2{font-size:clamp(28px,3.8vw,44px);margin-bottom:10px;}
+    .cta p{color:var(--muted);max-width:760px;}
+    footer{
+      padding:26px 0;
+      color:var(--soft);
+      border-top:1px solid var(--line-soft);
+      font-size:13px;
+    }
+    footer .container{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+    @media (max-width:960px){
+      .hero-grid,.section-head,.cta-box{grid-template-columns:1fr;}
+      .hero{min-height:auto;}
+      .hero-visual{order:-1;}
+      .steps,.matrix{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .grid-3,.status-board{grid-template-columns:1fr;}
+      .grid-2{grid-template-columns:1fr;}
+    }
+    @media (max-width:620px){
+      .container{width:min(100% - 28px,1120px);}
+      .hero{padding-top:30px;}
+      h1{font-size:40px;}
+      .hero-stats,.steps,.matrix{grid-template-columns:1fr;}
+      .hero-visual{padding:10px;border-radius:20px;}
+      .agent-map,.invoice-map{min-height:320px;}
+      .card,.cta-box{padding:20px;}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Alberto Invoice Compliance</div>
+          <h1>Controllo fatture fornitori con <span>validazione tracciabile</span>.</h1>
+          <p class="hero-copy">
+            Alberto è l'AI Agent TeraBrain per il controllo amministrativo del ciclo passivo:
+            verifica fatture, ordini, DDT e movimenti di magazzino, governa l'approvazione e
+            archivia solo documenti conformi.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#workflow">Vedi workflow</a>
+            <a class="btn" href="#output">Output attesi</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>3-way</strong><span>Fattura, ordine, magazzino</span></div>
+            <div class="stat"><strong>100%</strong><span>Log e protocollo tracciati</span></div>
+            <div class="stat"><strong>0</strong><span>Archiviazioni senza conformita</span></div>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Mappa operativa di Alberto Invoice Compliance">
+          <svg class="invoice-map" viewBox="0 0 760 560" role="img" aria-labelledby="mapTitle mapDesc">
+            <title id="mapTitle">Mappa operativa di Alberto Invoice Compliance</title>
+            <desc id="mapDesc">Flusso di controllo fattura dal documento in ingresso fino ad approvazione, protocollo e archiviazione.</desc>
+            <rect class="map-bg" x="18" y="18" width="724" height="524" rx="26" />
+            <text class="map-title" x="54" y="64">Invoice Compliance Flow</text>
+            <text class="map-small" x="54" y="88">document control · approval · protocol · archive</text>
+
+            <rect class="map-card" x="54" y="130" width="160" height="86" rx="18" />
+            <text class="map-label" x="134" y="166" text-anchor="middle">Fattura</text>
+            <text class="map-small" x="134" y="190" text-anchor="middle">numero · data · IVA</text>
+
+            <rect class="map-card" x="54" y="288" width="160" height="86" rx="18" />
+            <text class="map-label" x="134" y="324" text-anchor="middle">Ordine</text>
+            <text class="map-small" x="134" y="348" text-anchor="middle">quantita · prezzi</text>
+
+            <rect class="map-card" x="54" y="410" width="160" height="86" rx="18" />
+            <text class="map-label" x="134" y="446" text-anchor="middle">Magazzino</text>
+            <text class="map-small" x="134" y="470" text-anchor="middle">DDT · carico</text>
+
+            <rect class="map-card-hot" x="300" y="236" width="170" height="112" rx="22" />
+            <text class="map-label" x="385" y="276" text-anchor="middle">Alberto</text>
+            <text class="map-label" x="385" y="302" text-anchor="middle">Compliance</text>
+            <text class="map-small" x="385" y="328" text-anchor="middle">controllo coerenza</text>
+
+            <rect class="map-card" x="548" y="126" width="158" height="84" rx="18" />
+            <text class="map-label" x="627" y="162" text-anchor="middle">Anomalie</text>
+            <text class="map-small" x="627" y="186" text-anchor="middle">motivazione chiara</text>
+
+            <rect class="map-card-ok" x="548" y="254" width="158" height="84" rx="18" />
+            <text class="map-label" x="627" y="290" text-anchor="middle">Approvazione</text>
+            <text class="map-small" x="627" y="314" text-anchor="middle">reparto responsabile</text>
+
+            <rect class="map-card-ok" x="548" y="382" width="158" height="84" rx="18" />
+            <text class="map-label" x="627" y="418" text-anchor="middle">Protocollo</text>
+            <text class="map-small" x="627" y="442" text-anchor="middle">archivio ricercabile</text>
+
+            <path class="map-line" d="M214 173 C250 180 263 232 300 260" />
+            <path class="map-line" d="M214 331 C252 331 264 320 300 302" />
+            <path class="map-line" d="M214 453 C260 438 276 360 310 322" />
+            <path class="map-line" d="M470 274 C506 236 514 190 548 168" />
+            <path class="map-line-ok" d="M470 296 C500 296 518 296 548 296" />
+            <path class="map-line-ok" d="M470 326 C510 356 520 402 548 424" />
+
+            <circle cx="250" cy="180" r="5" fill="#ff7a00" />
+            <circle cx="510" cy="296" r="5" fill="#42d39b" />
+            <circle cx="520" cy="402" r="5" fill="#42d39b" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="role">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Ruolo operativo</div>
+            <h2>Un agente amministrativo specializzato nel ciclo passivo.</h2>
+          </div>
+          <p class="section-lead">
+            Alberto agisce come presidio di controllo tra documento ricevuto, regole aziendali,
+            sistemi gestionali e responsabilita approvative.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag orange">Controllo</span>
+            <h3>Verifica documentale</h3>
+            <p>Estrae dati chiave da fatture fornitori e confronta importi, IVA, DDT, ordini collegati e carichi di magazzino.</p>
+          </article>
+          <article class="card">
+            <span class="tag green">Governance</span>
+            <h3>Workflow di approvazione</h3>
+            <p>Identifica il responsabile di reparto, invia la richiesta con riepilogo e registra approvazioni o rifiuti.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Audit</span>
+            <h3>Protocollo e archivio</h3>
+            <p>Assegna protocollo, applica metadati, archivia nel repository corretto e rende il documento ricercabile.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Workflow</div>
+            <h2>Dal documento ricevuto allo stato finale, senza passaggi opachi.</h2>
+          </div>
+          <p class="section-lead">
+            Ogni fattura attraversa un percorso controllato. Se la conformita non e verificata,
+            il processo si ferma prima dell'archiviazione.
+          </p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <h3>Estrazione dati</h3>
+            <p>Numero, data, fornitore, importi, aliquote IVA, ordini, DDT e riferimenti di magazzino.</p>
+          </div>
+          <div class="step">
+            <h3>Controllo coerenza</h3>
+            <p>Confronto tra fattura, ordine fornitore, condizioni pattuite e carico di magazzino quando applicabile.</p>
+          </div>
+          <div class="step">
+            <h3>Approvazione</h3>
+            <p>Richiesta al responsabile di reparto con sintesi, anomalie e stato del controllo amministrativo.</p>
+          </div>
+          <div class="step">
+            <h3>Protocollo e archivio</h3>
+            <p>Registrazione del protocollo univoco e archiviazione strutturata solo per documenti approvati.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="controls">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Controlli</div>
+            <h2>La conformita nasce dal confronto tra evidenze.</h2>
+          </div>
+          <p class="section-lead">
+            Alberto non valuta una fattura come documento isolato: collega il contenuto alla realta operativa
+            dell'ordine, della ricezione merce e delle condizioni amministrative.
+          </p>
+        </div>
+        <div class="matrix">
+          <div><strong>Dati fattura</strong><span>Numero, data, fornitore, imponibile, IVA, totale, scadenze e riferimenti.</span></div>
+          <div><strong>Ordine fornitore</strong><span>Quantita, prezzi, condizioni commerciali, righe documento e stato ordine.</span></div>
+          <div><strong>DDT e magazzino</strong><span>Presenza DDT, quantita ricevute, carichi registrati e coerenza fisica.</span></div>
+          <div><strong>Anomalie</strong><span>Discrepanze motivate, stato non conforme e indicazioni di correzione.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="approval">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Approvazione</div>
+            <h2>Il reparto responsabile riceve solo informazioni gia ordinate.</h2>
+          </div>
+          <p class="section-lead">
+            L'agente prepara una richiesta approvativa sintetica e verificabile, registra il feedback
+            e mantiene il processo allineato allo stato reale della fattura.
+          </p>
+        </div>
+        <div class="grid-2">
+          <article class="card list-card">
+            <span class="tag green">Azioni consentite</span>
+            <h3>Gestione del responsabile</h3>
+            <ul>
+              <li>Identificare il responsabile del reparto collegato alla fattura.</li>
+              <li>Inviare riepilogo, anomalie e richiesta di approvazione.</li>
+              <li>Registrare approvazione, rifiuto o attesa di feedback.</li>
+              <li>Notificare il rifiuto con motivazione puntuale.</li>
+            </ul>
+          </article>
+          <article class="card list-card">
+            <span class="tag orange">Guardrail</span>
+            <h3>Blocchi operativi</h3>
+            <ul>
+              <li>Non archiviare fatture con controlli non superati.</li>
+              <li>Non nascondere anomalie o incoerenze rilevate.</li>
+              <li>Non procedere senza stato di controllo registrato.</li>
+              <li>Non perdere lo storico delle operazioni eseguite.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="archive">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Archiviazione</div>
+            <h2>Repository, protocollo e metadati rendono la fattura recuperabile.</h2>
+          </div>
+          <p class="section-lead">
+            Una fattura approvata viene salvata nella struttura corretta per anno, fornitore e categoria documento,
+            con metadati standard utili ad audit e ricerche future.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag blue">Repository</span>
+            <h3>Destinazione documentale</h3>
+            <p>SharePoint, Google Drive o TB Repository, seguendo la struttura aziendale prevista.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Protocollo</span>
+            <h3>Registrazione univoca</h3>
+            <p>Numero protocollo, data registrazione, ID documento e stato del controllo vengono salvati nel log.</p>
+          </article>
+          <article class="card">
+            <span class="tag blue">Ricerca</span>
+            <h3>CRM ed ERP</h3>
+            <p>Il documento viene reso ricercabile tramite query nei sistemi aziendali collegati.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="states">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Stati finali</div>
+            <h2>Ogni fattura termina con un esito chiaro.</h2>
+          </div>
+          <p class="section-lead">
+            Lo stato finale permette di capire subito se il documento puo proseguire, deve essere corretto
+            o attende una decisione del responsabile.
+          </p>
+        </div>
+        <div class="status-board">
+          <article class="status ok">
+            <span class="dot"></span>
+            <h3>APPROVATA</h3>
+            <p>Controlli superati, approvazione ottenuta, protocollo assegnato e archiviazione completabile.</p>
+          </article>
+          <article class="status wait">
+            <span class="dot"></span>
+            <h3>IN ATTESA DI APPROVAZIONE</h3>
+            <p>Controllo amministrativo eseguito, richiesta inviata al responsabile e feedback non ancora ricevuto.</p>
+          </article>
+          <article class="status fix">
+            <span class="dot"></span>
+            <h3>DA CORREGGERE</h3>
+            <p>Anomalia rilevata su dati, ordine, DDT, magazzino o condizioni. Archiviazione bloccata.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="output">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Output</div>
+            <h2>Un risultato sintetico, verificabile e utile al controllo interno.</h2>
+          </div>
+          <p class="section-lead">
+            Alberto produce output operativi: non solo una risposta, ma una traccia amministrativa
+            utilizzabile da finance, reparto responsabile e sistemi aziendali.
+          </p>
+        </div>
+        <div class="output-box">
+          <span class="tag orange">Formato atteso</span>
+          <pre>{
+  "fattura": {
+    "numero": "...",
+    "data": "...",
+    "fornitore": "...",
+    "importo_totale": "...",
+    "ordini_collegati": [],
+    "ddt": []
+  },
+  "esito_controlli": "CONFORME | NON_CONFORME",
+  "inconsistencies": [
+    {
+      "area": "ordine | magazzino | iva | importo | ddt",
+      "descrizione": "problema rilevato e verificabile",
+      "azione_richiesta": "correzione o chiarimento"
+    }
+  ],
+  "workflow": {
+    "approvazione": "APPROVATA | RIFIUTATA | IN_ATTESA",
+    "protocollo": "...",
+    "archiviazione": "COMPLETATA | BLOCCATA"
+  },
+  "stato_finale": "APPROVATA | DA_CORREGGERE | IN_ATTESA_DI_APPROVAZIONE"
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Alberto trasforma il controllo fatture in un processo governato.</h2>
+            <p>
+              Ogni documento viene letto, confrontato, motivato, approvato, protocollato e archiviato
+              solo quando le evidenze amministrative sono coerenti.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="#role">Torna all'inizio</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container">
+      <span>Alberto Invoice Compliance · TeraBrain Agent</span>
+      <span>Controllo amministrativo · Ciclo passivo · Audit trail</span>
+    </div>
+  </footer>
+</body>
+</html>

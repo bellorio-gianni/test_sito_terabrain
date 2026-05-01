@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elena | Executive Digital Secretary TERABRAIN</title>
+  <meta name="description" content="Elena e l'Executive Digital Secretary di Bellorio: un'assistente AI per agenda, chiamate, comunicazioni, customer care e supporto commerciale." />
+  <style>
+    :root{
+      --bg:#050509;
+      --panel:#111421;
+      --panel-2:#171b2c;
+      --line:rgba(255,255,255,0.12);
+      --line-soft:rgba(255,255,255,0.07);
+      --text:#f7f7fb;
+      --muted:#b7bacb;
+      --soft:#85899f;
+      --accent:#ff6a00;
+      --gold:#f3c66d;
+      --teal:#2fd2c4;
+      --blue:#8aa4ff;
+      --radius:18px;
+      --shadow:0 24px 70px rgba(0,0,0,0.52);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text",Segoe UI,sans-serif;
+      background:
+        radial-gradient(circle at 12% 0,rgba(243,198,109,0.18),transparent 30%),
+        radial-gradient(circle at 88% 12%,rgba(47,210,196,0.11),transparent 32%),
+        linear-gradient(180deg,#080913 0,#050509 48%,#090a11 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none;}
+    .container{width:min(1120px,90vw);margin:0 auto;}
+    .hero{
+      min-height:96vh;
+      display:grid;
+      align-items:center;
+      padding:56px 0 44px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,0.95fr) minmax(360px,1.05fr);
+      gap:42px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border:1px solid rgba(243,198,109,0.42);
+      border-radius:999px;
+      background:rgba(243,198,109,0.08);
+      color:#ffe0a3;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      margin-bottom:22px;
+    }
+    .eyebrow::before{
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--gold);
+      box-shadow:0 0 18px var(--gold);
+    }
+    h1{
+      max-width:760px;
+      font-size:clamp(42px,6vw,76px);
+      line-height:0.98;
+      letter-spacing:0;
+      margin-bottom:22px;
+    }
+    h1 span{color:var(--gold);}
+    .hero-copy{
+      max-width:630px;
+      color:var(--muted);
+      font-size:18px;
+      margin-bottom:26px;
+    }
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-bottom:28px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.16);
+      font-size:14px;
+      font-weight:800;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,0.36);}
+    .btn-primary{
+      background:var(--gold);
+      color:#130b00;
+      border-color:var(--gold);
+      box-shadow:0 14px 34px rgba(243,198,109,0.28);
+    }
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      max-width:650px;
+    }
+    .stat{
+      border-top:1px solid var(--line);
+      padding-top:12px;
+    }
+    .stat strong{
+      display:block;
+      font-size:24px;
+      line-height:1.1;
+      margin-bottom:5px;
+      color:#fff;
+    }
+    .stat span{font-size:12px;color:var(--soft);}
+    .hero-visual{
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 50% 0,rgba(138,164,255,0.18),transparent 48%),
+        radial-gradient(circle at 18% 85%,rgba(243,198,109,0.14),transparent 45%),
+        rgba(17,20,33,0.84);
+      box-shadow:var(--shadow);
+      padding:18px;
+      overflow:hidden;
+    }
+    .assistant-map{
+      width:100%;
+      height:auto;
+      display:block;
+      min-height:420px;
+    }
+    .map-bg{fill:rgba(0,0,0,0.16);stroke:rgba(255,255,255,0.08);}
+    .map-node{fill:rgba(255,255,255,0.055);stroke:rgba(255,255,255,0.16);stroke-width:1.2;}
+    .map-node-hot{fill:rgba(243,198,109,0.14);stroke:rgba(243,198,109,0.72);stroke-width:1.6;}
+    .map-node-cool{fill:rgba(47,210,196,0.1);stroke:rgba(47,210,196,0.5);stroke-width:1.4;}
+    .map-line{fill:none;stroke:rgba(255,255,255,0.28);stroke-width:2;}
+    .map-line-hot{fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;}
+    .map-line-cool{fill:none;stroke:var(--teal);stroke-width:2.5;stroke-linecap:round;}
+    .map-title{fill:#fff;font-size:22px;font-weight:800;}
+    .map-label{fill:#f1f2ff;font-size:15px;font-weight:800;}
+    .map-small{fill:#aeb1c6;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}
+    section{padding:76px 0;border-top:1px solid var(--line-soft);}
+    .section-head{
+      display:grid;
+      grid-template-columns:minmax(0,0.9fr) minmax(280px,0.62fr);
+      gap:28px;
+      align-items:end;
+      margin-bottom:32px;
+    }
+    .kicker{
+      color:var(--gold);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+      margin-bottom:9px;
+    }
+    h2{
+      font-size:clamp(30px,4vw,48px);
+      line-height:1.05;
+      letter-spacing:0;
+    }
+    .section-lead{color:var(--muted);font-size:16px;}
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(17,20,33,0.74);
+      padding:22px;
+      box-shadow:0 14px 34px rgba(0,0,0,0.28);
+    }
+    .card h3{
+      font-size:19px;
+      line-height:1.2;
+      margin-bottom:9px;
+    }
+    .card p{color:var(--muted);font-size:14px;}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:0 9px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#d9daf0;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:0.07em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .tag.gold{color:#ffe0a3;background:rgba(243,198,109,0.1);border-color:rgba(243,198,109,0.28);}
+    .tag.teal{color:#8ff0e7;background:rgba(47,210,196,0.09);border-color:rgba(47,210,196,0.28);}
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      counter-reset:step;
+    }
+    .step{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.025));
+      min-height:178px;
+    }
+    .step::before{
+      counter-increment:step;
+      content:counter(step,decimal-leading-zero);
+      display:block;
+      color:var(--gold);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.14em;
+      margin-bottom:20px;
+    }
+    .step h3{font-size:16px;margin-bottom:8px;}
+    .step p{font-size:13px;color:var(--muted);}
+    .flow{
+      display:grid;
+      grid-template-columns:1.1fr 1fr 1fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    .flow-card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:24px;
+      background:rgba(13,15,26,0.72);
+    }
+    .flow-card ul{list-style:none;display:grid;gap:11px;margin-top:14px;}
+    .flow-card li{
+      color:var(--muted);
+      font-size:14px;
+      padding-left:20px;
+      position:relative;
+    }
+    .flow-card li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:9px;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--teal);
+    }
+    .examples{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+    .example{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(17,20,33,0.72);
+      padding:20px;
+    }
+    .example h3{font-size:17px;margin-bottom:10px;}
+    .quote{
+      border-left:3px solid var(--gold);
+      padding:10px 0 10px 14px;
+      color:var(--muted);
+      font-size:14px;
+      background:linear-gradient(90deg,rgba(243,198,109,0.08),transparent);
+      margin-top:12px;
+    }
+    .guardrail{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+    .guardrail-list{
+      list-style:none;
+      display:grid;
+      gap:12px;
+    }
+    .guardrail-list li{
+      border-left:3px solid var(--gold);
+      padding:10px 0 10px 14px;
+      color:var(--muted);
+      font-size:14px;
+      background:linear-gradient(90deg,rgba(243,198,109,0.07),transparent);
+    }
+    .cta{
+      padding:70px 0;
+      background:
+        radial-gradient(circle at 22% 50%,rgba(243,198,109,0.16),transparent 36%),
+        radial-gradient(circle at 78% 50%,rgba(47,210,196,0.13),transparent 34%),
+        #080910;
+    }
+    .cta-box{
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:38px;
+      background:rgba(17,20,33,0.78);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+    .cta h2{font-size:36px;margin-bottom:10px;}
+    .cta p{color:var(--muted);max-width:720px;}
+    footer{
+      padding:28px 0;
+      color:var(--soft);
+      font-size:13px;
+      border-top:1px solid var(--line-soft);
+    }
+    .footer-row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+    @media(max-width:980px){
+      .hero-grid,.section-head,.flow,.guardrail,.cta-box{grid-template-columns:1fr;}
+      .hero{min-height:auto;}
+      .grid-3,.steps,.examples{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .hero-stats{grid-template-columns:1fr;}
+      .assistant-map{min-height:360px;}
+    }
+    @media(max-width:640px){
+      .container{width:min(92vw,1120px);}
+      .hero{padding-top:34px;}
+      .hero-grid{grid-template-columns:1fr;gap:28px;}
+      .grid-3,.grid-2,.steps,.examples{grid-template-columns:1fr;}
+      .hero-visual{padding:10px;border-radius:22px;}
+      .assistant-map{min-height:310px;}
+      .cta-box{padding:24px;}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Executive Digital Secretary</div>
+          <h1>Elena, la <span>V. Assistant</span> di Bellorio per agenda, comunicazioni e priorita.</h1>
+          <p class="hero-copy">
+            Elena e l'assistente AI executive progettata per ottimizzare tempo, priorita e operativita:
+            gestisce richieste inbound, appuntamenti, follow-up, comunicazioni professionali,
+            supporto commerciale e customer care con tono formale, discreto e preciso.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#agenda">Gestione agenda</a>
+            <a class="btn" href="#terabrain">Conoscenza TERABRAIN</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>1-2</strong><span>frasi per risposte vocali brevi e formali</span></div>
+            <div class="stat"><strong>O365</strong><span>agenda, calendari condivisi e meeting Teams</span></div>
+            <div class="stat"><strong>20-30'</strong><span>obiettivo call di approfondimento commerciale</span></div>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Mappa operativa di Elena">
+          <svg class="assistant-map" viewBox="0 0 760 620" role="img" aria-labelledby="mapTitle mapDesc">
+            <title id="mapTitle">Mappa operativa di Elena Executive Digital Secretary</title>
+            <desc id="mapDesc">Elena riceve chiamate, email e richieste agenda, filtra priorita e coordina meeting, follow-up, customer care e supporto sales.</desc>
+            <defs>
+              <marker id="arrowGold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#f3c66d" />
+              </marker>
+              <marker id="arrowTealElena" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#2fd2c4" />
+              </marker>
+            </defs>
+            <rect class="map-bg" x="24" y="24" width="712" height="572" rx="28" />
+            <text class="map-small" x="58" y="68">EXECUTIVE ASSISTANT GRAPH</text>
+            <text class="map-title" x="58" y="102">Dalla richiesta alla gestione operativa</text>
+
+            <rect class="map-node" x="58" y="144" width="160" height="76" rx="18" />
+            <text class="map-label" x="138" y="176" text-anchor="middle">Chiamate</text>
+            <text class="map-small" x="138" y="198" text-anchor="middle">inbound, filtro, priorita</text>
+
+            <rect class="map-node" x="58" y="250" width="160" height="76" rx="18" />
+            <text class="map-label" x="138" y="282" text-anchor="middle">Agenda</text>
+            <text class="map-small" x="138" y="304" text-anchor="middle">O365, Teams, slot</text>
+
+            <rect class="map-node" x="58" y="356" width="160" height="76" rx="18" />
+            <text class="map-label" x="138" y="388" text-anchor="middle">Email</text>
+            <text class="map-small" x="138" y="410" text-anchor="middle">risposte, follow-up</text>
+
+            <rect class="map-node-hot" x="300" y="234" width="170" height="104" rx="24" />
+            <text class="map-label" x="385" y="272" text-anchor="middle">Elena</text>
+            <text class="map-label" x="385" y="298" text-anchor="middle">V. Assistant</text>
+            <text class="map-small" x="385" y="320" text-anchor="middle">eleganza + precisione</text>
+
+            <rect class="map-node-cool" x="544" y="116" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="145" text-anchor="middle">Bellorio</text>
+            <text class="map-small" x="619" y="165" text-anchor="middle">priorita executive</text>
+
+            <rect class="map-node-cool" x="544" y="208" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="237" text-anchor="middle">Clienti</text>
+            <text class="map-small" x="619" y="257" text-anchor="middle">care, richieste, escalation</text>
+
+            <rect class="map-node-cool" x="544" y="300" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="329" text-anchor="middle">Sales</text>
+            <text class="map-small" x="619" y="349" text-anchor="middle">lead, call, follow-up</text>
+
+            <rect class="map-node-cool" x="544" y="392" width="150" height="66" rx="17" />
+            <text class="map-label" x="619" y="421" text-anchor="middle">TERABRAIN</text>
+            <text class="map-small" x="619" y="441" text-anchor="middle">executive knowledge</text>
+
+            <path class="map-line-hot" d="M218 182 C260 188,274 244,300 266" marker-end="url(#arrowGold)" />
+            <path class="map-line-cool" d="M218 288 C258 288,270 288,300 288" marker-end="url(#arrowTealElena)" />
+            <path class="map-line-hot" d="M218 394 C258 386,278 326,300 310" marker-end="url(#arrowGold)" />
+            <path class="map-line-cool" d="M470 266 C504 230,510 166,544 150" marker-end="url(#arrowTealElena)" />
+            <path class="map-line-hot" d="M470 282 C502 256,514 242,544 242" marker-end="url(#arrowGold)" />
+            <path class="map-line-cool" d="M470 304 C502 318,514 330,544 334" marker-end="url(#arrowTealElena)" />
+            <path class="map-line-hot" d="M470 322 C504 354,512 408,544 426" marker-end="url(#arrowGold)" />
+
+            <rect class="map-node" x="104" y="500" width="552" height="58" rx="18" />
+            <text class="map-label" x="380" y="524" text-anchor="middle">Principio operativo</text>
+            <text class="map-small" x="380" y="546" text-anchor="middle">breve · formale · riservata · orientata all'azione</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="funzioni">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Funzioni principali</div>
+            <h2>Una segretaria digitale executive per coordinare il lavoro quotidiano.</h2>
+          </div>
+          <p class="section-lead">
+            Elena e progettata per operare con stile professionale: risposte brevi,
+            controllo delle informazioni necessarie, gestione priorita e passaggio al referente corretto quando serve.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag gold">Agenda</span>
+            <h3>Meeting e calendari</h3>
+            <p>Raccoglie giorno, orario, durata, modalita e partecipanti, verifica disponibilita reale e coordina meeting Teams o appuntamenti.</p>
+          </article>
+          <article class="card">
+            <span class="tag teal">Comunicazioni</span>
+            <h3>Chiamate ed email</h3>
+            <p>Filtra chiamate, gestisce messaggi operativi, solleciti, follow-up e comunicazioni professionali mantenendo tono formale.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Priorita</span>
+            <h3>Sales e customer care</h3>
+            <p>Qualifica lead, raccoglie segnalazioni, classifica urgenze e attiva escalation quando la richiesta supera il perimetro operativo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="agenda">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Core function</div>
+            <h2>Gestione agenda con controllo di disponibilita e conferma partecipanti.</h2>
+          </div>
+          <p class="section-lead">
+            Prima di fissare un appuntamento Elena deve assicurarsi che lo slot sia realmente disponibile
+            e che le email dei partecipanti esterni siano corrette e confermate.
+          </p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <h3>Raccoglie i dati</h3>
+            <p>Giorno, orario, durata stimata, modalita, motivo del meeting e partecipanti da invitare.</p>
+          </article>
+          <article class="step">
+            <h3>Verifica email</h3>
+            <p>Controlla completezza e plausibilita degli indirizzi esterni, ripetendoli se dettati a voce.</p>
+          </article>
+          <article class="step">
+            <h3>Controlla agenda</h3>
+            <p>Verifica disponibilita su calendario reale, evitando sovrapposizioni e slot non compatibili con la durata.</p>
+          </article>
+          <article class="step">
+            <h3>Propone alternative</h3>
+            <p>Se lo slot richiesto non e libero, propone al massimo due alternative realmente disponibili.</p>
+          </article>
+          <article class="step">
+            <h3>Richiede conferma</h3>
+            <p>Prima di creare il meeting fa confermare l'orario disponibile e i partecipanti da invitare.</p>
+          </article>
+          <article class="step">
+            <h3>Crea il meeting</h3>
+            <p>Imposta titolo chiaro, durata, partecipanti, link Teams se richiesto e nota sintetica.</p>
+          </article>
+          <article class="step">
+            <h3>Conferma finale</h3>
+            <p>Comunica in modo semplice che l'appuntamento e fissato e che arrivera conferma via email.</p>
+          </article>
+          <article class="step">
+            <h3>Gestisce ambiguita</h3>
+            <p>Usa timezone Europe/Rome e chiede conferma se data, giorno o orario non sono chiari.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="comunicazioni">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Chiamate ed email</div>
+            <h2>Una voce formale che filtra, sintetizza e indirizza.</h2>
+          </div>
+          <p class="section-lead">
+            In modalita vocale Elena risponde con frasi brevi, non descrive i sistemi interni
+            e attiva l'azione corretta solo quando ha le informazioni necessarie.
+          </p>
+        </div>
+        <div class="flow">
+          <article class="flow-card">
+            <span class="tag gold">Inbound</span>
+            <h3>Gestione chiamate</h3>
+            <ul>
+              <li>Apertura professionale e identificazione del chiamante</li>
+              <li>Comprensione del motivo della chiamata</li>
+              <li>Valutazione di urgenza e priorita</li>
+              <li>Follow-up, meeting o escalation quando necessario</li>
+            </ul>
+          </article>
+          <article class="flow-card">
+            <span class="tag teal">Email</span>
+            <h3>Comunicazioni operative</h3>
+            <ul>
+              <li>Conferme di ricezione</li>
+              <li>Solleciti e richieste di riscontro</li>
+              <li>Coordinamento follow-up</li>
+              <li>Comunicazioni professionali con footer standard</li>
+            </ul>
+          </article>
+          <article class="flow-card">
+            <span class="tag">Escalation</span>
+            <h3>Quando passa la richiesta</h3>
+            <ul>
+              <li>Decisioni economiche o trattative</li>
+              <li>Temi legali o reputazionali</li>
+              <li>Clienti strategici o richieste sensibili</li>
+              <li>Richieste oltre il perimetro operativo</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sales-care">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Sales manager & customer care</div>
+            <h2>Supporto commerciale senza sostituire le decisioni strategiche.</h2>
+          </div>
+          <p class="section-lead">
+            Elena puo qualificare lead, organizzare call e raccogliere segnalazioni,
+            ma non comunica prezzi, non negozia condizioni e non modifica accordi.
+          </p>
+        </div>
+        <div class="examples">
+          <article class="example">
+            <span class="tag gold">Lead</span>
+            <h3>Qualificazione commerciale</h3>
+            <p>Raccoglie motivo del contatto, area di interesse, urgenza e disponibilita per una call di approfondimento.</p>
+            <div class="quote">"Posso organizzare un confronto diretto con Bellorio per valutare il caso nel dettaglio."</div>
+          </article>
+          <article class="example">
+            <span class="tag teal">Care</span>
+            <h3>Segnalazioni clienti</h3>
+            <p>Raccoglie il problema, classifica priorita, pianifica follow-up e attiva escalation se la richiesta e critica.</p>
+            <div class="quote">"Raccolgo subito le informazioni principali e faccio attivare il seguito corretto."</div>
+          </article>
+          <article class="example">
+            <span class="tag">Commerciale</span>
+            <h3>Richiesta contatto</h3>
+            <p>Quando il cliente chiede un commerciale, presenta le opzioni disponibili e lascia scegliere l'interlocutore.</p>
+            <div class="quote">"Certamente. Sono disponibili sia Alex che Bellorio. Con chi desidera parlare?"</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="terabrain">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Conoscenza TERABRAIN</div>
+            <h2>Elena presenta la piattaforma a livello executive.</h2>
+          </div>
+          <p class="section-lead">
+            Elena sa spiegare TERABRAIN come piattaforma Agentic AI per Digital Twins Operativi,
+            senza entrare in dettagli architetturali riservati o pricing non autorizzato.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag gold">Posizionamento</span>
+            <h3>Non chatbot, ma agenti operativi</h3>
+            <p>TERABRAIN crea, orchestra e monitora agenti AI autonomi che collaborano con team umani e sistemi aziendali.</p>
+          </article>
+          <article class="card">
+            <span class="tag teal">Integrazioni</span>
+            <h3>Canali e sistemi aziendali</h3>
+            <p>Gli agenti possono operare su voce, email, Teams, WhatsApp, Slack, CRM, ERP, database e repository documentali.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Valore</span>
+            <h3>Produttivita e controllo</h3>
+            <p>Riduce attivita ripetitive, errori manuali e tempi di risposta, mantenendo tracciabilita e supervisione umana.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cold-call">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Cold call strategica</div>
+            <h2>Incuriosire, non vendere: l'obiettivo e fissare una call.</h2>
+          </div>
+          <p class="section-lead">
+            Elena introduce gli AI Agents con una conversazione breve, elegante e non invasiva.
+            La metrica di successo e ottenere una call di approfondimento di 20-30 minuti.
+          </p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <h3>Apertura autorevole</h3>
+            <p>Introduce il tema degli agenti AI operativi e attende la reazione dell'interlocutore.</p>
+          </article>
+          <article class="step">
+            <h3>Micro-hook</h3>
+            <p>Chiarisce che non si parla di chatbot, ma di agenti integrati con processi, CRM, email e sistemi.</p>
+          </article>
+          <article class="step">
+            <h3>Domanda intelligente</h3>
+            <p>Fa emergere un piccolo problema: attivita ripetitive, email, CRM, follow-up o processi interni.</p>
+          </article>
+          <article class="step">
+            <h3>Chiusura soft</h3>
+            <p>Propone una breve call senza impegno per mostrare un esempio concreto applicato al settore.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="guardrail">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Guardrail</div>
+            <h2>Eleganza, riservatezza e limiti chiari.</h2>
+          </div>
+          <p class="section-lead">
+            Elena ottimizza il lavoro operativo, ma mantiene un perimetro rigoroso:
+            niente pricing, niente contratti, niente dati sensibili non autorizzati.
+          </p>
+        </div>
+        <div class="guardrail">
+          <article class="card">
+            <h3>Cosa puo fare</h3>
+            <ul class="guardrail-list">
+              <li>Gestire agenda, meeting e follow-up operativi.</li>
+              <li>Raccogliere informazioni, priorita e recapiti necessari.</li>
+              <li>Presentare TERABRAIN a livello executive.</li>
+              <li>Organizzare call commerciali o tecniche con il team corretto.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Cosa non deve fare</h3>
+            <ul class="guardrail-list">
+              <li>Comunicare prezzi, costi, preventivi, sconti o budget.</li>
+              <li>Accettare condizioni contrattuali o modificare accordi.</li>
+              <li>Divulgare dati riservati o dettagli tecnici sensibili.</li>
+              <li>Promettere integrazioni o funzionalita non confermate.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Elena porta ordine nelle richieste operative e commerciali.</h2>
+            <p>
+              Un'assistente digitale executive per gestire tempo, priorita, appuntamenti,
+              comunicazioni e prime conversazioni TERABRAIN con precisione e riservatezza.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="#funzioni">Rivedi le funzioni</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>Elena · Executive Digital Secretary TERABRAIN / Linegon Srl</span>
+      <span>Agenda · Comunicazioni · Sales support · Customer care</span>
+    </div>
+  </footer>
+</body>
+</html>
