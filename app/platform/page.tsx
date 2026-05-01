@@ -83,6 +83,9 @@ export default function PlatformPage() {
               <a href="#orchestrazione">Orchestrazione</a>
             </div>
             <div className="bo-metrics" aria-label="Caratteristiche piattaforma">
+              <p className="bo-metric-highlight">
+                <strong>Skills operative</strong> tool, API, workflow, Voice BOT e <em>MCP Server</em>
+              </p>
               <p>
                 <strong>Multi-LLM</strong> per agenti specializzati
               </p>
@@ -90,7 +93,7 @@ export default function PlatformPage() {
                 <strong>RAG + Memoria</strong> su dati aziendali
               </p>
               <p>
-                <strong>MCP Server</strong> come layer tool-ready
+                <strong>MCP Server</strong> come skill standard per collegare tool
               </p>
             </div>
 

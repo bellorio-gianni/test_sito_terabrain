@@ -636,17 +636,40 @@ a {
 .bo-metrics {
   display: flex;
   flex-wrap: wrap;
-  gap: 34px;
+  gap: 16px;
   margin-top: 28px;
 }
 
 .bo-metrics p {
+  border: 1px solid transparent;
+  border-radius: 18px;
   color: var(--bo-muted);
   margin: 0;
+  padding: 12px 16px;
 }
 
 .bo-metrics strong {
   color: #fff;
+}
+
+.bo-metrics .bo-metric-highlight {
+  background: linear-gradient(135deg, rgba(255, 122, 43, 0.2), rgba(255, 255, 255, 0.06));
+  border-color: rgba(255, 122, 43, 0.58);
+  box-shadow: 0 18px 48px rgba(255, 122, 43, 0.13);
+  color: #ffd4b5;
+  flex-basis: 100%;
+  font-size: 18px;
+}
+
+.bo-metrics .bo-metric-highlight strong {
+  color: var(--bo-orange);
+  font-size: 22px;
+}
+
+.bo-metrics .bo-metric-highlight em {
+  color: #fff;
+  font-style: normal;
+  font-weight: 900;
 }
 
 .bo-agent-card,
