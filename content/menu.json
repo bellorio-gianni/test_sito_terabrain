@@ -1,7 +1,15 @@
 [
   {
+    "label": "Home",
+    "url": "/"
+  },
+  {
     "label": "Platform",
     "url": "/platform"
+  },
+  {
+    "label": "Corsi",
+    "url": "/course_ai_course"
   },
   {
     "label": "Demo Online con Alex",
