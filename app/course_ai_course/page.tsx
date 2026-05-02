@@ -1,84 +1,51 @@
 const lessons = [
   {
     badge: "Lezione 1",
-    meta: "22 slide · Fondamenti",
+    meta: "25 slide · AI Act",
     theme: "theme-orange",
-    title: "Intelligenza Artificiale: introduzione e concetti base",
+    title: "AI Act: quadro normativo, logica del rischio e cantieri di adeguamento",
     summary:
-      "La prima lezione costruisce una base chiara e compatta per comprendere cosa sia davvero l'AI e come distinguerla da automazione e software tradizionale. Il percorso affronta contesto e hype, definizione di AI, differenze rispetto al software classico, principali famiglie tecnologiche e impatto sul business.",
+      "La prima lezione fornisce una lettura ampia e strutturata dell'AI Act europeo: filosofia risk-based, pratiche vietate, sistemi ad alto rischio, obblighi di trasparenza e GPAI. La seconda parte traduce il quadro normativo in cantieri concreti per l'impresa: AI literacy, policy interna, dati e riservatezza, procurement AI, governance e mappatura dei sistemi.",
     bullets: [
-      "Spiega perché oggi tutti parlano di AI e come separare hype e realtà.",
-      "Introduce il lessico comune che prepara alle lezioni su LLM, prompt engineering e agenti.",
-      "Mostra che il valore reale emerge nei processi e non nella sola dimostrazione tecnologica."
+      "Aiuta a comprendere il regolamento come architettura di governance e non come semplice adempimento.",
+      "Collega il principio di proporzionalità alla realtà dei casi d'uso aziendali.",
+      "Trasforma il quadro normativo in un percorso di adeguamento organizzativo."
     ],
-    objective: "Costruire una base concettuale solida per leggere l'evoluzione dell'AI con maggiore lucidità e spirito critico.",
-    focus: "AI basics, software vs AI, automazione, famiglie AI, valore e limiti trasformativi.",
+    objective: "Fornire una chiave di lettura chiara dell'AI Act e tradurla in azioni concrete per l'azienda.",
+    focus: "Normativa AI Act, risk-based approach, classificazione, literacy, policy, procurement e governance interna.",
     actions: ["Apri la lezione 1"]
   },
   {
     badge: "Lezione 2",
-    meta: "22 slide · LLM, RAG, Agents",
-    theme: "theme-cyan",
-    title: "LLM e AI Agents per il business",
+    meta: "8 slide · Casi ad alto rischio",
+    theme: "theme-rose",
+    title: "AI Act: casi di esempio ad alto rischio",
     summary:
-      "La seconda lezione accompagna dai fondamenti dei large language model fino all'impatto operativo degli AI Agents nei processi aziendali. Affronta definizione e training degli LLM, token e transformer, limiti del modello, ruolo del RAG per collegare l'AI ai documenti e ai dati interni, e infine il passaggio dagli assistenti conversazionali agli agenti con tools, memoria e orchestrazione.",
+      "La seconda lezione approfondisce quattro casi pratici ad alto impatto: screening CV e selezione candidati, valutazione lavoratori, sistemi che influenzano accesso a opportunità o servizi e supporti decisionali in contesti sensibili. Ogni esempio viene letto con un taglio operativo, mettendo in evidenza scenario, rischio, domande di governance, controlli richiesti e criteri di valutazione finale.",
     bullets: [
-      "Spiega come funzionano gli LLM e perché il contesto aziendale richiede estensioni come il RAG.",
-      "Mostra il passaggio da modello linguistico ad agente capace di agire nei workflow.",
-      "Collega tecnologia, organizzazione e use case di business."
+      "Mostra come il rischio emerga quando l'AI valuta persone o influenza opportunità concrete.",
+      "Aiuta a tradurre il quadro normativo in casi aziendali immediatamente comprensibili.",
+      "Offre una griglia pratica per leggere selezione, valutazione, accesso e decision support in chiave AI Act."
     ],
-    objective:
-      "Capire cosa sono gli LLM, come si collegano alla conoscenza aziendale e perché gli AI Agents rappresentano il salto operativo successivo.",
-    focus: "LLM, token, transformer, RAG, memoria, tools, agenti e impatto organizzativo.",
+    objective: "Far comprendere in modo concreto quando un sistema AI entra in zone sensibili e quali presidi servono per governarlo correttamente.",
+    focus: "Recruitment, worker management, accesso a servizi, supporti decisionali sensibili, controlli e supervisione reale.",
     actions: ["Apri la lezione 2"]
   },
   {
     badge: "Lezione 3",
-    meta: "20 slide · Metodo operativo",
-    theme: "theme-violet",
-    title: "Prompt Engineering per il business",
+    meta: "14 slide · Executive governance",
+    theme: "theme-cyan",
+    title: "AI e responsabilità del vertice aziendale",
     summary:
-      "Questa lezione presenta il prompt engineering come disciplina progettuale, non come semplice tecnica di scrittura. Vengono affrontati fondamenti, struttura pratica dei prompt, tecniche operative, errori più comuni, best practice ed esempi di impiego in contesto business, con un messaggio centrale: la qualità dell'output dipende dalla qualità dell'input.",
+      "La terza lezione è dedicata a CEO, Direzione Generale e Consiglio di Amministrazione. Analizza il rapporto tra AI, assetti organizzativi, rischio, responsabilità e doveri di supervisione, con un taglio executive e non tecnico. Il focus è sul ruolo del vertice nel pretendere visibilità, attivare presidi, strutturare il reporting e rendere l'adozione dell'AI difendibile nel tempo.",
     bullets: [
-      "Mostra che un prompt efficace assomiglia più a un brief strutturato che a una domanda generica.",
-      "Introduce metodo, contesto, formato e criteri di controllo per ottenere risultati più affidabili.",
-      "Collega i prompt ai workflow e agli AI Agents, non solo alla chat."
+      "Chiarisce perché l'AI sale automaticamente al livello della governance.",
+      "Mostra come leggere il tema in termini di assetti, controlli, reporting e accountability.",
+      "Aiuta il vertice a capire quali domande porre e quali presidi richiedere."
     ],
-    objective: "Capire come progettare prompt efficaci per ottenere output più affidabili, controllabili e utili nei processi aziendali.",
-    focus: "Fondamenti del prompt engineering, struttura dei prompt, tecniche operative, best practice e casi d'uso business.",
-    actions: ["Apri la lezione 3", "Apri il modulo esempi"]
-  },
-  {
-    badge: "Modulo pratico",
-    meta: "9 slide · Scenario commerciale",
-    theme: "theme-rose",
-    title: "Esempi di Prompt Engineering in area commerciale",
-    summary:
-      "Questo modulo aggiuntivo utilizza un unico scenario sales per confrontare tecniche diverse di prompting e rendere immediatamente visibili differenze di logica, controllo e risultato atteso. È pensato come laboratorio pratico di accompagnamento alla Lezione 3.",
-    bullets: [
-      "Confronta più tecniche sullo stesso contesto commerciale.",
-      "Aiuta a capire quando usare prompt zero-shot, strutturati e orientati al controllo.",
-      "Traduce il metodo in casi d'uso concreti per attività sales."
-    ],
-    objective: "Rendere immediatamente operative le tecniche di prompting, mostrando l'effetto che struttura e contesto hanno sul risultato.",
-    focus: "Esempi sales, confronto tra tecniche, scenario unico, orientamento al business.",
-    actions: ["Apri il modulo esempi"]
-  },
-  {
-    badge: "Lezione 4",
-    meta: "23 slide · Agent Design",
-    theme: "theme-green",
-    title: "AI Agents e progettazione di sistemi operativi agentici",
-    summary:
-      "La quarta lezione porta il corso dal prompt al sistema. Spiega come progettare AI Agents operativi nei processi aziendali, distinguendo LLM, assistente conversazionale e agente vero e proprio. Approfondisce componenti dell'agente, memoria, tools, regole, workflow, controllo, logiche mono-agent e multi-agent, con un forte orientamento all'esecuzione di attività reali.",
-    bullets: [
-      "Chiarisce il salto dalla conversazione con l'AI all'esecuzione di compiti concreti.",
-      "Mostra quali componenti servono a un agente per lavorare davvero nei processi.",
-      "Introduce la progettazione di workflow agentici e il tema della governance operativa."
-    ],
-    objective: "Capire come unire modello, dati, memoria, strumenti e regole in un sistema AI realmente operativo.",
-    focus: "AI Agents, tools, memoria, guardrail, workflow, orchestrazione e use case enterprise.",
-    actions: ["Apri la lezione 4"]
+    objective: "Aiutare il vertice a comprendere responsabilità, rischi e leve di governo nell'onboarding dell'AI nei processi aziendali.",
+    focus: "CEO, CdA, supervisione, responsabilità, reporting, assetti organizzativi e presidio del rischio.",
+    actions: ["Apri la lezione 3"]
   }
 ];
 
@@ -89,8 +56,8 @@ export default function CourseAiCoursePage() {
         <div className="course-topbar-inner">
           <div className="course-brand">
             <div className="course-brand-dot" />
-            <strong>AI COURSE</strong>
-            <span>Home del percorso formativo e accesso ai moduli HTML</span>
+            <strong>AI ACT COURSE</strong>
+            <span>Governance, rischio e responsabilità aziendale</span>
           </div>
           <a className="course-voice-cta" href="tel:0459812721">
             Chiama 0459812721 · Federico Virtual Tutor
@@ -101,33 +68,33 @@ export default function CourseAiCoursePage() {
       <section className="course-hero">
         <div className="course-hero-grid">
           <div className="course-hero-main">
-            <div className="course-kicker">Percorso formativo per business, management e innovazione</div>
-            <h1>AI Business Transformation Program</h1>
+            <div className="course-kicker">Corso AI ACT per management, compliance e governance</div>
+            <h1>AI ACT Governance Program</h1>
             <p className="course-lead">
-              Un percorso strutturato per comprendere l'intelligenza artificiale dalla base concettuale fino agli agenti AI. Le lezioni
-              sono progettate per un pubblico aziendale e combinano fondamenti, architetture, metodo operativo, casi d'uso e presidi di
-              governance.
+              Un percorso focalizzato sull'AI ACT europeo, sulla logica del rischio, sui casi ad alto impatto e sulle responsabilità del
+              vertice aziendale. Le lezioni sono progettate per aiutare management, compliance, HR, IT e funzioni di controllo a trasformare
+              il quadro normativo in presidi operativi concreti.
             </p>
           </div>
           <div className="course-hero-side">
             <div className="course-side-box">
               <h3>Obiettivo del corso</h3>
               <p>
-                Aiutare manager, imprenditori, professionisti e team aziendali a leggere l'AI come leva concreta di trasformazione dei
-                processi, distinguendo hype e valore reale, comprendendo modelli, agenti, regole di utilizzo e responsabilità organizzative.
+                Aiutare manager, imprenditori, professionisti e team aziendali a leggere l'AI ACT come architettura di governance, distinguendo
+                obblighi, rischi, controlli, responsabilità e cantieri di adeguamento realmente necessari.
               </p>
             </div>
             <div className="course-stats">
               <div className="course-stat">
-                <strong>4</strong>
-                <span>Lezioni principali</span>
+                <strong>3</strong>
+                <span>Lezioni AI ACT</span>
               </div>
               <div className="course-stat">
                 <strong>1</strong>
-                <span>Modulo esempi</span>
+                <span>Modulo casi</span>
               </div>
               <div className="course-stat">
-                <strong>90+</strong>
+                <strong>45+</strong>
                 <span>Slide web</span>
               </div>
             </div>
@@ -135,7 +102,7 @@ export default function CourseAiCoursePage() {
               <h3>Didattica</h3>
               <p>
                 Ogni modulo è disponibile in HTML, con spiegazioni estese, struttura leggibile anche in autonomia e una navigazione pensata
-                per aula, ripasso e studio individuale.
+                per aula, ripasso, studio individuale e confronto interno sui presidi di governance.
               </p>
             </div>
           </div>
@@ -146,9 +113,9 @@ export default function CourseAiCoursePage() {
         <div className="course-goal-box">
           <h2>Obiettivo generale del percorso</h2>
           <p>
-            Il corso accompagna i partecipanti in una progressione chiara: prima si costruisce una base comune sull'AI e sulle sue famiglie
-            tecnologiche; poi si entra nei large language model, nel retrieval e negli agenti; successivamente si affronta il prompt
-            engineering come metodo; infine si approfondisce il design degli agenti AI e la loro integrazione nei workflow.
+            Il corso accompagna i partecipanti in una progressione chiara: prima si comprende la struttura dell'AI ACT e la sua logica
+            risk-based; poi si entra nei casi concreti ad alto rischio; infine si affrontano responsabilità del vertice, assetti organizzativi,
+            reporting, supervisione e accountability.
           </p>
         </div>
         <div className="course-notice-box">
@@ -159,8 +126,8 @@ export default function CourseAiCoursePage() {
             più strutturato sui contenuti affrontati.
           </p>
           <p>
-            Il questionario può includere domande teoriche, casi applicativi, confronto tra approcci tecnologici e criteri di utilizzo
-            dell'AI nei processi aziendali.
+            Il questionario può includere domande teoriche, casi applicativi, classificazione dei rischi, governance dei sistemi AI, controlli,
+            responsabilità manageriali e criteri di adozione responsabile.
           </p>
         </div>
       </section>
@@ -169,11 +136,9 @@ export default function CourseAiCoursePage() {
         <div className="course-path-box">
           <h2>Struttura del percorso</h2>
           <p>
-            Il programma si sviluppa in quattro lezioni principali e un modulo aggiuntivo di approfondimento pratico. La Lezione 1 costruisce
-            il lessico di base e distingue AI, automazione e software tradizionale. La Lezione 2 entra in LLM, RAG e AI Agents, mostrando il
-            passaggio dal modello al sistema operativo aziendale. La Lezione 3 presenta il prompt engineering come disciplina metodologica,
-            mentre il modulo esempi collega le tecniche a scenari commerciali concreti. La Lezione 4 approfondisce il design degli agenti AI
-            e la loro integrazione nei workflow.
+            Il programma si sviluppa in tre lezioni rinumerate. La Lezione 1 affronta AI ACT, quadro normativo, logica del rischio e cantieri
+            di adeguamento. La Lezione 2 mantiene il modulo di approfondimento sui casi ad alto rischio, trasformandolo in una lezione autonoma.
+            La Lezione 3 chiude il percorso con responsabilità del vertice aziendale, assetti organizzativi, reporting e supervisione.
           </p>
         </div>
       </section>
@@ -223,7 +188,7 @@ export default function CourseAiCoursePage() {
         </div>
       </section>
 
-      <div className="course-footer">Home page del corso AI · panoramica delle lezioni, obiettivi formativi e accesso riservato ai moduli HTML.</div>
+      <div className="course-footer">Home page del corso AI ACT · panoramica delle lezioni, obiettivi formativi e accesso riservato ai moduli HTML.</div>
     </div>
   );
 }
