@@ -9,7 +9,11 @@
   },
   {
     "label": "Corsi",
-    "url": "/course_ai_course"
+    "type": "dropdown",
+    "links": [
+      { "label": "AI Agents Platform", "url": "/ai-agents-platform" },
+      { "label": "AI ACTP", "url": "/course_ai_course" }
+    ]
   },
   {
     "label": "Demo Online con Alex",
