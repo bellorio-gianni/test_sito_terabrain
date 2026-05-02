@@ -8,15 +8,6 @@
     "url": "/platform"
   },
   {
-    "label": "Corsi",
-    "type": "dropdown",
-    "links": [
-      { "label": "AI Agents: automazione dei processi aziendali", "url": "/ai-agents-platform" },
-      { "label": "AI Act: obblighi e adeguamento normativo", "url": "/course_ai_course" },
-      { "label": "NIS2: sicurezza, obblighi e azioni concrete", "url": "/nis2-course" }
-    ]
-  },
-  {
     "label": "Demo Online con Alex",
     "url": "/TB_Terabrain_Agents_Deck_v2.html#slide-1"
   },
@@ -71,6 +62,15 @@
       { "label": "AI Course", "url": "/course_ai_course" },
       { "label": "Case Studies", "url": "/case-studies" },
       { "label": "Guides", "url": "/guides" }
+    ]
+  },
+  {
+    "label": "Corsi",
+    "type": "dropdown",
+    "links": [
+      { "label": "AI Agents: automazione dei processi aziendali", "url": "/ai-agents-platform" },
+      { "label": "AI Act: obblighi e adeguamento normativo", "url": "/course_ai_course" },
+      { "label": "NIS2: sicurezza, obblighi e azioni concrete", "url": "/nis2-course" }
     ]
   },
   {
