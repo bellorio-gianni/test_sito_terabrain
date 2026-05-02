@@ -19,6 +19,220 @@ export type BlogArticle = {
 
 export const blogArticles: BlogArticle[] = [
   {
+    slug: "ai-coworker-agentic-ai-platform-management",
+    title: "AI Co-Worker o Agentic AI Platform? La Differenza che il Management Deve Capire",
+    date: "2026-05-02",
+    category: "AI Governance",
+    author: "TeraBrain",
+    excerpt:
+      "Gli strumenti di AI Co-Work aumentano la produttività individuale, ma governare processi aziendali richiede agenti, regole, ruoli, integrazioni e controllo.",
+    image: "/blog-assets/ai-coworker-agentic-platform.svg",
+    imageAlt: "Manager che attraversa il passaggio da caos documentale a piattaforma agentica governata",
+    content: [
+      {
+        type: "paragraph",
+        text: "Gli strumenti di AI Co-Work stanno cambiando la produttività individuale. Ma gestire processi aziendali richiede un livello diverso: agenti, regole, ruoli, integrazioni e governance."
+      },
+      {
+        type: "paragraph",
+        text: "Negli ultimi mesi si sta diffondendo una nuova categoria di strumenti: gli AI Co-Worker. Assistenti capaci di scrivere testi, sintetizzare documenti, preparare analisi, costruire presentazioni, organizzare file, cercare insight nei propri documenti e supportare molte attività quotidiane."
+      },
+      {
+        type: "paragraph",
+        text: "Per chi lavora in azienda, il cambiamento è evidente. Molte attività che prima richiedevano Word, Excel, PowerPoint, ricerca manuale e ore di rielaborazione oggi possono essere accelerate o pianificate con ChatGPT, Claude o altri strumenti simili."
+      },
+      {
+        type: "paragraph",
+        text: "Questo è un passaggio importante. Ma non va confuso con un altro passaggio, molto più profondo."
+      },
+      {
+        type: "quote",
+        text: "Usare un AI Co-Worker non significa aver introdotto l'AI nei processi aziendali."
+      },
+      {
+        type: "paragraph",
+        text: "Significa, nella maggior parte dei casi, aver potenziato la produttività individuale. È una differenza decisiva. Un Co-Worker AI aiuta una persona a produrre meglio e più velocemente. Una piattaforma di agenti AI aiuta un'organizzazione a far funzionare meglio un processo."
+      },
+      {
+        type: "paragraph",
+        text: "Nel primo caso l'AI resta vicina all'utente:"
+      },
+      {
+        type: "list",
+        items: [
+          "Scrive.",
+          "Sintetizza.",
+          "Propone.",
+          "Organizza.",
+          "Analizza.",
+          "Prepara materiali."
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "Nel secondo caso l'AI entra nel funzionamento operativo dell'azienda:"
+      },
+      {
+        type: "list",
+        items: [
+          "Accede a dati e applicazioni.",
+          "Esegue attività ricorrenti.",
+          "Segue regole definite.",
+          "Passa informazioni tra sistemi.",
+          "Gestisce eccezioni.",
+          "Produce azioni tracciabili.",
+          "Lavora dentro ruoli e responsabilità.",
+          "Permette monitoraggio e controllo nel tempo."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Il primo equivoco: produttività individuale non è trasformazione dei processi"
+      },
+      {
+        type: "paragraph",
+        text: "Questa distinzione sarà centrale nei prossimi mesi. Molte aziende rischiano di fermarsi al primo livello pensando di aver già fatto il salto. Introducono strumenti di AI Co-Work, vedono un aumento di produttività individuale e concludono di aver trasformato i processi."
+      },
+      {
+        type: "paragraph",
+        text: "Questo equivoco è alimentato anche dall'hype di molti fornitori di soluzioni AI Co-Work. Il messaggio commerciale spesso è semplice: più velocità, più produttività, meno complessità."
+      },
+      {
+        type: "paragraph",
+        text: "Ma un processo è un insieme di decisioni, dati, responsabilità, autorizzazioni, eccezioni, controlli, passaggi tra persone e sistemi. E soprattutto produce conseguenze."
+      },
+      {
+        type: "heading",
+        text: "Tre rischi che molte aziende stanno sottovalutando"
+      },
+      {
+        type: "paragraph",
+        text: "Il primo rischio è creare nicchie di elaborazione. Team, funzioni o singoli professionisti iniziano a usare strumenti AI in modo autonomo, producendo analisi, documenti e automazioni locali che però restano fuori da una governance comune."
+      },
+      {
+        type: "paragraph",
+        text: "Il risultato è una frammentazione silenziosa: tante soluzioni utili nel breve periodo, ma difficili da integrare, controllare e far evolvere."
+      },
+      {
+        type: "paragraph",
+        text: "Il secondo rischio è confondere la competenza AI con la capacità di integrazione aziendale. Conoscere bene modelli, prompt e strumenti è importante, ma non basta. Un conto è costruire un prototipo AI efficace; un altro conto è inserire agenti dentro un ambiente aziendale reale."
+      },
+      {
+        type: "paragraph",
+        text: "Quando l'AI entra nei processi, servono architettura, integrazione con i sistemi esistenti, sicurezza, gestione degli accessi, qualità dei dati, log, monitoraggio, compliance e continuità operativa."
+      },
+      {
+        type: "paragraph",
+        text: "È qui che diventa decisiva una competenza più ampia: collegare tecnologia, processi, applicazioni e infrastruttura aziendale. Senza questa capacità, il rischio è creare soluzioni AI interessanti, ma difficili da governare e fragili sul piano operativo."
+      },
+      {
+        type: "paragraph",
+        text: "Il terzo rischio è sottrarre tempo alle figure strategiche dell'organizzazione. Manager, professionisti senior e responsabili di funzione iniziano a dedicare molte ore a capire, provare, confrontare e implementare nuovi strumenti di AI Co-Work."
+      },
+      {
+        type: "paragraph",
+        text: "Lo fanno perché questi strumenti sembrano semplici, immediati e alla portata di tutti. Ma proprio questa apparente semplicità può diventare una trappola."
+      },
+      {
+        type: "paragraph",
+        text: "Persone che dovrebbero concentrarsi su decisioni, clienti, processi e priorità strategiche finiscono per avventurarsi da sole in un mondo che cambia ogni settimana, sottraendo tempo prezioso alle proprie attività principali."
+      },
+      {
+        type: "paragraph",
+        text: "Il problema non è sperimentare. Il problema è farlo senza una direzione comune, senza criteri di valutazione e senza una piattaforma che trasformi l'apprendimento individuale in capacità organizzativa."
+      },
+      {
+        type: "heading",
+        text: "La base enterprise è la sicurezza dei processi"
+      },
+      {
+        type: "paragraph",
+        text: "In azienda la base deve essere la sicurezza dei processi: sapere cosa può fare un agente, cosa non può fare, quali dati può vedere, quali azioni può eseguire e come intervenire quando qualcosa non funziona."
+      },
+      {
+        type: "paragraph",
+        text: "Per questo serve una visione enterprise. Non solo curiosità tecnologica. Non solo prototipi. Non solo demo efficaci."
+      },
+      {
+        type: "quote",
+        text: "Serve una progettazione pensata per sicurezza, affidabilità, scalabilità, integrazione e controllo."
+      },
+      {
+        type: "paragraph",
+        text: "Il punto non è avere un modello più potente o una chat più comoda. Il punto è definire come gli agenti lavorano dentro l'organizzazione:"
+      },
+      {
+        type: "list",
+        items: [
+          "Quali ruoli hanno.",
+          "Quali dati possono usare.",
+          "Quali sistemi possono raggiungere.",
+          "Quali azioni possono eseguire.",
+          "Quando devono chiedere conferma.",
+          "Come vengono monitorati.",
+          "Come vengono valutati.",
+          "Come si ricostruisce ciò che hanno fatto."
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "Ed è proprio qui che molte organizzazioni dovranno cambiare prospettiva. La domanda non sarà più: “Quale AI tool diamo ai dipendenti?”"
+      },
+      {
+        type: "paragraph",
+        text: "Ma: “Quali processi vogliamo rendere più intelligenti, misurabili e controllabili attraverso agenti AI?”"
+      },
+      {
+        type: "paragraph",
+        text: "E ancora: “Quale architettura ci permette di farlo senza perdere controllo su dati, decisioni e responsabilità?”"
+      },
+      {
+        type: "paragraph",
+        text: "Gli AI Co-Worker resteranno importanti. Saranno probabilmente il nuovo Office: uno strato quotidiano di produttività personale, diffuso in ogni funzione aziendale. Ma per trasformare davvero un'organizzazione serve altro."
+      },
+      {
+        type: "quote",
+        text: "Serve portare l'AI dal desktop al processo. Dalla generazione di contenuti all'esecuzione governata. Dalla chat individuale all'orchestrazione di agenti. Dall'output alla responsabilità."
+      },
+      {
+        type: "heading",
+        text: "Dall'adozione di una piattaforma alla governance di un ecosistema agentico"
+      },
+      {
+        type: "paragraph",
+        text: "Un altro punto sarà decisivo: il futuro dell'AI agentica in azienda probabilmente non sarà fatto da un'unica piattaforma chiusa, scelta una volta per tutte."
+      },
+      {
+        type: "paragraph",
+        text: "Le aziende inizieranno ad assumere AI Agents: agenti specializzati, anche provenienti da piattaforme diverse, che dovranno collaborare tra loro dentro lo stesso ecosistema aziendale."
+      },
+      {
+        type: "paragraph",
+        text: "Ci saranno agenti per il customer care, il marketing, l'amministrazione, la reportistica, il CRM, l'ERP, la voce, i documenti, la formazione, l'analisi dei dati e il supporto direzionale. Alcuni saranno sviluppati internamente, altri forniti da partner, altri ancora integrati direttamente nei software già presenti in azienda."
+      },
+      {
+        type: "paragraph",
+        text: "In questo scenario, il problema non sarà avere tanti agenti. Il problema sarà governarli."
+      },
+      {
+        type: "paragraph",
+        text: "Per questo una piattaforma di Agentic AI non deve essere vista solo come un contenitore di agenti, ma come un livello di orchestrazione e governance: un'infrastruttura capace di far collaborare agenti diversi, anche appartenenti a ecosistemi differenti, mantenendo controllo su dati, responsabilità, processi, tracciabilità e risultati."
+      },
+      {
+        type: "paragraph",
+        text: "Linegon srl lavora da anni su TeraBrain, una Agentic AI Platform progettata per portare l'AI dentro i processi aziendali, quando ancora si parlava soprattutto di modelli, chat e prompt, e non di agenti operativi."
+      },
+      {
+        type: "paragraph",
+        text: "Il valore di TeraBrain è proprio qui: trasformare l'AI da strumento individuale di produttività a infrastruttura organizzativa, dove gli AI Agents operano con ruoli, regole, integrazioni, tracciabilità e supervisione."
+      },
+      {
+        type: "paragraph",
+        text: "Se vuoi approfondire la differenza tra AI Co-Worker e piattaforme di Agentic AI, possiamo mostrarti concretamente cosa cambia quando l'AI smette di essere solo uno strumento personale e diventa parte dei processi aziendali, attraverso agenti operativi, ruoli, regole, integrazioni e governance."
+      }
+    ]
+  },
+  {
     slug: "basta-rincorrere-news-agent-ai-valore",
     title: "Basta Rincorrere le News: Affidati agli Agent AI per Ricevere Solo ciò che Genera Valore",
     date: "2026-05-02",
