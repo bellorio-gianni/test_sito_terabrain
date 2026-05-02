@@ -19,6 +19,204 @@ export type BlogArticle = {
 
 export const blogArticles: BlogArticle[] = [
   {
+    slug: "rischio-management-ai-falsa-competenza",
+    title: "Il Rischio per il Management Non è l'AI, ma la Falsa Competenza",
+    date: "2026-05-02",
+    category: "AI Governance",
+    author: "TeraBrain",
+    excerpt:
+      "Quando “lo ha detto ChatGPT” diventa un argomento di autorità, il problema non è l'AI: è come valutiamo competenza, decisioni e responsabilità.",
+    image: "/blog-assets/post-competenza-management.svg",
+    imageAlt: "Infografica sulla post-competenza e sulla falsa competenza generata dall'AI",
+    content: [
+      {
+        type: "paragraph",
+        text: "Quando “lo ha detto ChatGPT” diventa un argomento di autorità, il problema non è l'AI. È il modo in cui valutiamo competenza, decisioni e responsabilità."
+      },
+      {
+        type: "paragraph",
+        text: "Lavoro con l'AI da diversi anni e, negli ultimi due, è diventata il mio unico ambito di lavoro. Proprio per questo parto da un'osservazione personale: fin dai primi modelli generativi, da GPT-2 a GPT-3, anch'io ho iniziato a produrre contenuti migliori di quelli che avrei realizzato da solo."
+      },
+      {
+        type: "paragraph",
+        text: "Non perché fossi diventato improvvisamente più competente, ma perché stavo usando uno strumento capace di elevare il mio output."
+      },
+      {
+        type: "paragraph",
+        text: "Se valeva per me, vale per tutti. Ed è qui che nasce un tema che molti manager stanno iniziando a vedere nelle organizzazioni."
+      },
+      {
+        type: "quote",
+        text: "La Post-Competenza."
+      },
+      {
+        type: "paragraph",
+        text: "Non parlo di uno scenario teorico. Negli ultimi mesi diversi clienti mi hanno raccontato una dinamica ricorrente. Manager con anni di esperienza si trovano a discutere con figure junior che interrogano ChatGPT e altri LLM durante la riunione e portano la risposta al tavolo come verità."
+      },
+      {
+        type: "quote",
+        text: "Lo ha detto ChatGPT."
+      },
+      {
+        type: "paragraph",
+        text: "E quindi sembra vero. Sembra fondato. Sembra sufficiente."
+      },
+      {
+        type: "paragraph",
+        text: "Il punto è che spesso non lo è. Perché un LLM può produrre una risposta formalmente impeccabile anche quando la domanda è mal posta, il contesto non è definito o è incompleto, le assunzioni sono deboli o il problema reale è diverso da quello descritto nel prompt."
+      },
+      {
+        type: "paragraph",
+        text: "Il rischio non è che una persona junior usi l'AI. Anzi: usarla bene può accelerare apprendimento, analisi e capacità di sintesi. Il rischio nasce quando la risposta dell'AI viene trattata come una scorciatoia verso la competenza."
+      },
+      {
+        type: "heading",
+        text: "La nuova difficoltà del management"
+      },
+      {
+        type: "paragraph",
+        text: "Qui il management si trova davanti a una difficoltà nuova. In passato, un'affermazione debole appariva spesso debole anche nella forma: poco strutturata, poco argomentata, poco convincente. Oggi non è più così."
+      },
+      {
+        type: "paragraph",
+        text: "Una tesi fragile può arrivare in riunione con il tono, la struttura e il linguaggio di una tesi solida. E questo cambia il modo in cui le organizzazioni devono valutare contributi, persone e decisioni."
+      },
+      {
+        type: "quote",
+        text: "Dopo la Post-Verità, sta emergendo la Post-Competenza."
+      },
+      {
+        type: "paragraph",
+        text: "È un fenomeno ancora più delicato per chi guida un'azienda: non è più solo difficile capire cosa è vero, ma chi sta davvero comprendendo e risolvendo il problema."
+      },
+      {
+        type: "paragraph",
+        text: "Report ben scritti. Slide ordinate. Analisi coerenti. Risposte rapide. Tutto formalmente corretto. Ma quanto di questo riflette una reale capacità di giudizio e di governance?"
+      },
+      {
+        type: "heading",
+        text: "Output migliori non significano competenza reale"
+      },
+      {
+        type: "paragraph",
+        text: "Le organizzazioni hanno sempre valutato le persone anche sulla base degli output prodotti. Era un modello implicito ma abbastanza stabile: maggiore competenza generava, in media, maggiore qualità. Oggi questa relazione si è indebolita."
+      },
+      {
+        type: "paragraph",
+        text: "L'AI consente di generare output di alto livello anche quando la comprensione è parziale. Se il management continua a giudicare soprattutto la qualità formale dell'output, rischia di sovrastimare competenze, sottovalutare fragilità e prendere decisioni su basi apparentemente solide ma sostanzialmente deboli."
+      },
+      {
+        type: "heading",
+        text: "Non riguarda solo l'interno dell'azienda"
+      },
+      {
+        type: "paragraph",
+        text: "Riguarda tutta la filiera: fornitori, consulenti, advisor, controller. Una proposta ben scritta, una presentazione impeccabile o un'analisi apparentemente coerente possono far percepire una profondità che non sempre esiste davvero."
+      },
+      {
+        type: "paragraph",
+        text: "Questa è l'illusione di competenza. Ed è un rischio concreto per:"
+      },
+      {
+        type: "list",
+        items: [
+          "Qualità delle decisioni.",
+          "Gestione del rischio.",
+          "Selezione di partner e fornitori.",
+          "Governance delle iniziative AI.",
+          "Assegnazione di responsabilità.",
+          "Valutazione dei talenti."
+        ]
+      },
+      {
+        type: "heading",
+        text: "Come devono cambiare i criteri di valutazione"
+      },
+      {
+        type: "paragraph",
+        text: "Il punto non è limitare l'uso dell'AI. Sarebbe una risposta miope. Il punto è evolvere i criteri di valutazione. Serve spostare l'attenzione:"
+      },
+      {
+        type: "list",
+        items: [
+          "Dall'output al processo.",
+          "Dalla risposta al ragionamento.",
+          "Dalla forma alla comprensione del contesto.",
+          "Dalla velocità alla responsabilità.",
+          "Dalla sicurezza espositiva alla capacità di gestire eccezioni."
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "Una buona domanda manageriale non è più solo: “Che cosa hai prodotto?”. Ma anche: “Come ci sei arrivato?”, “Quali assunzioni hai fatto?”, “Che cosa manca al modello per rispondere bene?”, “In quali condizioni questa risposta potrebbe essere sbagliata?”, “Quale parte deriva dalla tua esperienza e quale dallo strumento?”"
+      },
+      {
+        type: "heading",
+        text: "AI Co-Work non significa governare i processi"
+      },
+      {
+        type: "paragraph",
+        text: "Queste domande diventeranno ancora più importanti perché oggi si sta diffondendo un ulteriore equivoco. Molti pensano che, usando individualmente strumenti di AI Co-Work come ChatGPT, Claude o altri, sia già possibile gestire interi processi aziendali."
+      },
+      {
+        type: "paragraph",
+        text: "Ma nella maggior parte dei casi non è così. Questi strumenti, usati in modo individuale, stanno diventando soprattutto un sostituto evoluto di Office: scrivono documenti, preparano analisi, riordinano dati, costruiscono presentazioni, organizzano l'archiviazione dei documenti sul proprio PC, cercano insight nei propri documenti e aiutano a produrre contenuti più velocemente."
+      },
+      {
+        type: "paragraph",
+        text: "In altre parole, potenziano Word, Excel e PowerPoint. Ma potenziare gli strumenti personali non significa governare i processi aziendali."
+      },
+      {
+        type: "paragraph",
+        text: "Un processo non è solo un output. Un processo ha ruoli, responsabilità, dati, eccezioni, controlli, passaggi tra persone, sistemi informativi, autorizzazioni e metriche. E qui nasce la differenza. Usare un LLM come co-worker individuale migliora la produttività personale."
+      },
+      {
+        type: "heading",
+        text: "AI Agentica significa controllo operativo"
+      },
+      {
+        type: "paragraph",
+        text: "Introdurre AI Agentica significa invece portare l'AI dentro il funzionamento reale dei processi aziendali."
+      },
+      {
+        type: "paragraph",
+        text: "Quando introduci Agents AI nei processi aziendali, non stai più solo generando contenuti. Stai creando entità operative che accedono a dati, eseguono attività, interagiscono con sistemi, prendono decisioni guidate e producono output con impatto reale."
+      },
+      {
+        type: "paragraph",
+        text: "In quel contesto, la Post-Competenza non riguarda più solo una discussione in riunione. Riguarda il controllo dell'organizzazione. È il motivo per cui, nel lavoro che stiamo facendo con TeraBrain by Linegon srl, il focus non è solo sul modello in sé, ma sul comportamento degli AI Agents:"
+      },
+      {
+        type: "list",
+        items: [
+          "Ruoli.",
+          "Regole.",
+          "Accessi ai sistemi.",
+          "Tracciabilità delle azioni.",
+          "Qualità degli output.",
+          "Coerenza nel tempo.",
+          "Supervisione umana."
+        ]
+      },
+      {
+        type: "quote",
+        text: "La Post-Competenza non è un tema culturale. È un tema di governance."
+      },
+      {
+        type: "paragraph",
+        text: "Nei prossimi mesi farà la differenza tra chi userà l'AI per rafforzare l'organizzazione e chi, senza accorgersene, inizierà a perdere il controllo dei propri criteri decisionali."
+      },
+      {
+        type: "paragraph",
+        text: "Avete già visto questa dinamica nelle vostre organizzazioni? Persone che arrivano in riunione con risposte generate dall'AI e le trattano come evidenze definitive?"
+      },
+      {
+        type: "paragraph",
+        text: "Credo sarà uno dei temi manageriali più importanti dei prossimi anni."
+      }
+    ]
+  },
+  {
     slug: "ufficio-agentico-ai-agents-lavorano-ogni-giorno",
     title: "Come mi Sono Costruito un Ufficio Agentico che Lavora con Me Ogni Giorno",
     date: "2026-04-06",

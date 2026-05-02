@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Post-Competenza e management</title>
+  <desc id="desc">Infografica sul rischio della falsa competenza generata dall'uso non governato dell'AI.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#08101a"/>
+      <stop offset="48%" stop-color="#111820"/>
+      <stop offset="100%" stop-color="#05070b"/>
+    </linearGradient>
+    <radialGradient id="warm" cx="48%" cy="46%" r="50%">
+      <stop offset="0%" stop-color="#ff6a00" stop-opacity=".35"/>
+      <stop offset="50%" stop-color="#0e2032" stop-opacity=".2"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1400" height="760" fill="url(#bg)"/>
+  <rect width="1400" height="760" fill="url(#warm)"/>
+  <g opacity=".16" stroke="#67d7ff" stroke-width="1">
+    <path d="M120 120 H1280 M120 620 H1280 M220 80 V675 M1180 80 V675"/>
+    <path d="M0 520 C240 420 390 610 620 500 S1040 390 1400 460" fill="none"/>
+  </g>
+  <text x="700" y="60" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="38" font-weight="800">Quando “lo ha detto ChatGPT” non è competenza.</text>
+  <text x="700" y="92" text-anchor="middle" fill="#d7e4ef" font-family="Arial, sans-serif" font-size="18">Il problema non è l'AI. È il modo in cui valutiamo competenza, decisioni e responsabilità.</text>
+
+  <g transform="translate(58 125)">
+    <rect width="270" height="262" rx="16" fill="#1b0d0d" stroke="#ff4d2d" stroke-width="3"/>
+    <text x="135" y="36" text-anchor="middle" fill="#ff6a3d" font-family="Arial, sans-serif" font-size="24" font-weight="800">POST-COMPETENZA</text>
+    <text x="135" y="62" text-anchor="middle" fill="#ff8a5b" font-family="Arial, sans-serif" font-size="15" font-weight="700">L'ILLUSIONE DI COMPETENZA</text>
+    <g fill="#f4efe8" font-family="Arial, sans-serif" font-size="15">
+      <circle cx="38" cy="108" r="18" fill="#d7352a"/><text x="38" y="115" text-anchor="middle" font-size="22" font-weight="800">?</text>
+      <text x="70" y="104">Risposte rapide</text><text x="70" y="124">e ben strutturate</text>
+      <circle cx="38" cy="166" r="18" fill="#d7352a"/><text x="38" y="172" text-anchor="middle" font-size="20" font-weight="800">!</text>
+      <text x="70" y="162">Apparenza autorevole,</text><text x="70" y="182">non sostanza</text>
+      <circle cx="38" cy="224" r="18" fill="#d7352a"/><text x="38" y="231" text-anchor="middle" font-size="20" font-weight="800">△</text>
+      <text x="70" y="220">Contesto e assunzioni</text><text x="70" y="240">poco verificati</text>
+    </g>
+  </g>
+
+  <g transform="translate(1036 125)">
+    <rect width="306" height="262" rx="16" fill="#072033" stroke="#20bfff" stroke-width="3"/>
+    <text x="153" y="36" text-anchor="middle" fill="#36cfff" font-family="Arial, sans-serif" font-size="24" font-weight="800">POST-COMPETENZA</text>
+    <text x="153" y="62" text-anchor="middle" fill="#9feaff" font-family="Arial, sans-serif" font-size="15" font-weight="700">COMPETENZA REALE</text>
+    <g fill="#f4fbff" font-family="Arial, sans-serif" font-size="15">
+      <circle cx="42" cy="104" r="15" fill="#1684c7"/><text x="42" y="110" text-anchor="middle" font-size="18" font-weight="800">✓</text><text x="72" y="109">Domande migliori</text>
+      <circle cx="42" cy="148" r="15" fill="#1684c7"/><text x="42" y="154" text-anchor="middle" font-size="18" font-weight="800">✓</text><text x="72" y="153">Ragionamento tracciabile</text>
+      <circle cx="42" cy="192" r="15" fill="#1684c7"/><text x="42" y="198" text-anchor="middle" font-size="18" font-weight="800">✓</text><text x="72" y="197">Ipotesi e limiti esplicitati</text>
+      <circle cx="42" cy="236" r="15" fill="#1684c7"/><text x="42" y="242" text-anchor="middle" font-size="18" font-weight="800">✓</text><text x="72" y="241">Responsabilità e impatto reale</text>
+    </g>
+  </g>
+
+  <g transform="translate(385 190)">
+    <rect x="0" y="0" width="260" height="190" rx="18" fill="#13263a" stroke="#2d4b66"/>
+    <circle cx="92" cy="70" r="44" fill="#172c3f"/>
+    <path d="M55 160 C70 125 120 125 137 160 Z" fill="#0d1721"/>
+    <rect x="145" y="85" width="82" height="56" rx="8" fill="#0e1823" stroke="#54d99b"/>
+    <path d="M162 112 H205 M162 124 H195" stroke="#cce8ff" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="218" cy="112" r="13" fill="none" stroke="#55dc86" stroke-width="4"/>
+    <path d="M211 112 L217 118 L228 104" fill="none" stroke="#55dc86" stroke-width="4" stroke-linecap="round"/>
+    <rect x="82" y="-42" width="130" height="50" rx="10" fill="#f4efe8"/>
+    <text x="147" y="-12" text-anchor="middle" fill="#26313a" font-family="Arial, sans-serif" font-size="18" font-weight="700">Lo ha detto</text>
+    <text x="147" y="8" text-anchor="middle" fill="#26313a" font-family="Arial, sans-serif" font-size="18" font-weight="700">ChatGPT.</text>
+  </g>
+
+  <g transform="translate(654 248)" filter="url(#glow)">
+    <circle cx="46" cy="46" r="45" fill="#121820" stroke="#ff7a1a" stroke-width="3"/>
+    <text x="46" y="61" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="42" font-weight="900">VS</text>
+  </g>
+
+  <g transform="translate(765 210)">
+    <rect x="0" y="0" width="225" height="145" rx="18" fill="#0b1b2b" stroke="#226382"/>
+    <circle cx="58" cy="72" r="34" fill="#213142"/>
+    <path d="M24 124 C45 98 82 98 105 124 Z" fill="#0b141d"/>
+    <circle cx="148" cy="78" r="29" fill="#182535"/>
+    <path d="M120 124 C140 101 174 101 198 124 Z" fill="#0b141d"/>
+    <text x="112" y="-18" text-anchor="middle" fill="#8fe9ff" font-family="Arial, sans-serif" font-size="17" font-weight="800">Valutazione di competenza</text>
+  </g>
+
+  <g transform="translate(360 480)" filter="url(#glow)">
+    <text x="340" y="0" text-anchor="middle" fill="#ff7a1a" font-family="Arial, sans-serif" font-size="24" font-weight="900">IL FOCUS SI SPOSTA:</text>
+    <g font-family="Arial, sans-serif" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">
+      <g transform="translate(0 50)"><circle r="31" fill="#111" stroke="#ff7a1a" stroke-width="4"/><text y="62">DALL'OUTPUT</text><text y="78">AL PROCESSO</text></g>
+      <path d="M45 50 H108" stroke="#d9e3ea" stroke-width="3"/>
+      <g transform="translate(150 50)"><circle r="31" fill="#111" stroke="#ff7a1a" stroke-width="4"/><text y="62">DALLA RISPOSTA</text><text y="78">AL RAGIONAMENTO</text></g>
+      <path d="M195 50 H258" stroke="#d9e3ea" stroke-width="3"/>
+      <g transform="translate(300 50)"><circle r="31" fill="#111" stroke="#ff7a1a" stroke-width="4"/><text y="62">DALLA FORMA</text><text y="78">AL CONTESTO</text></g>
+      <path d="M345 50 H408" stroke="#d9e3ea" stroke-width="3"/>
+      <g transform="translate(450 50)"><circle r="31" fill="#111" stroke="#ff7a1a" stroke-width="4"/><text y="62">DALLA VELOCITÀ</text><text y="78">ALLA RESPONSABILITÀ</text></g>
+      <path d="M495 50 H558" stroke="#d9e3ea" stroke-width="3"/>
+      <g transform="translate(600 50)"><circle r="31" fill="#111" stroke="#ff7a1a" stroke-width="4"/><text y="62">DALLA SICUREZZA</text><text y="78">ALLE ECCEZIONI</text></g>
+    </g>
+  </g>
+
+  <g transform="translate(928 430)">
+    <rect width="350" height="170" rx="15" fill="#071827" stroke="#1684c7" stroke-width="2"/>
+    <text x="78" y="42" fill="#9feaff" font-family="Arial, sans-serif" font-size="17" font-weight="900">CO-WORKER AI INDIVIDUALE</text>
+    <text x="78" y="66" fill="#f4fbff" font-family="Arial, sans-serif" font-size="14">Potenzia strumenti personali:</text>
+    <text x="78" y="86" fill="#b6c9d9" font-family="Arial, sans-serif" font-size="13">Word, Excel, PowerPoint, ricerca.</text>
+    <text x="78" y="124" fill="#9feaff" font-family="Arial, sans-serif" font-size="17" font-weight="900">AI AGENTICA NEI PROCESSI</text>
+    <text x="78" y="148" fill="#f4fbff" font-family="Arial, sans-serif" font-size="14">Ruoli, regole, dati, sistemi,</text>
+    <text x="78" y="166" fill="#b6c9d9" font-family="Arial, sans-serif" font-size="13">decisioni, controllo e impatto reale.</text>
+  </g>
+
+  <g transform="translate(100 668)">
+    <circle cx="28" cy="28" r="27" fill="#111" stroke="#ff7a1a" stroke-width="4"/>
+    <text x="72" y="22" fill="#fff" font-family="Arial, sans-serif" font-size="22" font-weight="900">La Post-Competenza non è un tema culturale. È un tema di governance.</text>
+    <text x="72" y="50" fill="#cdd8e0" font-family="Arial, sans-serif" font-size="17">Farà la differenza tra chi userà l'AI per rafforzare l'organizzazione e chi perderà controllo sui criteri decisionali.</text>
+    <text x="1138" y="42" text-anchor="end" fill="#fff" font-family="Arial, sans-serif" font-size="34" font-weight="900">Tera<tspan fill="#ff7a1a">Brain</tspan></text>
+  </g>
+</svg>
