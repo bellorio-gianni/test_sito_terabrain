@@ -19,6 +19,190 @@ export type BlogArticle = {
 
 export const blogArticles: BlogArticle[] = [
   {
+    slug: "sto-diventando-uno-di-loro-ai-agents-futuro-lavoro",
+    title: "Sto Diventando Uno di Loro?",
+    date: "2025-12-07",
+    category: "AI Agents",
+    author: "TeraBrain",
+    excerpt:
+      "Riflessioni sul futuro del lavoro nell'era degli AI Agents: quando l'AI smette di essere uno strumento e diventa un collega operativo.",
+    image: "/blog-assets/sto-diventando-uno-di-loro.svg",
+    imageAlt: "Un professionista osserva figure digitali connesse da flussi arancioni",
+    content: [
+      {
+        type: "heading",
+        text: "Riflessioni sul futuro del lavoro nell'era degli AI Agents"
+      },
+      {
+        type: "paragraph",
+        text: "Negli ultimi anni ho seguito da vicino l'evoluzione dell'AI: dalle reti neurali ai Transformer, la tecnologia che ha dato origine ai GPT e alla nuova era dei modelli linguistici LLM. Ma il salto più significativo è avvenuto due anni fa, quando ho iniziato a sviluppare e addestrare AI Agents operativi con TeraBrain."
+      },
+      {
+        type: "paragraph",
+        text: "Da quel momento, il mio rapporto con l'AI è cambiato: non era più uno strumento da interrogare, ma un collega digitale da formare."
+      },
+      {
+        type: "paragraph",
+        text: "Li ho istruiti a svolgere attività reali: in questi anni non ho solo insegnato agli AI Agents a rispondere al telefono o a gestire email. Li ho addestrati a prendere parte, passo dopo passo, a processi reali, spesso complessi, che richiedono coordinamento, precisione e continuità:"
+      },
+      {
+        type: "list",
+        items: [
+          "Gestione opportunità commerciali.",
+          "Follow-up automatici.",
+          "Gestione ticket e customer care.",
+          "Organizzazione agende e meeting.",
+          "Aggiornamento documenti e sistemi.",
+          "Verifiche ordini, consegne e solleciti.",
+          "Monitoraggio produzione e logistica.",
+          "Analisi dati e sintesi per il management.",
+          "Controlli amministrativi e contabili."
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "Non più task isolati, ma flussi di lavoro completi. È qui che l'AI smette di essere un chatbot e diventa un collega operativo."
+      },
+      {
+        type: "paragraph",
+        text: "Più loro diventavano bravi a lavorare, più cambiava il mio modo di lavorare."
+      },
+      {
+        type: "heading",
+        text: "L'AI è ovunque, ma quasi nessuno ne ha il controllo"
+      },
+      {
+        type: "paragraph",
+        text: "C'è un fatto evidente: oggi tutti usano l'AI. ChatGPT è entrato nelle abitudini quotidiane con la stessa naturalezza di Word o Excel. Ma questo ha creato una situazione paradossale."
+      },
+      {
+        type: "paragraph",
+        text: "Da un lato, l'AI è ormai presente in ogni azienda, spesso introdotta spontaneamente dai collaboratori per velocizzare il lavoro quotidiano."
+      },
+      {
+        type: "paragraph",
+        text: "Dall'altro, le organizzazioni non hanno ancora il controllo su questo utilizzo: mancano policy, strumenti dedicati e soprattutto una gestione chiara dei rischi legati alla sicurezza e all'esposizione dei dati."
+      },
+      {
+        type: "paragraph",
+        text: "In pratica, l'AI è già dentro i processi aziendali, molto prima che l'azienda fosse pronta a governarla. Questo genera quattro effetti che vedo ogni giorno:"
+      },
+      {
+        type: "list",
+        items: [
+          "Uso massivo, spontaneo, non governato.",
+          "Scarsa comprensione di ciò che l'AI realmente fa.",
+          "Timore dichiarato e dipendenza reale.",
+          "Assenza di linee guida aziendali e responsabilità definite."
+        ]
+      },
+      {
+        type: "quote",
+        text: "L'AI è già ovunque. La governance, invece, deve ancora arrivare."
+      },
+      {
+        type: "heading",
+        text: "Usare l'AI non è come lavorare con l'AI"
+      },
+      {
+        type: "paragraph",
+        text: "Un ChatGPT risponde. Un AI Agent agisce."
+      },
+      {
+        type: "paragraph",
+        text: "È una differenza enorme. Quando un AI Agent entra nel tuo flusso operativo, non stai più “digitando un prompt”: stai orchestrando un team ibrido, umano + AI."
+      },
+      {
+        type: "heading",
+        text: "L'AI non è solo più veloce: cambia la struttura stessa del lavoro"
+      },
+      {
+        type: "paragraph",
+        text: "In riferimento a un recente articolo di Luca Tremolada, c'è un dato oggettivo che sta emergendo dai primi studi seri sull'economia dell'AI. Anthropic ha analizzato oltre 100mila conversazioni reali, misurando quanto tempo avrebbe impiegato un essere umano a completare gli stessi compiti senza AI."
+      },
+      {
+        type: "quote",
+        text: "-80% di tempo per completare un compito con l'aiuto dell'AI."
+      },
+      {
+        type: "paragraph",
+        text: "Non stiamo parlando di “scrivere email più velocemente”, ma di attività complesse, che richiederebbero ore di concentrazione umana. L'AI, in altre parole, si sta dimostrando un moltiplicatore di capacità, soprattutto nel lavoro cognitivo ad alto valore."
+      },
+      {
+        type: "paragraph",
+        text: "E quando questi numeri vengono proiettati sull'economia reale, la portata diventa evidente:"
+      },
+      {
+        type: "list",
+        items: [
+          "+1,8% di crescita annua della produttività nei prossimi 10 anni.",
+          "Un ritmo doppio rispetto agli ultimi decenni.",
+          "Livelli di trasformazione paragonabili agli anni '60-'70 e al boom tecnologico degli anni '90."
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "Ma la parte più interessante riguarda dove l'impatto è più forte. Le professioni con salari più alti e maggiore complessità cognitiva sono quelle che beneficiano maggiormente:"
+      },
+      {
+        type: "list",
+        items: [
+          "Un assistente di ricerca risparmia il 91% del tempo.",
+          "Un analista finanziario risparmia l'80%.",
+          "Un manager può delegare interi flussi di attività."
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "È esattamente ciò che sto vedendo nel lavoro quotidiano con gli AI Agents."
+      },
+      {
+        type: "quote",
+        text: "L'impatto non è tattico, è strutturale."
+      },
+      {
+        type: "paragraph",
+        text: "E, come è avvenuto in ogni rivoluzione tecnologica, i veri guadagni non arriveranno dal fare le stesse cose più in fretta, ma dal ripensare completamente i processi attorno alle nuove capacità dell'AI."
+      },
+      {
+        type: "heading",
+        text: "Sto diventando uno di loro?"
+      },
+      {
+        type: "paragraph",
+        text: "È una provocazione, certo. Ma un fondo di verità c'è davvero. Quando lavori ogni giorno a stretto contatto con gli AI Agents succede una cosa particolare: inizi a cambiare tu."
+      },
+      {
+        type: "paragraph",
+        text: "Ti accorgi che delegare diventa più semplice, quasi naturale. Che pensi sempre più per processi, non per singole attività. Che decidi più velocemente, perché il rumore si riduce e le informazioni sono più chiare. E che molti dei piccoli intoppi quotidiani, ripetizioni, controlli, micro-task, semplicemente spariscono."
+      },
+      {
+        type: "paragraph",
+        text: "Non è una perdita di identità. Anzi. È come se l'AI rimuovesse dal tuo lavoro tutto ciò che ti impediva di concentrarti su ciò che conta davvero: essere creativo, strategico, relazionale, capace di vedere il quadro d'insieme."
+      },
+      {
+        type: "heading",
+        text: "Il vero impatto sociale dell'AI Agentic"
+      },
+      {
+        type: "paragraph",
+        text: "La domanda non è più: “L'AI sostituirà il lavoro umano?”. La domanda è: “Come cambierà il lavoro di chi collaborerà ogni giorno con l'AI?”"
+      },
+      {
+        type: "paragraph",
+        text: "Cambieranno ruoli, competenze, ritmi e responsabilità. Il lavoro umano si sposterà verso creatività, decisione, relazione. L'AI coprirà ciò che è ripetitivo, sequenziale, prevedibile."
+      },
+      {
+        type: "heading",
+        text: "Conclusione"
+      },
+      {
+        type: "quote",
+        text: "La vera rivoluzione dell'AI non è negli Agents, ma in come stanno cambiando noi."
+      }
+    ]
+  },
+  {
     slug: "ai-agents-telefonia-aziendale-centralini-cognitivi",
     title: "L’AI Agents Entrano nella Telefonia Aziendale: l’Inizio dell’Era dei Centralini Cognitivi",
     date: "2025-12-06",

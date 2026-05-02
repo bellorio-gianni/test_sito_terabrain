@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Sto diventando uno di loro</title>
+  <desc id="desc">Un uomo osserva figure digitali attraversate da flussi arancioni di energia.</desc>
+  <defs>
+    <radialGradient id="glow" cx="62%" cy="46%" r="58%">
+      <stop offset="0%" stop-color="#ff8a16" stop-opacity=".5"/>
+      <stop offset="42%" stop-color="#ff6a00" stop-opacity=".18"/>
+      <stop offset="100%" stop-color="#070707" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="orangeLine" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#ff6a00" stop-opacity=".05"/>
+      <stop offset="25%" stop-color="#ff8a16" stop-opacity=".85"/>
+      <stop offset="70%" stop-color="#ffb35b" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#ff6a00" stop-opacity=".08"/>
+    </linearGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1400" height="760" fill="#050505"/>
+  <rect width="1400" height="760" fill="url(#glow)"/>
+  <g opacity=".18" stroke="#ff8a16" stroke-width="1">
+    <path d="M0 610 C240 470 420 700 640 520 S990 325 1400 460" fill="none"/>
+    <path d="M0 545 C210 410 440 605 690 470 S1030 390 1400 260" fill="none"/>
+    <path d="M0 690 C240 520 440 610 690 585 S1070 520 1400 600" fill="none"/>
+  </g>
+  <g transform="translate(150 142)">
+    <ellipse cx="116" cy="92" rx="47" ry="58" fill="#1d1714"/>
+    <path d="M70 82 C80 20 145 8 172 52 C160 34 114 22 87 60 C80 70 74 78 70 82Z" fill="#3a2318"/>
+    <path d="M78 150 C64 206 40 282 28 482 L278 482 C268 316 250 215 214 153 C180 180 118 184 78 150Z" fill="#171717"/>
+    <path d="M106 170 L142 328 L177 170 C155 187 127 188 106 170Z" fill="#f1e7d7"/>
+    <path d="M34 292 C73 232 115 207 158 206 C216 206 248 242 277 300" fill="none" stroke="#2c2c2c" stroke-width="18" stroke-linecap="round"/>
+    <path d="M79 150 C110 176 170 176 213 151" fill="none" stroke="#2b2b2b" stroke-width="12"/>
+    <path d="M48 478 L288 478" stroke="#111" stroke-width="10"/>
+  </g>
+  <g opacity=".72" fill="none" stroke="#ff8a16" stroke-width="2">
+    <g transform="translate(475 96)">
+      <ellipse cx="90" cy="74" rx="48" ry="64"/>
+      <path d="M88 138 C54 198 48 320 54 528"/>
+      <path d="M90 140 C135 210 145 340 128 528"/>
+      <path d="M62 170 C24 250 18 360 44 505"/>
+      <path d="M118 170 C168 260 172 370 146 510"/>
+      <path d="M64 230 C106 242 128 242 154 230"/>
+      <path d="M58 310 C96 326 138 326 162 310"/>
+      <path d="M52 390 C92 410 136 410 168 390"/>
+    </g>
+    <g transform="translate(735 82)" opacity=".95">
+      <ellipse cx="95" cy="82" rx="54" ry="76"/>
+      <path d="M94 158 C56 230 50 362 58 560"/>
+      <path d="M96 160 C148 245 154 380 136 560"/>
+      <path d="M66 192 C20 290 16 420 48 540"/>
+      <path d="M126 192 C182 288 188 420 150 546"/>
+      <path d="M68 252 C106 270 142 270 168 252"/>
+      <path d="M60 340 C100 362 148 362 174 340"/>
+      <path d="M58 432 C104 454 148 454 178 432"/>
+      <path d="M75 40 C105 20 132 35 148 58"/>
+    </g>
+    <g transform="translate(1010 105)" opacity=".65">
+      <ellipse cx="92" cy="76" rx="50" ry="68"/>
+      <path d="M90 145 C55 212 48 345 58 538"/>
+      <path d="M92 145 C142 230 150 365 132 538"/>
+      <path d="M64 184 C22 278 20 405 50 520"/>
+      <path d="M120 184 C174 282 180 408 148 526"/>
+      <path d="M64 250 C98 266 140 266 162 250"/>
+      <path d="M60 332 C104 354 142 354 168 332"/>
+      <path d="M56 416 C104 440 146 440 170 416"/>
+    </g>
+  </g>
+  <g filter="url(#softGlow)" fill="none" stroke="url(#orangeLine)" stroke-linecap="round">
+    <path d="M5 545 C220 475 345 650 555 525 C710 430 790 315 990 375 C1140 420 1200 545 1395 470" stroke-width="22" opacity=".85"/>
+    <path d="M0 615 C250 510 410 555 600 490 C775 430 865 230 1030 300 C1165 357 1210 490 1400 414" stroke-width="12" opacity=".75"/>
+    <path d="M0 676 C230 560 435 650 675 585 C860 535 1015 430 1398 560" stroke-width="8" opacity=".65"/>
+    <path d="M170 455 C340 430 438 490 562 507 C700 526 810 464 910 405" stroke-width="6" opacity=".7"/>
+  </g>
+  <g opacity=".35" stroke="#ff8a16" stroke-width="1">
+    <path d="M793 230 L858 312 L822 394 L902 486"/>
+    <path d="M828 168 L850 270 L930 348 L890 450"/>
+    <path d="M1085 170 L1120 276 L1092 380 L1160 505"/>
+    <path d="M548 190 L585 305 L560 430"/>
+  </g>
+</svg>
