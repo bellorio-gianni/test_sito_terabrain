@@ -57,12 +57,44 @@ function isMega(item: MenuItem): item is MegaItem {
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [loginStatus, setLoginStatus] = useState<string | null>(null);
 
   useEffect(() => {
     document.body.classList.toggle("nav-lock", mobileOpen);
 
     return () => document.body.classList.remove("nav-lock");
   }, [mobileOpen]);
+
+  useEffect(() => {
+    document.body.classList.toggle("login-lock", loginOpen);
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setLoginOpen(false);
+      }
+    }
+
+    if (loginOpen) {
+      document.addEventListener("keydown", closeOnEscape);
+    }
+
+    return () => {
+      document.body.classList.remove("login-lock");
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [loginOpen]);
+
+  function openLogin() {
+    setMobileOpen(false);
+    setLoginStatus(null);
+    setLoginOpen(true);
+  }
+
+  function closeLogin() {
+    setLoginOpen(false);
+    setLoginStatus(null);
+  }
 
   return (
     <header className="site-header">
@@ -127,6 +159,10 @@ export function Header() {
       <a className="header-cta" href={siteHref("/contatti")}>
         Parla con noi
       </a>
+
+      <button className="login-trigger" onClick={openLogin} type="button">
+        Login
+      </button>
 
       <button
         aria-controls="mobile-navigation"
@@ -207,8 +243,49 @@ export function Header() {
               </a>
             );
           })}
+          <button className="mobile-login-trigger" onClick={openLogin} type="button">
+            Login
+          </button>
         </div>
       </div>
+
+      {loginOpen ? (
+        <div className="login-overlay" aria-modal="true" role="dialog" aria-labelledby="login-title">
+          <button className="login-backdrop" aria-label="Chiudi login" onClick={closeLogin} type="button" />
+          <section className="login-dialog">
+            <div className="login-dialog-head">
+              <div>
+                <p>Area riservata</p>
+                <h2 id="login-title">Login TeraBrain</h2>
+              </div>
+              <button className="login-close" aria-label="Chiudi popup login" onClick={closeLogin} type="button">
+                ×
+              </button>
+            </div>
+
+            <form
+              className="login-form"
+              onSubmit={(event) => {
+                event.preventDefault();
+                setLoginStatus("Login demo: credenziali acquisite localmente, nessun invio al server.");
+              }}
+            >
+              <label>
+                <span>Username</span>
+                <input autoComplete="username" name="username" placeholder="nome.utente" required type="text" />
+              </label>
+              <label>
+                <span>Password</span>
+                <input autoComplete="current-password" name="password" placeholder="••••••••" required type="password" />
+              </label>
+              <button className="login-submit" type="submit">
+                Accedi
+              </button>
+              {loginStatus ? <p className="login-status">{loginStatus}</p> : null}
+            </form>
+          </section>
+        </div>
+      ) : null}
     </header>
   );
 }
