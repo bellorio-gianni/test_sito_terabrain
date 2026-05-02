@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1520 860" role="img" aria-labelledby="title desc">
+  <title id="title">Agent AI Chief Curator</title>
+  <desc id="desc">Silhouette di manager davanti a un flusso informativo arancione filtrato dagli Agent AI</desc>
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="48%" r="70%">
+      <stop offset="0%" stop-color="#ff9b18"/>
+      <stop offset="35%" stop-color="#d65309"/>
+      <stop offset="72%" stop-color="#3b1208"/>
+      <stop offset="100%" stop-color="#070607"/>
+    </radialGradient>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ffd46b"/>
+      <stop offset="100%" stop-color="#ff850f"/>
+    </linearGradient>
+    <filter id="blurGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+
+  <rect width="1520" height="860" fill="#080606"/>
+  <rect width="1520" height="860" fill="url(#glow)"/>
+  <ellipse cx="760" cy="640" rx="650" ry="210" fill="#ff7b09" opacity=".32" filter="url(#blurGlow)"/>
+
+  <g opacity=".18" stroke="#ffb13d" stroke-width="2" fill="none">
+    <path d="M110 208c205 62 333 40 524-12 190-51 402-56 750 42"/>
+    <path d="M84 284c238 74 390 70 602 18 224-55 407-26 750 64"/>
+    <path d="M150 724c250-80 425-84 632-26 237 67 420 46 640-36"/>
+  </g>
+
+  <g fill="#030303">
+    <path d="M70 820V610c0-85 58-151 128-151h2c72 0 128 67 128 151v210z"/>
+    <circle cx="199" cy="346" r="83"/>
+    <path d="M1196 820V604c0-88 61-157 136-157h2c75 0 136 69 136 157v216z"/>
+    <circle cx="1333" cy="330" r="88"/>
+    <path d="M300 820V570c0-105 71-185 161-185s161 80 161 185v250z"/>
+    <circle cx="461" cy="259" r="104"/>
+    <path d="M938 820V565c0-102 69-181 156-181s156 79 156 181v255z"/>
+    <circle cx="1094" cy="260" r="101"/>
+  </g>
+
+  <g>
+    <path d="M608 820V485c0-158 96-278 224-278h4c128 0 224 120 224 278v335z" fill="#020202"/>
+    <circle cx="834" cy="157" r="111" fill="#020202"/>
+    <path d="M705 295c42 48 86 70 130 70 45 0 89-23 132-70l16 525H690z" fill="#080808"/>
+  </g>
+
+  <g transform="translate(782 522) rotate(-7)">
+    <path d="M0 0l198-54 188 80-195 63z" fill="#7c3900" opacity=".72"/>
+    <path d="M22 19l170-44 160 67-168 51z" fill="url(#paper)"/>
+    <path d="M196-25l10 117" stroke="#ffd58c" stroke-width="5" opacity=".8"/>
+    <path d="M66 28l96-24M61 56l107-28M234 30l76 31M230 58l68 26" stroke="#fff0bf" stroke-width="5" opacity=".42"/>
+  </g>
+
+  <g fill="#fff" opacity=".9" font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <text x="760" y="86" font-size="54" font-weight="800">Basta rincorrere le news</text>
+    <text x="760" y="134" font-size="28" font-weight="500" fill="#ffd39a">Agent AI come radar operativo per filtrare solo cio che genera valore</text>
+  </g>
+
+  <g transform="translate(110 88)" font-family="Inter, Arial, sans-serif">
+    <rect width="274" height="170" rx="18" fill="#110805" stroke="#ff6a00" stroke-width="2" opacity=".9"/>
+    <text x="24" y="45" fill="#ff8a20" font-size="24" font-weight="800">RUMORE</text>
+    <text x="24" y="82" fill="#fff" font-size="18">Paper, blog, report</text>
+    <text x="24" y="116" fill="#fff" font-size="18">benchmark e newsletter</text>
+    <text x="24" y="150" fill="#ffc28a" font-size="18">che invecchiano subito</text>
+  </g>
+
+  <g transform="translate(1135 575)" font-family="Inter, Arial, sans-serif">
+    <rect width="295" height="186" rx="18" fill="#06131e" stroke="#24a8ff" stroke-width="2" opacity=".9"/>
+    <text x="25" y="46" fill="#5cc7ff" font-size="23" font-weight="800">VALORE</text>
+    <text x="25" y="84" fill="#fff" font-size="18">Fonti selezionate</text>
+    <text x="25" y="118" fill="#fff" font-size="18">timestamp firewall</text>
+    <text x="25" y="152" fill="#fff" font-size="18">insight stack e KPI</text>
+  </g>
+
+  <g transform="translate(360 735)" font-family="Inter, Arial, sans-serif" fill="#fff" text-anchor="middle">
+    <circle cx="0" cy="0" r="38" fill="#111" stroke="#ff8a16" stroke-width="3"/>
+    <text y="8" font-size="27">1</text>
+    <path d="M55 0h104" stroke="#ffb15d" stroke-width="4"/>
+    <circle cx="210" cy="0" r="38" fill="#111" stroke="#ff8a16" stroke-width="3"/>
+    <text x="210" y="8" font-size="27">2</text>
+    <path d="M265 0h104" stroke="#ffb15d" stroke-width="4"/>
+    <circle cx="420" cy="0" r="38" fill="#111" stroke="#ff8a16" stroke-width="3"/>
+    <text x="420" y="8" font-size="27">3</text>
+    <path d="M475 0h104" stroke="#ffb15d" stroke-width="4"/>
+    <circle cx="630" cy="0" r="38" fill="#111" stroke="#ff8a16" stroke-width="3"/>
+    <text x="630" y="8" font-size="27">4</text>
+    <text x="0" y="69" font-size="18" fill="#ffd3a4">monitor</text>
+    <text x="210" y="69" font-size="18" fill="#ffd3a4">filtra</text>
+    <text x="420" y="69" font-size="18" fill="#ffd3a4">sintetizza</text>
+    <text x="630" y="69" font-size="18" fill="#ffd3a4">attiva</text>
+  </g>
+</svg>
