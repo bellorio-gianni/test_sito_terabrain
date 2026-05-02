@@ -19,6 +19,203 @@ export type BlogArticle = {
 
 export const blogArticles: BlogArticle[] = [
   {
+    slug: "ufficio-agentico-ai-agents-lavorano-ogni-giorno",
+    title: "Come mi Sono Costruito un Ufficio Agentico che Lavora con Me Ogni Giorno",
+    date: "2026-04-06",
+    category: "Agentic Office",
+    author: "TeraBrain",
+    excerpt:
+      "Dal bot unico a un vero ufficio digitale: ruoli, responsabilità, orchestrazione e AI Agents specializzati che lavorano ogni giorno sui processi.",
+    image: "/blog-assets/ufficio-agentico.svg",
+    imageAlt: "Hub centrale che coordina più agenti digitali specializzati",
+    content: [
+      {
+        type: "paragraph",
+        text: "Per molto tempo il mercato ha raccontato gli AI Agents come una semplice evoluzione dei chatbot. Più intelligenti, più veloci, più capaci di conversare, più naturali nel linguaggio. Ma, osservando quello che sta accadendo davvero nelle aziende, mi sono convinto che questa definizione sia ormai insufficiente."
+      },
+      {
+        type: "quote",
+        text: "Gli Agents non stanno solo migliorando: hanno iniziato a lavorare."
+      },
+      {
+        type: "paragraph",
+        text: "Io non mi sono limitato ad attivare un Assistant AI. Non ho cercato un chatbot un po' più sofisticato a cui fare domande."
+      },
+      {
+        type: "quote",
+        text: "Mi sono costruito un vero ufficio agentico."
+      },
+      {
+        type: "paragraph",
+        text: "Un ufficio digitale che lavora con me ogni giorno e che ho organizzato come avrei organizzato una struttura reale, fatta di persone, ruoli, responsabilità, front office, back office, supporto operativo e coordinamento centrale."
+      },
+      {
+        type: "heading",
+        text: "Un hub centrale e due squadre operative"
+      },
+      {
+        type: "paragraph",
+        text: "Nel mio caso esiste un hub centrale, Bellorio Executive Orchestrator, che rappresenta il centro di coordinamento del sistema. Attorno a questo hub lavorano due squadre distinte."
+      },
+      {
+        type: "paragraph",
+        text: "La prima è composta da otto AI Agents operativi, cioè agenti che presidiano le attività più visibili e più vicine al business quotidiano: relazione, customer care, appuntamenti, marketing, vendita, formazione, analisi di processo e ricerca avanzata."
+      },
+      {
+        type: "paragraph",
+        text: "La seconda è composta da nove AI Agents di supporto, che lavorano dietro le quinte su reporting, analisi, controllo documentale, ottimizzazione, contenuti social e connessioni con sistemi come CRM ed ERP."
+      },
+      {
+        type: "paragraph",
+        text: "In altre parole, non ho costruito un bot. Ho costruito un ecosistema organizzato. Questo è il primo cambio di mentalità che le aziende devono compiere."
+      },
+      {
+        type: "quote",
+        text: "Gli AI Agents non vanno più pensati come strumenti indistinti. Vanno pensati come persone digitali che entrano in un'organizzazione per fare un lavoro preciso."
+      },
+      {
+        type: "heading",
+        text: "La prima linea: agenti vicini al business"
+      },
+      {
+        type: "paragraph",
+        text: "Se guardo al mio ufficio agentico, la logica è evidente:"
+      },
+      {
+        type: "list",
+        items: [
+          "Elena V.Bellorio Assistant non è una voce generica che risponde: presidia il front office, prende appuntamenti, gestisce il customer care iniziale, fa da assistente centrale, classifica e archivia documenti secondo criteri precisi e segue il customer care di primo livello.",
+          "Sara TeleMarketing è focalizzata sull'outbound e sul telemarketing: attiva il contatto, apre conversazioni e aiuta nella qualificazione commerciale.",
+          "Matteo Sales Manager interviene come speaker nelle demo onsite, durante eventi, manifestazioni e incontri presso i clienti; aiuta nelle strategie di vendita e controlla lo stato delle trattative.",
+          "Alex Sales Account presidia le demo da remoto e la presentazione dei prodotti al telefono, presenta offerte, pianifica attività e sviluppo account, gestisce il customer care di secondo livello e interviene su escalation.",
+          "Federico AI Training è dedicato alla formazione AI, alla preparazione dei corsi e alla creazione di contenuti didattici e normativi.",
+          "Vittorio Marketing lavora su latest news nel mondo agentico, pubblica ogni mattina le news del giorno, crea newsletter per i social, cerca contenuti, contatti e lead ed esegue enrichment di account e contatti.",
+          "Marco BPM Architect lavora sui processi di business.",
+          "Marco Insight DeepSearch presidia ricerca avanzata, insight e intelligence."
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "Ognuno di questi agenti non esiste perché “sa rispondere”. Esiste perché ha un ruolo."
+      },
+      {
+        type: "paragraph",
+        text: "Ed è proprio questo che fa la differenza. Quando assegni a un AI Agent un'identità operativa, un perimetro di azione e una responsabilità chiara, smetti di trattarlo come interfaccia e inizi a trattarlo come parte della tua struttura."
+      },
+      {
+        type: "heading",
+        text: "La seconda linea: il lavoro invisibile che sostiene l'ufficio"
+      },
+      {
+        type: "paragraph",
+        text: "Il punto diventa ancora più interessante quando si osserva la seconda linea, quella che spesso resta invisibile a chi guarda l'AI solo dalla superficie della conversazione. Dietro le attività operative ci sono AI Agents che fanno un lavoro silenzioso ma essenziale."
+      },
+      {
+        type: "list",
+        items: [
+          "Robert Exec Report è specializzato nella produzione di output executive in HTML, PDF, PPT, DOC e XLS, e crea podcast esplicativi per presentare e rendere comprensibili temi, soluzioni e contenuti.",
+          "Giulio Financial Analyst è dedicato alla lettura dei numeri, degli indicatori e delle performance; trasforma i dati in dashboard di BI e forecasting.",
+          "Alberto Invoice Compliance presidia il controllo delle fatture e la verifica documentale.",
+          "Trainer TB Duty lavora sulla qualità e sul miglioramento continuo di tutti gli Agents: migliora duty, istruzioni, prompt, comportamento operativo e guardrail.",
+          "MoltBook pubblica su moltbook.com/u/Bellorio_Agent e presidia la parte social e la distribuzione dei contenuti.",
+          "I bridge applicativi, come CRM, ERP, SuiteCRM Bridge, Oracle Bridge, SQL Server Bridge e HubSpot, aprono agli agenti l'accesso a un nuovo mondo di integrazioni tramite MCP Server."
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "Questi bridge possono accedere anche a soluzioni custom in SQL Server e usare i principali canali di comunicazione, collegando l'ufficio virtuale ai sistemi reali dell'azienda e portando gli AI Agents dentro il cuore dei processi e dei dati."
+      },
+      {
+        type: "heading",
+        text: "Un ecosistema organizzato, non una singola AI"
+      },
+      {
+        type: "paragraph",
+        text: "Questa struttura racconta molto bene ciò che intendo quando parlo di ufficio agentico. Non sto parlando di una singola intelligenza artificiale che fa un po' di tutto. Sto parlando di una squadra digitale, costruita per coprire attività diverse con specializzazioni diverse. Esattamente come accade in un'azienda vera."
+      },
+      {
+        type: "paragraph",
+        text: "Dobbiamo considerare che ogni AI Agent è scalabile: non assumi una sola “persona digitale”, ma un modello di lavoro che puoi replicare più volte."
+      },
+      {
+        type: "paragraph",
+        text: "Nessuna organizzazione seria assumerebbe una sola persona chiedendole di fare contemporaneamente reception, customer care, telemarketing, vendite strategiche, reporting, compliance documentale, analisi finanziaria, content marketing e integrazione applicativa. Sarebbe assurdo."
+      },
+      {
+        type: "paragraph",
+        text: "Eppure è esattamente questo l'errore che molte aziende stanno commettendo con l'AI: pretendono da un solo AI Agent generico un insieme di compiti che, nel mondo reale, verrebbero distribuiti tra più ruoli."
+      },
+      {
+        type: "heading",
+        text: "Dal bot unico all'organizzazione del lavoro"
+      },
+      {
+        type: "paragraph",
+        text: "Io credo invece che il vero salto avvenga quando si abbandona la logica del bot unico e si inizia a ragionare in termini di organizzazione del lavoro."
+      },
+      {
+        type: "paragraph",
+        text: "Quando si costruisce una prima linea di agenti che stanno a contatto con il mercato, con i clienti, con la relazione, e una seconda linea che produce insight, genera output, controlla dati, verifica documenti, orchestra sistemi e collega applicazioni."
+      },
+      {
+        type: "paragraph",
+        text: "Nel mio caso, il valore dell'ufficio agentico nasce proprio qui. Dal fatto che ogni AI Agent non è un esercizio tecnologico, ma una figura operativa collocata in un sistema coerente."
+      },
+      {
+        type: "paragraph",
+        text: "L'insieme non serve a stupire. Serve a lavorare. Serve a ridurre attività ripetitive, ad aumentare la capacità di risposta, a sostenere la parte commerciale, a rendere più fluido il front office, a migliorare reporting e controllo, a far dialogare l'AI con CRM, ERP, documenti, voce ed email."
+      },
+      {
+        type: "paragraph",
+        text: "Serve, in sostanza, a costruire una macchina operativa che non sostituisce la visione imprenditoriale, ma la amplifica."
+      },
+      {
+        type: "heading",
+        text: "TeraBrain come infrastruttura operativa"
+      },
+      {
+        type: "paragraph",
+        text: "Per me la piattaforma agentica TeraBrain by Linegon srl va letta esattamente così. Non come una piattaforma che aggiunge un po' di intelligenza a una chat, ma come un'infrastruttura che permette di creare AI Agents collegati ai processi, ai dati, ai documenti, ai canali voce, alle email, ai CRM e agli ERP, trasformandoli in vere unità operative digitali."
+      },
+      {
+        type: "paragraph",
+        text: "È questo che consente di passare dal “bot che risponde” a un ufficio che lavora davvero."
+      },
+      {
+        type: "paragraph",
+        text: "Credo che nei prossimi anni vedremo molte aziende parlare di AI Agents. Ma il vantaggio competitivo non sarà di chi dirà per primo di usarli. Sarà di chi riuscirà a organizzarli meglio."
+      },
+      {
+        type: "paragraph",
+        text: "Di chi capirà che il futuro non è nel singolo assistente generico, ma nella costruzione di un ufficio agentico fatto di ruoli distinti, collaborazioni, orchestrazione, supporto e integrazione con il lavoro reale."
+      },
+      {
+        type: "heading",
+        text: "La vera domanda"
+      },
+      {
+        type: "paragraph",
+        text: "Per me, oggi, il punto non è più avere un assistente AI. Il punto è aver costruito una capacità operativa nuova, che supporta il business ogni giorno e accompagna anche i miei partner commerciali nel lavoro con i clienti."
+      },
+      {
+        type: "paragraph",
+        text: "È qui che l'AI cambia davvero natura: da strumento conversazionale a leva organizzativa."
+      },
+      {
+        type: "quote",
+        text: "La vera domanda non è quanto sia intelligente un AI Agent. La vera domanda è: che ruolo ha dentro il mio ufficio?"
+      },
+      {
+        type: "paragraph",
+        text: "Con chi collabora? Che cosa fa ogni giorno? E soprattutto: come posso costruire una squadra digitale che lavori davvero per me?"
+      },
+      {
+        type: "paragraph",
+        text: "Se vuoi capire come costruire anche tu un ufficio agentico, con AI Agents specializzati che lavorano davvero su sales, customer care, marketing, reporting e processi, scrivimi. Ti mostro come lo stiamo facendo con TeraBrain."
+      }
+    ]
+  },
+  {
     slug: "sto-diventando-uno-di-loro-ai-agents-futuro-lavoro",
     title: "Sto Diventando Uno di Loro?",
     date: "2025-12-07",
