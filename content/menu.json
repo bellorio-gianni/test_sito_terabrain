@@ -11,7 +11,8 @@
     "label": "Corsi",
     "type": "dropdown",
     "links": [
-      { "label": "AI Agents Platform", "url": "/course_ai_course" }
+      { "label": "AI ACTP", "url": "/course_ai_course/?v=47bf5a6" },
+      { "label": "AI Agents Platform", "url": "/course_ai_course/" }
     ]
   },
   {
