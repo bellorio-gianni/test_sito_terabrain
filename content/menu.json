@@ -11,8 +11,8 @@
     "label": "Corsi",
     "type": "dropdown",
     "links": [
-      { "label": "AI Agents Platform", "url": "/ai-agents-platform" },
-      { "label": "AI ACT Normative", "url": "/course_ai_course" },
+      { "label": "AI Agents: automazione dei processi aziendali", "url": "/ai-agents-platform" },
+      { "label": "AI Act: obblighi e adeguamento normativo", "url": "/course_ai_course" },
       { "label": "NIS2: sicurezza, obblighi e azioni concrete", "url": "/nis2-course" }
     ]
   },
