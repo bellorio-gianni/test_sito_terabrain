@@ -96,6 +96,21 @@ export function Header() {
     setLoginStatus(null);
   }
 
+  useEffect(() => {
+    function handleLoginTrigger(event: MouseEvent) {
+      const target = event.target as HTMLElement | null;
+
+      if (target?.closest("[data-open-login]")) {
+        event.preventDefault();
+        openLogin();
+      }
+    }
+
+    document.addEventListener("click", handleLoginTrigger);
+
+    return () => document.removeEventListener("click", handleLoginTrigger);
+  });
+
   return (
     <header className="site-header">
       <a className="brand" href={siteHref("/")} aria-label="TeraBrain home">

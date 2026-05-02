@@ -55,6 +55,7 @@
     "links": [
       { "label": "Daily News", "url": "/solutions/daily-news" },
       { "label": "Blog", "url": "/blog" },
+      { "label": "AI Course", "url": "/course_ai_course" },
       { "label": "Case Studies", "url": "/case-studies" },
       { "label": "Guides", "url": "/guides" }
     ]
